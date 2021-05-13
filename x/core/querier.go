@@ -6,7 +6,6 @@ import (
 
 	"encoding/hex"
 
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/deep2chain/sscq/codec"
 	vmcore "github.com/deep2chain/sscq/evm/core"
 	"github.com/deep2chain/sscq/evm/state"
@@ -15,6 +14,7 @@ import (
 	"github.com/deep2chain/sscq/types"
 	sdk "github.com/deep2chain/sscq/types"
 	"github.com/deep2chain/sscq/x/auth"
+	"github.com/ethereum/go-ethereum/common"
 	log "github.com/sirupsen/logrus"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
@@ -58,7 +58,7 @@ func NewQuerier(accountKeeper auth.AccountKeeper, keyStorage *sdk.KVStoreKey, ke
 	}
 }
 
-// defines the params for query: "custom/hs/contract"
+// defines the params for query: "custom/ss/contract"
 // junying-todo, 2020-03-30
 type QueryContractParams struct {
 	Address sdk.AccAddress

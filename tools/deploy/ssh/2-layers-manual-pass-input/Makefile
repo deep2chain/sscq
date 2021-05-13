@@ -235,7 +235,7 @@ stop:
 	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) pkill -9 ssd ; done
 
 clean:
-	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) rm -rf /root/.hs* /root/nohup.out ; done
+	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) rm -rf /root/.ss* /root/nohup.out ; done
 
 start:
 	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) nohup ssd start & > /root/nohup.out ; done

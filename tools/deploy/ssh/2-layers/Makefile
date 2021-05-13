@@ -306,7 +306,7 @@ start-rest:
 # 	@for index in ${NODES_INDEX}; do pem=$$(row $$(($$index+${FIRST_ROW_INDEX})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 # 									 ipaddr=$$(row $$index ${NODE_PUB_IP} 1);\
 # 									 cd ${PEMDIR};\
-# 									 ssh -i $$pem root@$$ipaddr rm -rf /root/.hs* /root/nohup.out ; done
+# 									 ssh -i $$pem root@$$ipaddr rm -rf /root/.ss* /root/nohup.out ; done
 
 # start-old:
 # 	@for index in ${NODES_INDEX}; do pem=$$(row $$(($$index+${FIRST_ROW_INDEX})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
@@ -439,21 +439,21 @@ validate-passwd:
 									bechkey=$$(sscli accounts list --home $$homedir); \
 									pass=$$(row $$(($$index+1)) ${VALIDATOR_PASSWORD}| tr -d '\r');\
 									echo $$bechkey	$$pass;\
-									hsutil unlock $$bechkey --passphrase $$pass; done
+									ssutil unlock $$bechkey --passphrase $$pass; done
 	@for index in ${SENTRIES_PRIV_INDEX}; do homedir=${SENTRY_PRIV_DIR}/node$$index/.sscli; \
 											 cd $$homedir; \
 											 echo $$homedir; \
 											 bechkey=$$(sscli accounts list --home $$homedir); \
 											 pass=$$(row $$(($$index+1)) ${SENTRY_PRIV_PASSWORD}| tr -d '\r');\
 											 echo $$bechkey	$$pass;\
-											 hsutil unlock $$bechkey --passphrase $$pass ; done
+											 ssutil unlock $$bechkey --passphrase $$pass ; done
 	@for index in ${SENTRIES_PUB_INDEX}; do homedir=${SENTRY_PUB_DIR}/node$$index/.sscli; \
 											cd $$homedir; \
 											echo $$homedir; \
 											bechkey=$$(sscli accounts list --home $$homedir); \
 											pass=$$(row $$(($$index+1)) ${SENTRY_PUB_PASSWORD}| tr -d '\r');\
 											echo $$bechkey	$$pass;\
-											hsutil unlock $$bechkey --passphrase $$pass ; done
+											ssutil unlock $$bechkey --passphrase $$pass ; done
 
 publish:
 	@echo "by private ip"

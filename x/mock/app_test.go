@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/deep2chain/sscq/types"
 	"github.com/deep2chain/sscq/x/auth"
-	hscore "github.com/deep2chain/sscq/x/core"
+	sscore "github.com/deep2chain/sscq/x/core"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/secp256k1"
@@ -44,8 +44,8 @@ var (
 	manyCoins = sdk.Coins{sdk.NewInt64Coin(sdk.DefaultBondDenom, 1), sdk.NewInt64Coin("satoshi", 1)}
 	freeFee   = auth.NewStdFee(100000, 0)
 
-	sendMsg1 = hscore.NewMsgSendDefault(addr1, addr2, coins)
-	sendMsg2 = hscore.NewMsgSendDefault(addr1, addr2, manyCoins)
+	sendMsg1 = sscore.NewMsgSendDefault(addr1, addr2, coins)
+	sendMsg2 = sscore.NewMsgSendDefault(addr1, addr2, manyCoins)
 )
 
 // initialize the mock application for this module

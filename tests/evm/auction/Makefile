@@ -42,7 +42,7 @@ run.contract:
 	 contract=$$(oneline unsigned.tx | excludestr "    ");\
 	 echo "############################################################";\
 	 echo $$contract; \
-	 contract_hex=$$(hsutils json2hex "$$contract");\
+	 contract_hex=$$(ssutils json2hex "$$contract");\
 	 echo $$contract_hex;
 
 BLK_TIME = 7
@@ -53,7 +53,7 @@ execute:
 	@contract=$$(oneline unsigned.tx | excludestr "    ");\
 	 echo "############################################################";\
 	 echo $$contract; \
-	 unsigned=$$(hsutils json2hex "$$contract");\
+	 unsigned=$$(ssutils json2hex "$$contract");\
 	 echo $$unsigned;\
 	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\
@@ -79,7 +79,7 @@ bid:
 	 contract=$$(oneline bid.tx | excludestr "    ");\
 	 echo "############################################################";\
 	 echo $$contract; \
-	 unsigned=$$(hsutils json2hex "$$contract");\
+	 unsigned=$$(ssutils json2hex "$$contract");\
 	 echo $$unsigned;\
 	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\

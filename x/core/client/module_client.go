@@ -21,7 +21,7 @@ func NewModuleClient(storeKey string, cdc *amino.Codec) ModuleClient {
 func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 	// Group sscqservice queries under a subcommand
 	sscqsvcQueryCmd := &cobra.Command{
-		Use:   "hs",
+		Use:   "ss",
 		Short: "Querying commands for the sscqservice module",
 	}
 
@@ -33,8 +33,8 @@ func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 // GetTxCmd returns the transaction commands for this module
 func (mc ModuleClient) GetTxCmd() *cobra.Command {
 	sscqsvcTxCmd := &cobra.Command{
-		Use:   "hs",
-		Short: "HtdfService transactions subcommands",
+		Use:   "ss",
+		Short: "SscqService transactions subcommands",
 	}
 
 	sscqsvcTxCmd.AddCommand(client.PostCommands(

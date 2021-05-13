@@ -4,7 +4,7 @@
 
 
 ```
-curl --location --request POST "http://127.0.0.1:1317/hs/send" \
+curl --location --request POST "http://127.0.0.1:1317/ss/send" \
   --header "Content-Type: application/x-www-form-urlencoded" \
   --data "    { \"base_req\": 
                           { \"from\": \"sscq103x7taejyqwxrvyadu2yxd7u04wdqs5stq5a40\", 

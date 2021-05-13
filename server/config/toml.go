@@ -23,7 +23,7 @@ var configTemplate *template.Template
 
 func init() {
 	var err error
-	tmpl := template.New("HtdfServiceConfigFileTemplate")
+	tmpl := template.New("SscqServiceConfigFileTemplate")
 	if configTemplate, err = tmpl.Parse(defaultConfigTemplate); err != nil {
 		panic(err)
 	}

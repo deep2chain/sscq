@@ -55,7 +55,7 @@ func main() {
 
 	rootCmd := &cobra.Command{
 		Use:               "ssd",
-		Short:             "HtdfService App Daemon (server)",
+		Short:             "SscqService App Daemon (server)",
 		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
 	}
 	// rootCmd
@@ -99,7 +99,7 @@ func versionCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 }
 
 func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, config *cfg.InstrumentationConfig) abci.Application {
-	return bam.NewHtdfServiceApp(
+	return bam.NewSscqServiceApp(
 		logger, config, db, traceStore, true, invCheckPeriod,
 		bam.SetPruning(store.NewPruningOptionsFromString(viper.GetString("pruning"))),
 		bam.SetMinGasPrices(viper.GetString(server.FlagMinGasPrices)),
@@ -110,20 +110,20 @@ func exportAppStateAndTMValidators(ctx *server.Context,
 	logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailWhiteList []string,
 ) (json.RawMessage, []tmtypes.GenesisValidator, error) {
 	if height != -1 {
-		gApp := bam.NewHtdfServiceApp(logger, ctx.Config.Instrumentation, db, traceStore, false, uint(1))
+		gApp := bam.NewSscqServiceApp(logger, ctx.Config.Instrumentation, db, traceStore, false, uint(1))
 		err := gApp.LoadHeight(height)
 		if err != nil {
 			return nil, nil, err
 		}
 		return gApp.ExportAppStateAndValidators(forZeroHeight)
 	}
-	gApp := bam.NewHtdfServiceApp(logger, ctx.Config.Instrumentation, db, traceStore, true, uint(1))
+	gApp := bam.NewSscqServiceApp(logger, ctx.Config.Instrumentation, db, traceStore, true, uint(1))
 	return gApp.ExportAppStateAndValidators(forZeroHeight)
 }
 
 func resetAppState(ctx *server.Context,
 	logger log.Logger, db dbm.DB, traceStore io.Writer, height int64) error {
-	gApp := bam.NewHtdfServiceApp(logger, ctx.Config.Instrumentation, db, traceStore, false, uint(1))
+	gApp := bam.NewSscqServiceApp(logger, ctx.Config.Instrumentation, db, traceStore, false, uint(1))
 	if height > 0 {
 		if replay, replayHeight := gApp.ResetOrReplay(height); replay {
 			_, err := startNodeAndReplay(ctx, gApp, replayHeight)
@@ -138,7 +138,7 @@ func resetAppState(ctx *server.Context,
 	return nil
 }
 
-func startNodeAndReplay(ctx *server.Context, app *bam.HtdfServiceApp, height int64) (n *node.Node, err error) {
+func startNodeAndReplay(ctx *server.Context, app *bam.SscqServiceApp, height int64) (n *node.Node, err error) {
 	cfg := ctx.Config
 	cfg.BaseConfig.ReplayHeight = height
 

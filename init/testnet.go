@@ -29,7 +29,7 @@ import (
 	"github.com/deep2chain/sscq/accounts/keystore"
 	appver "github.com/deep2chain/sscq/app/v0"
 	"github.com/deep2chain/sscq/server"
-	hsutils "github.com/deep2chain/sscq/utils"
+	ssutils "github.com/deep2chain/sscq/utils"
 )
 
 var (
@@ -119,8 +119,8 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 	nodeIDs := make([]string, numValidators)
 	valPubKeys := make([]crypto.PubKey, numValidators)
 
-	hsConfig := srvconfig.DefaultConfig()
-	hsConfig.MinGasPrices = viper.GetString(server.FlagMinGasPrices)
+	ssConfig := srvconfig.DefaultConfig()
+	ssConfig.MinGasPrices = viper.GetString(server.FlagMinGasPrices)
 
 	var (
 		accs     []appver.GenesisAccount
@@ -159,7 +159,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 			// buffer := client.BufferStdin()
 			// prompt := fmt.Sprintf("IP Address for account '%s':", nodeDirName)
 			// ip, err = client.GetString(prompt, buffer)
-			ip, _, err = hsutils.ReadString(ipconf, i+1)
+			ip, _, err = ssutils.ReadString(ipconf, i+1)
 		} else {
 			ip, err = getIP(i, ip)
 		}
@@ -256,8 +256,8 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 			return err
 		}
 
-		hsConfigFilePath := filepath.Join(nodeDir, "config/ssd.toml")
-		srvconfig.WriteConfigFile(hsConfigFilePath, hsConfig)
+		ssConfigFilePath := filepath.Join(nodeDir, "config/ssd.toml")
+		srvconfig.WriteConfigFile(ssConfigFilePath, ssConfig)
 	}
 
 	if err := initGenFiles(cdc, chainID, accs, genFiles, numValidators); err != nil {

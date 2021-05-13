@@ -6,7 +6,7 @@
 # issuer:		 sscq1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
 # query data:	 0x07546172
 # log:			 "log": "{\"code\":0,\"message\":\"ok\",\"contract_address\":\"\",\"evm_output\":\"000000000000000000000000bf7c3270279e15d623304f2665076a53ba062b06\"}"
-# result:		 hsutils hex2json bf7c3270279e15d623304f2665076a53ba062b06
+# result:		 ssutils hex2json bf7c3270279e15d623304f2665076a53ba062b06
 #				 sscq1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
 
 calc.method.id:
@@ -42,7 +42,7 @@ execute:
 	@contract=$$(oneline unsigned.tx | excludestr "    ");\
 	 echo "############################################################";\
 	 echo $$contract; \
-	 unsigned=$$(hsutils json2hex "$$contract");\
+	 unsigned=$$(ssutils json2hex "$$contract");\
 	 echo $$unsigned;\
 	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\

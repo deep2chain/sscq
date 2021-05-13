@@ -24,8 +24,8 @@
     state.newObject
     state.(*CommitStateDB).getStateObject
     state.(*CommitStateDB).GetBalance
-    app.(*HtdfServiceApp).openContract
-    app.(*HtdfServiceApp).Transition
+    app.(*SscqServiceApp).openContract
+    app.(*SscqServiceApp).Transition
     baseapp.(*BaseApp).runMsgs
     baseapp.(*BaseApp).runTx
     baseapp.(*BaseApp).DeliverTx

@@ -18,9 +18,9 @@ contractCode, get balance|strMinterAddress=sscq1l7spsv0lgx8npg3xvqfvsn8pdrpntv5d
 ```
 
 ## use curl to access smart contract
-use REST api /hs/send to access smart contract
+use REST api /ss/send to access smart contract
 
-- /hs/send has three type of MOD
+- /ss/send has three type of MOD
 >classic transicion
 
 >>  field "data" must be nil( "")
@@ -45,7 +45,7 @@ use REST api /hs/send to access smart contract
 ```
 
 # 发交易  send;           新建合约
-$ curl http://127.0.0.1:1317/hs/send \
+$ curl http://127.0.0.1:1317/ss/send \
     -H 'Content-Type: application/json' \
     -X POST \
     --data '{
@@ -89,7 +89,7 @@ query tx by txHash ( REST api /txs/{hash}), check the evm call return code ("cod
 ```
 
 # 发交易  send;           打开合约
-curl http://127.0.0.1:1317/hs/send \
+curl http://127.0.0.1:1317/ss/send \
     -H 'Content-Type: application/json' \
     -X POST \
     --data '{
@@ -133,7 +133,7 @@ query tx by txHash ( REST api /txs/{txHash}), check the evm call return code ("c
 ```
 
 # 发交易  send;           打开合约
-curl http://127.0.0.1:1317/hs/send \
+curl http://127.0.0.1:1317/ss/send \
     -H 'Content-Type: application/json' \
     -X POST \
     --data '{
@@ -181,7 +181,7 @@ query tx by txHash ( REST api /txs/{txHash}), check the evm call return code ("c
 ```
 
 # 发交易  send;           打开合约
-curl http://127.0.0.1:1317/hs/send \
+curl http://127.0.0.1:1317/ss/send \
     -H 'Content-Type: application/json' \
     -X POST \
     --data '{
@@ -224,7 +224,7 @@ query tx by txHash ( REST api /txs/{txHash}), check the evm call return code ("c
 ```
 
 # 发交易  send;           打开合约
-curl http://127.0.0.1:1317/hs/send \
+curl http://127.0.0.1:1317/ss/send \
     -H 'Content-Type: application/json' \
     -X POST \
     --data '{
@@ -272,7 +272,7 @@ query tx by txHash ( REST api /txs/{txHash}), check the evm call return code ("c
 ```
 
 # 发交易  send;           打开合约
-curl http://127.0.0.1:1317/hs/send \
+curl http://127.0.0.1:1317/ss/send \
     -H 'Content-Type: application/json' \
     -X POST \
     --data '{

@@ -201,8 +201,8 @@ ssh.vals:
 
 backup:
 	@ansible ethnodes -m shell -a "mkdir .2019";
-	@ansible ethnodes -m shell -a "mv .hs* .2019";
-	@ansible ethnodes -m shell -a "mv /usr/local/bin/hs* .2019";
+	@ansible ethnodes -m shell -a "mv .ss* .2019";
+	@ansible ethnodes -m shell -a "mv /usr/local/bin/ss* .2019";
 	@ansible ethnodes -m shell -a "ls -a .2019";
 
 test.local:

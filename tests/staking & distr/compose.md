@@ -1,12 +1,12 @@
 # MainNet
 ### action
-    make hstart
-    make hstest
-    make hstop
+    make sstart
+    make sstest
+    make sstop
     sudo make clean
-### hstest
+### sstest
     [alias]
-    cp hs* /usr/local/bin
+    cp ss* /usr/local/bin
     alias sscli="sscli --home node4/.sscli"
     alias ssd="ssd --home node4/.ssd"
 

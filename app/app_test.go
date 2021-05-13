@@ -27,7 +27,7 @@ import (
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 )
 
-func setGenesis(happ *HtdfServiceApp, accs ...*auth.BaseAccount) error {
+func setGenesis(happ *SscqServiceApp, accs ...*auth.BaseAccount) error {
 	genaccs := make([]v0.GenesisAccount, len(accs))
 	for i, acc := range accs {
 		genaccs[i] = v0.NewGenesisAccount(acc)
@@ -63,7 +63,7 @@ func setGenesis(happ *HtdfServiceApp, accs ...*auth.BaseAccount) error {
 func TestHsdExport(t *testing.T) {
 	db := db.NewMemDB()
 
-	happ := NewHtdfServiceApp(log.NewTMLogger(log.NewSyncWriter(os.Stdout)), config.TestInstrumentationConfig(), db, nil, true, 0)
+	happ := NewSscqServiceApp(log.NewTMLogger(log.NewSyncWriter(os.Stdout)), config.TestInstrumentationConfig(), db, nil, true, 0)
 	// accs added by junying, 2019-11-20
 	key := secp256k1.GenPrivKey()
 	pub := key.PubKey()

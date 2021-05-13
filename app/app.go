@@ -49,7 +49,7 @@ func init() {
 }
 
 const (
-	appName = "HtdfServiceApp"
+	appName = "SscqServiceApp"
 
 	appPrometheusNamespace = "sscq"
 	//
@@ -69,22 +69,22 @@ var (
 )
 
 // Extended ABCI application
-type HtdfServiceApp struct {
+type SscqServiceApp struct {
 	*BaseApp
 	// cdc *codec.Codec
 
 	invCheckPeriod uint
 }
 
-// NewHtdfServiceApp is a constructor function for sscqServiceApp
-func NewHtdfServiceApp(logger log.Logger, config *cfg.InstrumentationConfig, db dbm.DB, traceStore io.Writer, loadLatest bool, invCheckPeriod uint, baseAppOptions ...func(*BaseApp)) *HtdfServiceApp {
+// NewSscqServiceApp is a constructor function for sscqServiceApp
+func NewSscqServiceApp(logger log.Logger, config *cfg.InstrumentationConfig, db dbm.DB, traceStore io.Writer, loadLatest bool, invCheckPeriod uint, baseAppOptions ...func(*BaseApp)) *SscqServiceApp {
 
 	cdc := MakeLatestCodec()
 
 	bApp := NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc), baseAppOptions...)
 	bApp.SetCommitMultiStoreTracer(traceStore)
 
-	var app = &HtdfServiceApp{
+	var app = &SscqServiceApp{
 		BaseApp:        bApp,
 		invCheckPeriod: invCheckPeriod,
 	}
@@ -127,7 +127,7 @@ func NewHtdfServiceApp(logger log.Logger, config *cfg.InstrumentationConfig, db 
 	return app
 }
 
-func (app *HtdfServiceApp) ExportOrReplay(replayHeight int64) (replay bool, height int64) {
+func (app *SscqServiceApp) ExportOrReplay(replayHeight int64) (replay bool, height int64) {
 	lastBlockHeight := app.BaseApp.LastBlockHeight()
 	if replayHeight > lastBlockHeight {
 		replayHeight = lastBlockHeight
@@ -152,13 +152,13 @@ func (app *HtdfServiceApp) ExportOrReplay(replayHeight int64) (replay bool, heig
 }
 
 // export the state of sscq for a genesis file
-func (app *HtdfServiceApp) ExportAppStateAndValidators(forZeroHeight bool) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+func (app *SscqServiceApp) ExportAppStateAndValidators(forZeroHeight bool) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{Height: app.LastBlockHeight()})
 	return app.Engine.GetCurrentProtocol().ExportAppStateAndValidators(ctx, forZeroHeight, []string{})
 }
 
 // load a particular height
-func (app *HtdfServiceApp) LoadHeight(height int64) error {
+func (app *SscqServiceApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, protocol.KeyMain, false)
 }
 
@@ -169,7 +169,7 @@ func MakeLatestCodec() *codec.Codec {
 	return cdc
 }
 
-func (app *HtdfServiceApp) replayToHeight(replayHeight int64, logger log.Logger) int64 {
+func (app *SscqServiceApp) replayToHeight(replayHeight int64, logger log.Logger) int64 {
 	loadHeight := int64(0)
 	if replayHeight >= DefaultSyncableHeight {
 		loadHeight = replayHeight - replayHeight%DefaultSyncableHeight
@@ -181,7 +181,7 @@ func (app *HtdfServiceApp) replayToHeight(replayHeight int64, logger log.Logger)
 }
 
 // ResetOrReplay returns whether you need to reset or replay
-func (app *HtdfServiceApp) ResetOrReplay(replayHeight int64) (replay bool, height int64) {
+func (app *SscqServiceApp) ResetOrReplay(replayHeight int64) (replay bool, height int64) {
 	lastBlockHeight := app.BaseApp.LastBlockHeight()
 	if replayHeight > lastBlockHeight {
 		replayHeight = lastBlockHeight

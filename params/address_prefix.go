@@ -2,7 +2,7 @@ package params
 
 const (
 	storeAcc = "acc"
-	storeHS  = "hs"
+	storeHS  = "ss"
 
 	Bech32PrefixAccAddr  = "sscq"
 	Bech32PrefixAccPub   = "sscqpub"

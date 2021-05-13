@@ -5,7 +5,7 @@ import sdk "github.com/deep2chain/sscq/types"
 const (
 	// all store name
 	AccountStore         = "acc"
-	CoreStore            = "hs"
+	CoreStore            = "ss"
 	StakeStore           = "staking"
 	StakeTransientStore  = "transient_stake"
 	MintStore            = "mint"

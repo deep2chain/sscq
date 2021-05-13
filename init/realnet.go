@@ -28,7 +28,7 @@ import (
 	"github.com/deep2chain/sscq/accounts/keystore"
 	appver "github.com/deep2chain/sscq/app/v0"
 	"github.com/deep2chain/sscq/server"
-	hsutils "github.com/deep2chain/sscq/utils"
+	ssutils "github.com/deep2chain/sscq/utils"
 )
 
 // get cmd to initialize all files for tendermint testnet and application
@@ -98,8 +98,8 @@ func initRealNet(config *tmconfig.Config, cdc *codec.Codec) error {
 	nodeIDs := make([]string, numValidators)
 	valPubKeys := make([]crypto.PubKey, numValidators)
 
-	hsConfig := srvconfig.DefaultConfig()
-	hsConfig.MinGasPrices = viper.GetString(server.FlagMinGasPrices)
+	ssConfig := srvconfig.DefaultConfig()
+	ssConfig.MinGasPrices = viper.GetString(server.FlagMinGasPrices)
 
 	var (
 		accs     []appver.GenesisAccount
@@ -107,7 +107,7 @@ func initRealNet(config *tmconfig.Config, cdc *codec.Codec) error {
 	)
 	// read accounts from account.list
 	accFilePath := viper.GetString(flagAccountsFilePath)
-	accounts, balances, err := hsutils.ReadAccounts(accFilePath)
+	accounts, balances, err := ssutils.ReadAccounts(accFilePath)
 
 	for index, acc := range accounts {
 		issuerAccAddr, err := sdk.AccAddressFromBech32(acc)
@@ -156,7 +156,7 @@ func initRealNet(config *tmconfig.Config, cdc *codec.Codec) error {
 		ip := viper.GetString(flagStartingIPAddress)
 		ipconfigfile := viper.GetString(flagValidatorIPAddressList)
 		if ipconfigfile != "" {
-			ip, _, err = hsutils.ReadString(ipconfigfile, i+1)
+			ip, _, err = ssutils.ReadString(ipconfigfile, i+1)
 		} else {
 			ip, err = getIP(i, ip)
 		}
@@ -166,7 +166,7 @@ func initRealNet(config *tmconfig.Config, cdc *codec.Codec) error {
 		}
 
 		// write ip
-		hsutils.WriteString(filepath.Join(nodeDir, "config/ip.conf"), ip)
+		ssutils.WriteString(filepath.Join(nodeDir, "config/ip.conf"), ip)
 		if err != nil {
 			_ = os.RemoveAll(outDir)
 			return err
@@ -179,7 +179,7 @@ func initRealNet(config *tmconfig.Config, cdc *codec.Codec) error {
 		}
 
 		// write node id
-		hsutils.WriteString(filepath.Join(nodeDir, "config/node.conf"), nodeIDs[i])
+		ssutils.WriteString(filepath.Join(nodeDir, "config/node.conf"), nodeIDs[i])
 		if err != nil {
 			_ = os.RemoveAll(outDir)
 			return err
@@ -209,7 +209,7 @@ func initRealNet(config *tmconfig.Config, cdc *codec.Codec) error {
 				keyPass = app.DefaultKeyPass
 			}
 		} else {
-			keyPass, _, err = hsutils.ReadString(passfile, i+1)
+			keyPass, _, err = ssutils.ReadString(passfile, i+1)
 			if err != nil {
 				_ = os.RemoveAll(outDir)
 				return err
@@ -293,8 +293,8 @@ func initRealNet(config *tmconfig.Config, cdc *codec.Codec) error {
 			return err
 		}
 
-		hsConfigFilePath := filepath.Join(nodeDir, "config/ssd.toml")
-		srvconfig.WriteConfigFile(hsConfigFilePath, hsConfig)
+		ssConfigFilePath := filepath.Join(nodeDir, "config/ssd.toml")
+		srvconfig.WriteConfigFile(ssConfigFilePath, ssConfig)
 	}
 
 	if err := initGenFiles(cdc, chainID, accs, genFiles, numValidators); err != nil {

@@ -16,9 +16,9 @@ contractCode, get balance|strMinterAddress=sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlf
 ```
 
 ## use curl to access smart contract
-use REST api /hs/send to access smart contract
+use REST api /ss/send to access smart contract
 
-- /hs/send has three type of MOD
+- /ss/send has three type of MOD
 >classic transicion
 
 >>  field "data" must be nil( "")
@@ -43,7 +43,7 @@ use REST api /hs/send to access smart contract
 ```
 
 # 发交易  send;           新建合约
-$curl --location --request POST 'http://sscq2020-test01.orientwalt.cn:1317/hs/send' \
+$curl --location --request POST 'http://sscq2020-test01.orientwalt.cn:1317/ss/send' \
  --header 'Content-Type: application/x-www-form-urlencoded' \
  --data-raw '    { "base_req": 
        { "from": "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3", 
@@ -88,7 +88,7 @@ Ref [HRC-20 query for free fee](https://gitee.com/orientwalt/apidoc_2020/blob/ma
 
 get Minter balance
 ```
-$balanceOfHex=`curl http://sscq2020-test01.orientwalt.cn:1317/hs/contract/sscq1j0yrar88jgw0whzakxefy6t3ru3qxn4act3qvt/70a0823100000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe9`
+$balanceOfHex=`curl http://sscq2020-test01.orientwalt.cn:1317/ss/contract/sscq1j0yrar88jgw0whzakxefy6t3ru3qxn4act3qvt/70a0823100000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe9`
 
 $echo $balanceOfHex                            ### (hex)
 "000000000000000000000000000000000000000000a49be39dc14cb827000000"
@@ -101,7 +101,7 @@ $python -c "print int(${balanceOfHex}, 16)"  ###（decimal）
 get reveiver balance
 ```
 
-$balanceOfHex=`curl http://sscq2020-test01.orientwalt.cn:1317/hs/contract/sscq1j0yrar88jgw0whzakxefy6t3ru3qxn4act3qvt/70a0823100000000000000000000000066E0F9D1677F71D0CA6C1D5653673FE6392050E2`
+$balanceOfHex=`curl http://sscq2020-test01.orientwalt.cn:1317/ss/contract/sscq1j0yrar88jgw0whzakxefy6t3ru3qxn4act3qvt/70a0823100000000000000000000000066E0F9D1677F71D0CA6C1D5653673FE6392050E2`
 
 $echo $balanceOfHex                            ### (hex)
 "0000000000000000000000000000000000000000000000000000000000000000"
@@ -120,7 +120,7 @@ $python -c "print int(${balanceOfHex}, 16)"  ###（decimal）
 ```
 
 # 发交易  send;           打开合约
-curl --location --request POST 'http://sscq2020-test01.orientwalt.cn:1317/hs/send' \
+curl --location --request POST 'http://sscq2020-test01.orientwalt.cn:1317/ss/send' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-raw '    { "base_req": 
       { "from": "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3", 
@@ -160,7 +160,7 @@ query tx by txHash ( REST api /txs/{txHash}), check the evm call return code ("c
 ```
 
 # 发交易  send;           打开合约
-curl --location --request POST 'http://sscq2020-test01.orientwalt.cn:1317/hs/send' \
+curl --location --request POST 'http://sscq2020-test01.orientwalt.cn:1317/ss/send' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-raw '    { "base_req": 
       { "from": "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3", 
@@ -205,7 +205,7 @@ query tx by txHash ( REST api /txs/{txHash}), check the evm call return code ("c
 ```
 
 # 发交易  send;           打开合约
-curl --location --request POST 'http://sscq2020-test01.orientwalt.cn:1317/hs/send' \
+curl --location --request POST 'http://sscq2020-test01.orientwalt.cn:1317/ss/send' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-raw '    { "base_req": 
       { "from": "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3", 
@@ -251,7 +251,7 @@ we can find that, the minter and the receiver balanc ,has change
 HRC-20 query for free fee
 ```
 
-$balanceOfHex=`curl http://sscq2020-test01.orientwalt.cn:1317/hs/contract/sscq1j0yrar88jgw0whzakxefy6t3ru3qxn4act3qvt/70a0823100000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe9`
+$balanceOfHex=`curl http://sscq2020-test01.orientwalt.cn:1317/ss/contract/sscq1j0yrar88jgw0whzakxefy6t3ru3qxn4act3qvt/70a0823100000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe9`
 
 $echo $balanceOfHex                            ### (hex)
 "000000000000000000000000000000000000000000a49be39dc14cb826ffffe2"
@@ -261,7 +261,7 @@ $python -c "print int(${balanceOfHex}, 16)"  ###（decimal）
 ```
 
 ```
-$balanceOfHex=`curl http://sscq2020-test01.orientwalt.cn:1317/hs/contract/sscq1j0yrar88jgw0whzakxefy6t3ru3qxn4act3qvt/70a0823100000000000000000000000066E0F9D1677F71D0CA6C1D5653673FE6392050E2`
+$balanceOfHex=`curl http://sscq2020-test01.orientwalt.cn:1317/ss/contract/sscq1j0yrar88jgw0whzakxefy6t3ru3qxn4act3qvt/70a0823100000000000000000000000066E0F9D1677F71D0CA6C1D5653673FE6392050E2`
 
 $echo $balanceOfHex                            ### (hex)
 "000000000000000000000000000000000000000000000000000000000000001e"

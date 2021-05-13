@@ -5,7 +5,7 @@ run.withdraw:
 	#  replkey validator_address $$validator_address withdraw.tx y;
 	 contract=$$(oneline withdraw.tx | excludestr "    ");\
 	 echo "unsigned############################################################";\
-	 unsigned=$$(hsutils json2hex "$$contract");\
+	 unsigned=$$(ssutils json2hex "$$contract");\
 	 echo "$$unsigned";\
 	 signed=$$(sscli tx sign "$$unsigned");\
 	 echo "signed############################################################";\

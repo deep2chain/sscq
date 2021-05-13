@@ -6470,7 +6470,7 @@
                 topTouchCancel: "touchcancel",
                 topTouchEnd: "touchend",
                 topTouchMove: "touchmove",
-                topTouchStart: "touchstart",
+                topTouchStart: "toucsstart",
                 topTransitionEnd: s("transitionend") || "transitionend",
                 topVolumeChange: "volumechange",
                 topWaiting: "waiting",

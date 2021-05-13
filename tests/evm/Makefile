@@ -5,7 +5,7 @@
 
 # routine
 ## 1. create unsigned json-format tx using cmd
-## 2. hsutil json2hex json-format-tx
+## 2. ssutil json2hex json-format-tx
 ## 3. sscli tx sign hex-format-tx
 ## 4. sscli tx broadcast hex-format-signed-tx
 ## 5. sscli query tx txhash
@@ -38,7 +38,7 @@ get.method.id:
 #	   000000000000000000000000bf7c3270279e15d623304f2665076a53ba062b06
 param.address:
 	@read -p "bech32addr: " bech32addr;\
-	 byteaddr=$$(hsutils bech2hex $$bech32addr|row 3|fromstr ": ");\
+	 byteaddr=$$(ssutils bech2hex $$bech32addr|row 3|fromstr ": ");\
 	 loweraddr=$$(lowerstr $$byteaddr);\
 	 param_addr=$$(python -c "print( '0'*(64-len('$$loweraddr'))+'$$loweraddr')");\
 	 echo $$param_addr
@@ -98,7 +98,7 @@ execute:
 	@contract=$$(oneline contract.template | excludestr "    ");\
 	 echo "############################################################";\
 	 echo $$contract; \
-	 unsigned=$$(hsutils json2hex "$$contract");\
+	 unsigned=$$(ssutils json2hex "$$contract");\
 	 echo $$unsigned;\
 	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\

@@ -20,7 +20,7 @@ execute:
 	@contract=$$(oneline unsigned.tx | excludestr "    ");\
 	 echo "############################################################";\
 	 echo $$contract; \
-	 unsigned=$$(hsutils json2hex "$$contract");\
+	 unsigned=$$(ssutils json2hex "$$contract");\
 	 echo $$unsigned;\
 	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\

@@ -26,7 +26,7 @@ import (
 	accounts "github.com/deep2chain/sscq/accounts/cli"
 	accrest "github.com/deep2chain/sscq/accounts/rest"
 	"github.com/deep2chain/sscq/app"
-	hsrest "github.com/deep2chain/sscq/x/core/client/rest"
+	ssrest "github.com/deep2chain/sscq/x/core/client/rest"
 
 	dist "github.com/deep2chain/sscq/x/distribution/client/rest"
 	gv "github.com/deep2chain/sscq/x/gov"
@@ -40,17 +40,17 @@ import (
 	sscliversion "github.com/deep2chain/sscq/server"
 	distcmd "github.com/deep2chain/sscq/x/distribution"
 	ssdistClient "github.com/deep2chain/sscq/x/distribution/client"
-	hsgovClient "github.com/deep2chain/sscq/x/gov/client"
-	hsmintClient "github.com/deep2chain/sscq/x/mint/client/cli"
-	hslashingClient "github.com/deep2chain/sscq/x/slashing/client"
-	hstakingClient "github.com/deep2chain/sscq/x/staking/client"
+	ssgovClient "github.com/deep2chain/sscq/x/gov/client"
+	ssmintClient "github.com/deep2chain/sscq/x/mint/client/cli"
+	sslashingClient "github.com/deep2chain/sscq/x/slashing/client"
+	sstakingClient "github.com/deep2chain/sscq/x/staking/client"
 	upgradecmd "github.com/deep2chain/sscq/x/upgrade/client/cli"
 	upgraderest "github.com/deep2chain/sscq/x/upgrade/client/rest"
 )
 
 const (
 	storeAcc = "acc"
-	storeHS  = "hs"
+	storeHS  = "ss"
 )
 
 var (
@@ -76,10 +76,10 @@ func main() {
 	config.Seal()
 
 	mc := []sdk.ModuleClients{
-		hsgovClient.NewModuleClient(gv.StoreKey, cdc),
+		ssgovClient.NewModuleClient(gv.StoreKey, cdc),
 		ssdistClient.NewModuleClient(distcmd.StoreKey, cdc),
-		hstakingClient.NewModuleClient(st.StoreKey, cdc),
-		hslashingClient.NewModuleClient(sl.StoreKey, cdc),
+		sstakingClient.NewModuleClient(st.StoreKey, cdc),
+		sslashingClient.NewModuleClient(sl.StoreKey, cdc),
 	}
 
 	rootCmd := &cobra.Command{
@@ -109,7 +109,7 @@ func main() {
 		bech32.Bech32Commands(),
 	)
 
-	executor := cli.PrepareMainCmd(rootCmd, "HS", app.DefaultCLIHome)
+	executor := cli.PrepareMainCmd(rootCmd, "SS", app.DefaultCLIHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)
@@ -120,7 +120,7 @@ func registerRoutes(rs *lcd.RestServer) {
 	rs.CliCtx = rs.CliCtx.WithAccountDecoder(rs.Cdc)
 	rpc.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	tx.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
-	hsrest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeHS)
+	ssrest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeHS)
 	accrest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	accrest.RegisterRoute(rs.CliCtx, rs.Mux, rs.Cdc, storeAcc)
 	dist.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, distcmd.StoreKey)
@@ -158,8 +158,8 @@ func queryCmd(cdc *amino.Codec, mc []sdk.ModuleClients) *cobra.Command {
 		client.LineBreak,
 		authcmd.GetAccountCmd(storeAcc, cdc),
 		sscqservicecmd.GetCmdCall(cdc),
-		hsmintClient.GetCmdQueryBlockRewards(cdc),
-		hsmintClient.GetCmdQueryTotalProvisions(cdc),
+		ssmintClient.GetCmdQueryBlockRewards(cdc),
+		ssmintClient.GetCmdQueryTotalProvisions(cdc),
 		upgradecmd.GetInfoCmd("upgrade", cdc),
 		upgradecmd.GetCmdQuerySignals("upgrade", cdc),
 	)

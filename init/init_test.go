@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/deep2chain/sscq/client"
 	"github.com/deep2chain/sscq/app"
+	"github.com/deep2chain/sscq/client"
 	"github.com/deep2chain/sscq/server"
 	"github.com/deep2chain/sscq/server/mock"
 	"github.com/spf13/viper"
@@ -32,7 +32,7 @@ func TestInitCmd(t *testing.T) {
 	cdc := app.MakeLatestCodec()
 	cmd := InitCmd(ctx, cdc)
 
-	require.NoError(t, cmd.RunE(nil, []string{"hsnode-test"}))
+	require.NoError(t, cmd.RunE(nil, []string{"ssnode-test"}))
 }
 
 func setupClientHome(t *testing.T) func() {
@@ -59,7 +59,7 @@ func TestEmptyState(t *testing.T) {
 	cdc := app.MakeLatestCodec()
 
 	cmd := InitCmd(ctx, cdc)
-	require.NoError(t, cmd.RunE(nil, []string{"hsnode-test"}))
+	require.NoError(t, cmd.RunE(nil, []string{"ssnode-test"}))
 
 	old := os.Stdout
 	r, w, _ := os.Pipe()
@@ -101,7 +101,7 @@ func TestStartStandAlone(t *testing.T) {
 	ctx := server.NewContext(cfg, logger)
 	cdc := app.MakeLatestCodec()
 	initCmd := InitCmd(ctx, cdc)
-	require.NoError(t, initCmd.RunE(nil, []string{"hsnode-test"}))
+	require.NoError(t, initCmd.RunE(nil, []string{"ssnode-test"}))
 
 	app, err := mock.NewApp(home, logger)
 	require.Nil(t, err)

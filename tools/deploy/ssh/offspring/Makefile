@@ -90,7 +90,7 @@ stop:
 	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) pkill -9 ssd ; done
 
 clean:
-	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) rm -rf /root/.hs* /root/nohup.out /usr/local/bin/ssd; done
+	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) rm -rf /root/.ss* /root/nohup.out /usr/local/bin/ssd; done
 
 start:
 	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) nohup ssd start & > /root/nohup.out ; done

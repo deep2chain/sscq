@@ -106,10 +106,10 @@ func interceptLoadConfig() (conf *cfg.Config, err error) {
 	}
 
 	// create a default sscqservice config file if it does not exist
-	HtdfServiceConfigFilePath := filepath.Join(rootDir, "config/ssd.toml")
-	if _, err := os.Stat(HtdfServiceConfigFilePath); os.IsNotExist(err) {
-		HtdfServiceConf, _ := config.ParseConfig()
-		config.WriteConfigFile(HtdfServiceConfigFilePath, HtdfServiceConf)
+	SscqServiceConfigFilePath := filepath.Join(rootDir, "config/ssd.toml")
+	if _, err := os.Stat(SscqServiceConfigFilePath); os.IsNotExist(err) {
+		SscqServiceConf, _ := config.ParseConfig()
+		config.WriteConfigFile(SscqServiceConfigFilePath, SscqServiceConf)
 	}
 
 	viper.SetConfigName("ssd")

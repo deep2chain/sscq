@@ -92,14 +92,14 @@ ifeq ($(CURRENT_OS),Windows)
 	@echo BUILD_FLAGS=$(BUILD_FLAGS)
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/ssd.exe ./cmd/ssd
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/sscli.exe ./cmd/sscli
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hsutils.exe ./cmd/hsutil
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/sscli.exe ./cmd/hsinfo
+	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/ssutils.exe ./cmd/ssutil
+	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/sscli.exe ./cmd/ssinfo
 else
 	@echo BUILD_FLAGS=$(BUILD_FLAGS)
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/ssd ./cmd/ssd
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/sscli ./cmd/sscli
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hsutils ./cmd/hsutil
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hsinfo ./cmd/hsinfo
+	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/ssutils ./cmd/ssutil
+	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/ssinfo ./cmd/ssinfo
 endif
 
 # https://stackoverflow.com/questions/34729748/installed-go-binary-not-found-in-path-on-alpine-linux-docker
@@ -116,7 +116,7 @@ build.static: go.sum
 build: unittest buildquick
 
 build-batchsend:
-	@build/env.sh go run build/ci.go install ./cmd/hsbatchsend
+	@build/env.sh go run build/ci.go install ./cmd/ssbatchsend
 
 install: go.sum
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/ssd
@@ -209,7 +209,7 @@ clean:
 	@find build -name bin | xargs rm -rf
 
 clear: clean
-	@rm -rf ~/.hs*
+	@rm -rf ~/.ss*
 
 DOCKER_VALIDATOR_IMAGE = falcon0125/ssdnode
 DOCKER_CLIENT_IMAGE = falcon0125/ssclinode
@@ -224,7 +224,7 @@ LIVENETDIR = build/livenet
 
 # docker-compose part[multi-node part, also test mode]
 # Local validator nodes using docker and docker-compose
-hsnode: clean build.static# hstop
+ssnode: clean build.static# sstop
 	$(MAKE) -C tools/deploy/docker/local
 
 echotest:
@@ -262,23 +262,23 @@ ssinit-o2:
 	@sed -i s/node0/node5/g ${TESTNETDIR}/node5/.ssd/config/config.toml
 	@cp -rf ${TESTNETDIR}/node1/.sscli/* ${TESTNETDIR}/node5/.sscli
 
-hstart: build.static ssinit-test ssinit-o1 ssinit-o2
+sstart: build.static ssinit-test ssinit-o1 ssinit-o2
 	@docker-compose up -d
 
-hstart.debug: build ssinit-test ssinit-o1 ssinit-o2
+sstart.debug: build ssinit-test ssinit-o1 ssinit-o2
 	@docker-compose up
 
-hsattach:
+ssattach:
 	@docker attach ssclinode1
 
 # Stop testnet
-hstop:
+sstop:
 	docker-compose down
 
-hscheck:
+sscheck:
 	@docker logs -f ssdnode0
 
-hsclean:
+ssclean:
 	@docker rmi ${DOCKER_VALIDATOR_IMAGE} ${DOCKER_CLIENT_IMAGE}
 
 ##############################################################################################################################

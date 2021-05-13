@@ -2,7 +2,7 @@
 # Written by junying, 2019-04-10
 # Includes downloading dependencies & building 
 #
-# Build HtdfService in a stock Go builder container
+# Build SscqService in a stock Go builder container
 FROM golang:1.11-alpine as construction
 
 # Set up dependencies
@@ -19,7 +19,7 @@ COPY . .
 # dependency check, build
 RUN make all
 
-# Pull HtdfService into a second stage deploy alpine container
+# Pull SscqService into a second stage deploy alpine container
 FROM alpine:latest
 
 RUN apk add --update ca-certificates
