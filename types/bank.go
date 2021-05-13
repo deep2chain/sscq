@@ -1,7 +1,7 @@
 package types
 
 const (
-	BigDenom     = "htdf"
+	BigDenom     = "sscq"
 	DefaultDenom = "satoshi"
 )
 

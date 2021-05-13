@@ -2,14 +2,14 @@
 
 
 ## 系统参数
-Moniker （网络的绰号）： htdfnet
+Moniker （网络的绰号）： sscqnet
 ChainName（链的名称） ： mainchain
 
 
 ## 账户
  两个重要的账户
 - HTDF_ISSUE_ACCT  HTDF基金会/央行账户（HTDF token 发行账户）
-- STAKE_BIG_ACCT   htdf抵押账户（stake 大账户，只保存stake）
+- STAKE_BIG_ACCT   sscq抵押账户（stake 大账户，只保存stake）
 
 
  四个验证节点的账户

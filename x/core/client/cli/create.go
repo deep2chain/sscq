@@ -20,7 +20,7 @@ import (
 // GetCmdCreate is the CLI command for creating unsigned transaction
 /*
 	inspired by
-	hscli send --generate-only cosmos1yqgv2rhxcgrf5jqrxlg80at5szzlarlcy254re 5htdftoken --from junying > unsigned.json
+	hscli send --generate-only cosmos1yqgv2rhxcgrf5jqrxlg80at5szzlarlcy254re 5sscqtoken --from junying > unsigned.json
 	utils.PrintUnsignedStdTx(txBldr, cliCtx, []sdk.Msg{msg},false)
 	Tips:
 	check functions in utils

@@ -1,7 +1,7 @@
 # junying-todo, 2020-01-13
 # hscli config json format based
 # ex: 
-# $ hscli query distr rewards htdf1gjtlth85y2ucym7rncrz5y6jcxp77vaz6drjuz htdfvaloper1gjtlth85y2ucym7rncrz5y6j
+# $ hscli query distr rewards sscq1gjtlth85y2ucym7rncrz5y6jcxp77vaz6drjuz sscqvaloper1gjtlth85y2ucym7rncrz5y6j
 # [
 #  {
 #    "denom": "satoshi",

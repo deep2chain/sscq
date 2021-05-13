@@ -9,7 +9,7 @@ COMMIT_HASH := $(shell git rev-parse --short HEAD)
 BUILD_FLAGS = -tags netgo -ldflags "-X github.com/deep2chain/sscq/version.GitCommit=${COMMIT_HASH}"
 # docker part[single-node part]
 DOCKER_TAG = unstable
-DOCKER_IMAGE = falcon0125/htdfsingle
+DOCKER_IMAGE = falcon0125/sscqsingle
 
 build: clean
 ifeq ($(CURRENT_OS),Windows)
@@ -29,7 +29,7 @@ docker: build
 	@docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:${COMMIT_HASH}
 
 run:
-	@docker run --rm -it ${DOCKER_IMAGE}:latest hsd start --minimum-gas-prices=0.0001htdf
+	@docker run --rm -it ${DOCKER_IMAGE}:latest hsd start --minimum-gas-prices=0.0001sscq
 
 shell:
 	@docker run --rm -it ${DOCKER_IMAGE}:latest sh

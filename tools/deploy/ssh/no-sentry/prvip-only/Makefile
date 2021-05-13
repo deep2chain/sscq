@@ -22,8 +22,8 @@
 # sentry-public		Singapore-HET-Look.pem	xxx.xxx.xxx.xxx		xxx.xxx.xxx.xxx		$$$2!2E33b7B
 
 ### hint
-# issuer: htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
-# staker: htdf1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
+# issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+# staker: sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
 
 # index
 PEM_COL_INDEX = 2
@@ -36,15 +36,15 @@ FIRST_ROW_INDEX = 2
 ## chain
 CHAIN_ID = testchain
 MINIMUM_GAS_PRICES = 100satoshi
-ISSUER_ADDRESS = htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
-# STAKER_ADDRESS = htdf1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
+ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+# STAKER_ADDRESS = sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
 DEFAULT_PORT = 26656
 ## account
 DEFAULT_WALLET_PASSWORD = xy11223355xx111
 ACCOUNTS_COUNT_SMALL = 100000
 ACCOUNTS_COUNT_BIG = 2
 ## setup
-CONFIGDIR = $(HOME)/config-nosentry/htdf/private
+CONFIGDIR = $(HOME)/config-nosentry/sscq/private
 SERVER_INFO = $(CONFIGDIR)/servers.info
 SERVER_LIST = $(CONFIGDIR)/server.list
 ##### servers

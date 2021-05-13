@@ -68,7 +68,7 @@ func (k Keeper) GetMinter(ctx sdk.Context) (minter Minter) {
 	store := ctx.KVStore(k.storeKey)
 	b := store.Get(minterKey)
 	if b == nil {
-		panic("Stored fee pool should not have been nil htdf")
+		panic("Stored fee pool should not have been nil sscq")
 	}
 	k.cdc.MustUnmarshalBinaryLengthPrefixed(b, &minter)
 	return

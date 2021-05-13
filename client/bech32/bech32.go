@@ -26,7 +26,7 @@ func cmdBech2Hex() *cobra.Command {
 	return &cobra.Command{
 		Use:   "b2h [accountPrefixAddress(bech32)]",
 		Short: "convert accountPrefixAddress(bech32) to hex-20",
-		Long:  "hscli bech32 b2h htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3",
+		Long:  "hscli bech32 b2h sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			bech32Addr := args[0]
@@ -66,7 +66,7 @@ func cmdBech2Val() *cobra.Command {
 	return &cobra.Command{
 		Use:   "b2v [accountPrefixAddress(bech32)]",
 		Short: "convert accountPrefixAddress(bech32) to validatorPrefixAddress(bech32)",
-		Long:  "hscli bech32 b2v htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3",
+		Long:  "hscli bech32 b2v sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			bech32Addr := args[0]
@@ -87,7 +87,7 @@ func cmdVal2Bech() *cobra.Command {
 	return &cobra.Command{
 		Use:   "v2b [validatorPrefixAddress(bech32)]",
 		Short: "convert validatorPrefixAddress(bech32) to accountPrefixAddress(bech32)",
-		Long:  "hscli bech32 v2b htdfvaloper12347g0nk9vpae7886xp0sxjdxya27lq4720u04",
+		Long:  "hscli bech32 v2b sscqvaloper12347g0nk9vpae7886xp0sxjdxya27lq4720u04",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			bech32Addr := args[0]

@@ -25,7 +25,7 @@ hscli query rewards [block-height]
 hscli query total-provisions
 
 [contractcall]
-contract-addr: htdf1l03rqalmg58wgw9ya39wwc3466lyy20xnpeaee
+contract-addr: sscq1l03rqalmg58wgw9ya39wwc3466lyy20xnpeaee
 callcode: 27e235e300000000000000000000000027681ceb7de9bae3c5f7f10f81ff5106e2ca48a7
 hscli query contract [contract-addr] [callcode]
 ```
@@ -35,8 +35,8 @@ hscli query contract [contract-addr] [callcode]
     hscli query distr params
 
 ### [staking cmds](https://github.com/deep2chain/sscq/blob/master/x/staking/client/cli/tx.go)
-    delegator-addr: htdf1zf07fyt2an2ral8zve0u4y7lzqa6x4lqfeyl8m
-    validator-addr: htdfvaloper1zf07fyt2an2ral8zve0u4y7lzqa6x4lqrquxss
+    delegator-addr: sscq1zf07fyt2an2ral8zve0u4y7lzqa6x4lqfeyl8m
+    validator-addr: sscqvaloper1zf07fyt2an2ral8zve0u4y7lzqa6x4lqrquxss
     amount: 100000stake
     
     [unbound]
@@ -67,11 +67,11 @@ hscli query gov votes 1
 
 [submit]
 hscli tx gov submit-proposal [flags]
-hscli tx gov submit-proposal htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3 --gas-price=100  --switch-height=4100 --description="third proposal"  --title="test2" --type="software_upgrade" --deposit="1000000000satoshi" --version="1"
+hscli tx gov submit-proposal sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3 --gas-price=100  --switch-height=4100 --description="third proposal"  --title="test2" --type="software_upgrade" --deposit="1000000000satoshi" --version="1"
 
 [vote]
 hscli tx gov vote [voter-addr] [proposal-id] [option] [flags]
-hscli tx gov vote  htdf148asterza2u7ww0vptntmy8ut84hdeetr927hl 3  yes --gas-price=100 
+hscli tx gov vote  sscq148asterza2u7ww0vptntmy8ut84hdeetr927hl 3  yes --gas-price=100 
 
 [deposit]
 hscli tx gov deposit [proposal-id] [deposit] [flags]

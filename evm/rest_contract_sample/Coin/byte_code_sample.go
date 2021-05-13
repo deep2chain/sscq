@@ -18,7 +18,7 @@ import (
 )
 
 var (
-	strTestContractToAddress = "htdf1vms0n5t80acapjnvr4t9xeelucujq58zml4kg2"
+	strTestContractToAddress = "sscq1vms0n5t80acapjnvr4t9xeelucujq58zml4kg2"
 )
 
 func must(err error) {

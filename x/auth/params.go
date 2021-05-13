@@ -27,7 +27,7 @@ const (
 
 var (
 	MinimumGasPrice    = sdk.ZeroInt()
-	MaximumGasPrice    = sdk.NewIntWithDecimal(1, 18) //1htdf, 10^18satoshi
+	MaximumGasPrice    = sdk.NewIntWithDecimal(1, 18) //1sscq, 10^18satoshi
 	MinimumTxSizeLimit = uint64(500)
 	MaximumTxSizeLimit = uint64(1500)
 )

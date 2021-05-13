@@ -1,16 +1,16 @@
-all: htdf_faucet call_faucet htdf_faucet_with_bug hack_faucet
+all: sscq_faucet call_faucet sscq_faucet_with_bug hack_faucet
 
-htdf_faucet:
-	solcjs  --bin --abi  htdf_faucet.sol
+sscq_faucet:
+	solcjs  --bin --abi  sscq_faucet.sol
 
 call_faucet:
-	solcjs  --bin --abi  call_faucet.sol htdf_faucet.sol
+	solcjs  --bin --abi  call_faucet.sol sscq_faucet.sol
 
-htdf_faucet_with_bug:
-	cd hack && solcjs  --bin --abi  htdf_faucet_with_bug.sol && cd ..
+sscq_faucet_with_bug:
+	cd hack && solcjs  --bin --abi  sscq_faucet_with_bug.sol && cd ..
 
 hack_faucet:
-	cd hack && solcjs  --bin --abi  hack_faucet.sol  htdf_faucet_with_bug.sol && cd ..
+	cd hack && solcjs  --bin --abi  hack_faucet.sol  sscq_faucet_with_bug.sol && cd ..
 
 clean:
 	- rm ./*.bin 
@@ -18,4 +18,4 @@ clean:
 	- rm ./*.abi
 	- rm ./hack/*.abi
 
-.PHONY: clean htdf_faucet call_faucet htdf_faucet_with_bug hack_faucet
+.PHONY: clean sscq_faucet call_faucet sscq_faucet_with_bug hack_faucet

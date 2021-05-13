@@ -3,7 +3,7 @@
     mkdir -p sourceBuffer/github.com/orientwalt
     cd sourceBuffer/github.com/orientwalt
     git clone https://github.com/deep2chain/sscq.git    
-    cd htdf
+    cd sscq
     
     # warning
     # we use go mod to manage dependency package
@@ -136,10 +136,10 @@ hscli version
     curl -X GET "http://localhost:1317/bank/balances/cosmos1ytczrhg8anm6a4z2rjhhs4rz0cvrxc5yna0f68" -H "accept: application/json"
 
     [sendTx]
-    curl -X POST "http://localhost:1317/hs/send" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"cosmos1jj4aqger28lwgpd4mfr35x59g249jnflhqdyxq\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"xxxx\", \"chain_id\": \"testchain\", \"account_number\": \"0\", \"sequence\": \"0\", \"gas\": \"200000\", \"gas_adjustment\": \"1.2\", \"fees\": [ { \"denom\": \"htdftoken\", \"amount\": \"10\" } ], \"simulate\": false }, \"amount\": [ { \"denom\": \"htdftoken\", \"amount\": \"10\" } ],\"to\": \"cosmos1gncjp5n8jurnuz5hnj0t2eyvqdms7gzzg8ycjx\"}"
+    curl -X POST "http://localhost:1317/hs/send" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"cosmos1jj4aqger28lwgpd4mfr35x59g249jnflhqdyxq\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"xxxx\", \"chain_id\": \"testchain\", \"account_number\": \"0\", \"sequence\": \"0\", \"gas\": \"200000\", \"gas_adjustment\": \"1.2\", \"fees\": [ { \"denom\": \"sscqtoken\", \"amount\": \"10\" } ], \"simulate\": false }, \"amount\": [ { \"denom\": \"sscqtoken\", \"amount\": \"10\" } ],\"to\": \"cosmos1gncjp5n8jurnuz5hnj0t2eyvqdms7gzzg8ycjx\"}"
     
     [createTx]
-    curl -X POST "http://localhost:1317/hs/create" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"cosmos1extcaaktdfcle4areslzvxx82q5rncvyrjf8m4\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"12345678\", \"chain_id\": \"testchain\", \"account_number\": \"0\", \"sequence\": \"0\", \"gas\": \"200000\", \"gas_adjustment\": \"1.2\", \"fees\": [ { \"denom\": \"htdftoken\", \"amount\": \"10\" } ], \"simulate\": false }, \"amount\": [ { \"denom\": \"htdftoken\", \"amount\": \"10\" } ],\"to\": \"cosmos1ehdzkfgvqana4gc6keuymweuhm60x73uayk0kt\",\"encode\":true}"
+    curl -X POST "http://localhost:1317/hs/create" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"cosmos1extcaaktdfcle4areslzvxx82q5rncvyrjf8m4\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"12345678\", \"chain_id\": \"testchain\", \"account_number\": \"0\", \"sequence\": \"0\", \"gas\": \"200000\", \"gas_adjustment\": \"1.2\", \"fees\": [ { \"denom\": \"sscqtoken\", \"amount\": \"10\" } ], \"simulate\": false }, \"amount\": [ { \"denom\": \"sscqtoken\", \"amount\": \"10\" } ],\"to\": \"cosmos1ehdzkfgvqana4gc6keuymweuhm60x73uayk0kt\",\"encode\":true}"
     
     [signTx]
     curl -X POST "http://localhost:1317/hs/sign" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"tx\":\"xxx\", \"passphrase\":\"xxx\",\"offline\":false,\"encode\":true}"

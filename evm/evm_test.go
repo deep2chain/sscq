@@ -198,7 +198,7 @@ func testChainConfig(t *testing.T, evm *vm.EVM) {
 func TestNewEvm(t *testing.T) {
 
 	//---------------------stateDB test--------------------------------------
-	dataPath := "/tmp/htdfNewEvmTestData3"
+	dataPath := "/tmp/sscqNewEvmTestData3"
 	db := dbm.NewDB("state", dbm.LevelDBBackend, dataPath)
 
 	cdc := newTestCodec1()
@@ -365,7 +365,7 @@ func reOpenDB(t *testing.T, lastContractCode []byte, strContractAddress string, 
 	fmt.Printf("reOpenDB...\n")
 
 	//---------------------stateDB test--------------------------------------
-	dataPath := "/tmp/htdfNewEvmTestData3"
+	dataPath := "/tmp/sscqNewEvmTestData3"
 	db := dbm.NewDB("state", dbm.LevelDBBackend, dataPath)
 
 	cdc := newTestCodec1()

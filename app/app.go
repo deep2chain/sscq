@@ -51,7 +51,7 @@ func init() {
 const (
 	appName = "HtdfServiceApp"
 
-	appPrometheusNamespace = "htdf"
+	appPrometheusNamespace = "sscq"
 	//
 	RouterKey = "sscqservice"
 	// DefaultKeyPass contains the default key password for genesis transactions
@@ -76,7 +76,7 @@ type HtdfServiceApp struct {
 	invCheckPeriod uint
 }
 
-// NewHtdfServiceApp is a constructor function for htdfServiceApp
+// NewHtdfServiceApp is a constructor function for sscqServiceApp
 func NewHtdfServiceApp(logger log.Logger, config *cfg.InstrumentationConfig, db dbm.DB, traceStore io.Writer, loadLatest bool, invCheckPeriod uint, baseAppOptions ...func(*BaseApp)) *HtdfServiceApp {
 
 	cdc := MakeLatestCodec()
@@ -151,7 +151,7 @@ func (app *HtdfServiceApp) ExportOrReplay(replayHeight int64) (replay bool, heig
 
 }
 
-// export the state of htdf for a genesis file
+// export the state of sscq for a genesis file
 func (app *HtdfServiceApp) ExportAppStateAndValidators(forZeroHeight bool) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{Height: app.LastBlockHeight()})
 	return app.Engine.GetCurrentProtocol().ExportAppStateAndValidators(ctx, forZeroHeight, []string{})

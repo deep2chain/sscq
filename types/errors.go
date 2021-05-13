@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	Codespace CodespaceType = "htdf"
+	Codespace CodespaceType = "sscq"
 
 	ErrCode_OK             CodeType = 0
 	ErrCode_CreateContract CodeType = 1

@@ -8,15 +8,15 @@
     "memo": "", 
     "msgs": [
         {
-            "type": "htdf/MsgEditValidator", 
+            "type": "sscq/MsgEditValidator", 
             "value": {
                 "Description": {
                     "details": "To infinity and beyond!", 
                     "identity": "23870f5bb12ba2c4967c46db", 
                     "moniker": "xxx", 
-                    "website": "https://htdf.network"
+                    "website": "https://sscq.network"
                 }, 
-                "address": "htdfvaloper1n8lxc8n7dhc50hv5rqemuljrkmm0tstpawx96y", 
+                "address": "sscqvaloper1n8lxc8n7dhc50hv5rqemuljrkmm0tstpawx96y", 
                 "commission_rate": "0.100000000000000000", 
                 "min_self_delegation": null
             }

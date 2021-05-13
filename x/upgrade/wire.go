@@ -6,7 +6,7 @@ import (
 
 // Register concrete types on codec codec
 func RegisterCodec(cdc *codec.Codec) {
-	cdc.RegisterConcrete(&VersionInfo{}, "htdf/upgrade/VersionInfo", nil)
+	cdc.RegisterConcrete(&VersionInfo{}, "sscq/upgrade/VersionInfo", nil)
 }
 
 var msgCdc = codec.New()

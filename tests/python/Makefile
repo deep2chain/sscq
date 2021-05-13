@@ -1,7 +1,7 @@
 all: test
 
 
-.PHONY:test_normal_tx test_hrc20_contract_tx test_htdf_faucet_contract test create_venv
+.PHONY:test_normal_tx test_hrc20_contract_tx test_sscq_faucet_contract test create_venv
 
 export TESTTYPE=$(chaintype)
 
@@ -26,8 +26,8 @@ test_normal_tx:clean
 test_hrc20_contract_tx:clean
 	pytest -v --disable-warnings -s ./test_hrc20_contract_tx.py --cache-clear
 
-test_htdf_faucet_contract:clean
-	pytest -v --disable-warnings -s ./test_htdf_faucet_contract.py  --cache-clear
+test_sscq_faucet_contract:clean
+	pytest -v --disable-warnings -s ./test_sscq_faucet_contract.py  --cache-clear
 
 test:clean
 	pytest -v ./ --disable-warnings -s --cache-clear

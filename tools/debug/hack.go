@@ -34,13 +34,13 @@ func runHackCmd(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("Expected 1 arg")
 	}
 
-	// ".htdf"
+	// ".sscq"
 	dataDir := args[0]
 	dataDir = path.Join(dataDir, "data")
 
 	// load the app
 	logger := log.NewTMLogger(log.NewSyncWriter(os.Stdout))
-	db, err := dbm.NewGoLevelDB("htdf", dataDir)
+	db, err := dbm.NewGoLevelDB("sscq", dataDir)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -145,7 +145,7 @@ func NewHtdfApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam.BaseAp
 	return app
 }
 
-// export the state of htdf for a genesis file
+// export the state of sscq for a genesis file
 func (app *HtdfApp) ExportAppStateAndValidators(forZeroHeight bool) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{})
 	return app.Engine.GetCurrentProtocol().ExportAppStateAndValidators(ctx, forZeroHeight,nil)

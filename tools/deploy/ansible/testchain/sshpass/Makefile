@@ -1,5 +1,5 @@
 # written by junying, 2020-02-18
-# source: github.com//htdf/tools/deploy/ssh/remote/no-sentry/pubip-only/pem/Makefile
+# source: github.com//sscq/tools/deploy/ssh/remote/no-sentry/pubip-only/pem/Makefile
 # you should prepare the following files.
 # 1. servers.info
 # >>>
@@ -17,8 +17,8 @@
 # node4 ansible_host=47.11.5.14 ansible_user=root ansible_ssh_private_key_file=/tmp/47.11.5.14.pem
 # 3. hsd,hscli
 ### account info
-# issuer: htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
-# staker: htdf1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
+# issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+# staker: sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
 
 # index
 PEM_COL_INDEX = 2
@@ -31,11 +31,11 @@ FIRST_ROW_INDEX = 2
 ## chain
 CHAIN_ID = testchain
 MINIMUM_GAS_PRICES = 100satoshi
-GUARDIAN_ADDRESS = htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
-ISSUER_ADDRESS = htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+GUARDIAN_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
 DEFAULT_PORT = 26656
 ## setup
-CONFIGDIR = $(HOME)/config/nosentry/htdf/testnet-2019
+CONFIGDIR = $(HOME)/config/nosentry/sscq/testnet-2019
 SERVER_INFO = $(CONFIGDIR)/servers.info
 SERVER_LIST = $(CONFIGDIR)/server.list
 PEMDIR = $(CONFIGDIR)/pems

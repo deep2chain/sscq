@@ -114,7 +114,7 @@ func TestKeyManagement(t *testing.T) {
 	_, err = cstore.GetByAddress(accAddr(i2))
 
 	require.NoError(t, err)
-	addr, err := sdk.AccAddressFromBech32("htdf1j9tq0fld543l39cpytpe53wd69lcsh456aksgv")
+	addr, err := sdk.AccAddressFromBech32("sscq1j9tq0fld543l39cpytpe53wd69lcsh456aksgv")
 	require.NoError(t, err)
 	_, err = cstore.GetByAddress(addr)
 	require.NotNil(t, err)

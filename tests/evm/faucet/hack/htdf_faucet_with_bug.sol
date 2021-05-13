@@ -4,7 +4,7 @@ yqq 2020-12-11
 a faucet contract with a bug (re-entrancy )
 
 compile contract:
-solcjs  --bin --abi hack_faucet.sol  htdf_faucet_with_bug.sol
+solcjs  --bin --abi hack_faucet.sol  sscq_faucet_with_bug.sol
 
 
 */

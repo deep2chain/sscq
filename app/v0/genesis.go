@@ -132,7 +132,7 @@ func (ga *GenesisAccount) ToAccount() (acc *auth.BaseAccount) {
 	}
 }
 
-// Create the core parameters for genesis initialization for htdf
+// Create the core parameters for genesis initialization for sscq
 // note that the pubkey input is this machines pubkey
 func HtdfAppGenState(cdc *codec.Codec, genDoc tmtypes.GenesisDoc, appGenTxs []json.RawMessage) (
 	genesisState GenesisState, err error) {
@@ -538,7 +538,7 @@ func NewGenesisFileState(accounts []GenesisFileAccount, authData auth.GenesisSta
 	}
 }
 
-// NewDefaultGenesisState generates the default state for htdf.
+// NewDefaultGenesisState generates the default state for sscq.
 func NewDefaultGenesisFileState() GenesisFileState {
 	return GenesisFileState{
 		Accounts:     nil,

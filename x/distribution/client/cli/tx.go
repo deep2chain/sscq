@@ -48,8 +48,8 @@ func GetCmdWithdrawRewards(cdc *codec.Codec) *cobra.Command {
 		Short: "witdraw rewards from a given delegation address, and optionally withdraw validator commission if the delegation address given is a validator operator",
 		Long: strings.TrimSpace(`witdraw rewards from a given delegation address, and optionally withdraw validator commission if the delegation address given is a validator operator:
 
-$ hscli tx distr withdraw-rewards htdf1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v htdfvaloper1keyvaa4u5rcjwq3gncvct4hrmq553fpkfqrcr8
-$ hscli tx distr withdraw-rewards htdf1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v htdfvaloper1keyvaa4u5rcjwq3gncvct4hrmq553fpkfqrcr8 --commission
+$ hscli tx distr withdraw-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscqvaloper1keyvaa4u5rcjwq3gncvct4hrmq553fpkfqrcr8
+$ hscli tx distr withdraw-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscqvaloper1keyvaa4u5rcjwq3gncvct4hrmq553fpkfqrcr8 --commission
 `),
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -86,7 +86,7 @@ func GetCmdWithdrawAllRewards(cdc *codec.Codec, queryRoute string) *cobra.Comman
 		Short: "withdraw all delegations rewards for a delegator",
 		Long: strings.TrimSpace(`Withdraw all rewards for a single delegator:
 
-$ hscli tx distr withdraw-all-rewards htdf1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v
+$ hscli tx distr withdraw-all-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -116,7 +116,7 @@ func GetCmdSetWithdrawAddr(cdc *codec.Codec) *cobra.Command {
 		Short: "change the default withdraw address for rewards associated with an address",
 		Long: strings.TrimSpace(`Set the withdraw address for rewards associated with a delegator address:
 
-$ hscli tx set-withdraw-addr htdf1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v htdf14psya76ttdx5qvqq5zzz2q6v63k2g3h2k599zd
+$ hscli tx set-withdraw-addr sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscq14psya76ttdx5qvqq5zzz2q6v63k2g3h2k599zd
 `),
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {

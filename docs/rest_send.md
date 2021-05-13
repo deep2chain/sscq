@@ -7,7 +7,7 @@
 curl --location --request POST "http://127.0.0.1:1317/hs/send" \
   --header "Content-Type: application/x-www-form-urlencoded" \
   --data "    { \"base_req\": 
-                          { \"from\": \"htdf103x7taejyqwxrvyadu2yxd7u04wdqs5stq5a40\", 
+                          { \"from\": \"sscq103x7taejyqwxrvyadu2yxd7u04wdqs5stq5a40\", 
                             \"memo\": \"\",
                             \"password\": \"12345678\", 
                             \"chain_id\": \"testchain\", 
@@ -18,9 +18,9 @@ curl --location --request POST "http://127.0.0.1:1317/hs/send" \
                             \"simulate\": false
                           },          
                 \"amount\": [ 
-                        { \"denom\": \"htdf\", 
+                        { \"denom\": \"sscq\", 
                           \"amount\": \"0.00001\" } ],
-                \"to\": \"htdf1ucwpvw99u9tj3sxuwtnesge5tl90c6y0zcnc73\",
+                \"to\": \"sscq1ucwpvw99u9tj3sxuwtnesge5tl90c6y0zcnc73\",
                 \"data\": \"\"
     }"
 

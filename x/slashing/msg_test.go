@@ -12,5 +12,5 @@ func TestMsgUnjailGetSignBytes(t *testing.T) {
 	addr := sdk.AccAddress("abcd")
 	msg := NewMsgUnjail(sdk.ValAddress(addr))
 	bytes := msg.GetSignBytes()
-	require.Equal(t, string(bytes), `{"address":"htdfvaloper1v93xxeqdmnmfc"}`)
+	require.Equal(t, string(bytes), `{"address":"sscqvaloper1v93xxeqdmnmfc"}`)
 }

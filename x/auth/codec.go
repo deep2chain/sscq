@@ -19,10 +19,10 @@ func RegisterCodec(cdc *codec.Codec) {
 func RegisterBaseAccount(cdc *codec.Codec) {
 	cdc.RegisterInterface((*Account)(nil), nil)
 	cdc.RegisterInterface((*VestingAccount)(nil), nil)
-	cdc.RegisterConcrete(&BaseAccount{}, "htdf/BaseAccount", nil)
-	cdc.RegisterConcrete(&BaseVestingAccount{}, "htdf/BaseVestingAccount", nil)
-	cdc.RegisterConcrete(&ContinuousVestingAccount{}, "htdf/ContinuousVestingAccount", nil)
-	cdc.RegisterConcrete(&DelayedVestingAccount{}, "htdf/DelayedVestingAccount", nil)
+	cdc.RegisterConcrete(&BaseAccount{}, "sscq/BaseAccount", nil)
+	cdc.RegisterConcrete(&BaseVestingAccount{}, "sscq/BaseVestingAccount", nil)
+	cdc.RegisterConcrete(&ContinuousVestingAccount{}, "sscq/ContinuousVestingAccount", nil)
+	cdc.RegisterConcrete(&DelayedVestingAccount{}, "sscq/DelayedVestingAccount", nil)
 	codec.RegisterCrypto(cdc)
 }
 

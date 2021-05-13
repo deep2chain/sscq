@@ -11,19 +11,19 @@ import (
 // Router provides handlers for each transaction type.
 type Router interface {
 
-	////////////////////  htdf/cosmos-sdk begin  ///////////////////////////
+	////////////////////  sscq/cosmos-sdk begin  ///////////////////////////
 	AddRoute(r string, s []*sdk.KVStoreKey, h sdk.Handler) (rtr Router)
 	Route(path string) (h sdk.Handler)
 	RouteTable() (table []string)
-	////////////////////  htdf/cosmos-sdk end  ///////////////////////////
+	////////////////////  sscq/cosmos-sdk end  ///////////////////////////
 }
 
 // map a transaction type to a handler and an initgenesis function
 type route struct {
 	r string
-	////////////////////  htdf/cosmos-sdk begin  ///////////////////////////
+	////////////////////  sscq/cosmos-sdk begin  ///////////////////////////
 	s []*sdk.KVStoreKey
-	////////////////////  htdf/cosmos-sdk end  ///////////////////////////
+	////////////////////  sscq/cosmos-sdk end  ///////////////////////////
 	h sdk.Handler
 }
 
@@ -43,7 +43,7 @@ func NewRouter() *router {
 var isAlphaNumeric = regexp.MustCompile(`^[a-zA-Z0-9]+$`).MatchString
 
 // AddRoute - TODO add description
-////////////////////  htdf/cosmos-sdk begin  ///////////////////////////
+////////////////////  sscq/cosmos-sdk begin  ///////////////////////////
 func (rtr *router) AddRoute(r string, s []*sdk.KVStoreKey, h sdk.Handler) Router {
 	rstrs := strings.Split(r, "-")
 
@@ -55,7 +55,7 @@ func (rtr *router) AddRoute(r string, s []*sdk.KVStoreKey, h sdk.Handler) Router
 	return rtr
 }
 
-////////////////////  htdf/cosmos-sdk end  ///////////////////////////
+////////////////////  sscq/cosmos-sdk end  ///////////////////////////
 
 // Route - TODO add description
 // TODO handle expressive matches.
@@ -68,7 +68,7 @@ func (rtr *router) Route(path string) (h sdk.Handler) {
 	return nil
 }
 
-////////////////////  htdf/cosmos-sdk begin  ///////////////////////////
+////////////////////  sscq/cosmos-sdk begin  ///////////////////////////
 
 func (rtr *router) RouteTable() (table []string) {
 	for _, route := range rtr.routes {
@@ -85,4 +85,4 @@ func (rtr *router) RouteTable() (table []string) {
 	return
 }
 
-////////////////////  htdf/cosmos-sdk end  ///////////////////////////
+////////////////////  sscq/cosmos-sdk end  ///////////////////////////

@@ -8,14 +8,14 @@ var msgCdc = codec.New()
 
 // Register concrete types on codec codec
 func RegisterCodec(cdc *codec.Codec) {
-	cdc.RegisterConcrete(MsgSubmitSoftwareUpgradeProposal{}, "htdf/gov/MsgSubmitSoftwareUpgradeProposal", nil)
-	cdc.RegisterConcrete(MsgSubmitProposal{}, "htdf/gov/MsgSubmitProposal", nil)
-	cdc.RegisterConcrete(MsgDeposit{}, "htdf/gov/MsgDeposit", nil)
-	cdc.RegisterConcrete(MsgVote{}, "htdf/gov/MsgVote", nil)
+	cdc.RegisterConcrete(MsgSubmitSoftwareUpgradeProposal{}, "sscq/gov/MsgSubmitSoftwareUpgradeProposal", nil)
+	cdc.RegisterConcrete(MsgSubmitProposal{}, "sscq/gov/MsgSubmitProposal", nil)
+	cdc.RegisterConcrete(MsgDeposit{}, "sscq/gov/MsgDeposit", nil)
+	cdc.RegisterConcrete(MsgVote{}, "sscq/gov/MsgVote", nil)
 
 	cdc.RegisterInterface((*ProposalContent)(nil), nil)
-	cdc.RegisterConcrete(&Proposal{}, "htdf/gov/Proposal", nil)
-	cdc.RegisterConcrete(&SoftwareUpgradeProposal{}, "htdf/gov/SoftwareUpgradeProposal", nil)
+	cdc.RegisterConcrete(&Proposal{}, "sscq/gov/Proposal", nil)
+	cdc.RegisterConcrete(&SoftwareUpgradeProposal{}, "sscq/gov/SoftwareUpgradeProposal", nil)
 }
 
 func init() {

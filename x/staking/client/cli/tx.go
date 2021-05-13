@@ -125,8 +125,8 @@ func GetCmdDelegate(cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.ExactArgs(3),
 		Short: "delegate liquid tokens to a validator",
 		Long: strings.TrimSpace(`Delegate an amount of liquid coins to a validator from your wallet:
-$ hscli tx staking delegate htdf1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
-							htdfvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc \
+$ hscli tx staking delegate sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
+							sscqvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc \
 				   			1000satoshi
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -163,9 +163,9 @@ func GetCmdRedelegate(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "redelegate illiquid tokens from one validator to another",
 		Args:  cobra.ExactArgs(4),
 		Long: strings.TrimSpace(`Redelegate an amount of illiquid staking tokens from one validator to another:
-$ hscli tx staking redelegate htdf1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
-							  htdfvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc \
-							  htdfvaloper1lsh3qpmjmp7el92x4wp8a675eg9rlm5e9pukkf \
+$ hscli tx staking redelegate sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
+							  sscqvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc \
+							  sscqvaloper1lsh3qpmjmp7el92x4wp8a675eg9rlm5e9pukkf \
 							  100satoshi
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -205,8 +205,8 @@ func GetCmdUnbond(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "unbond shares from a validator",
 		Args:  cobra.ExactArgs(3),
 		Long: strings.TrimSpace(`Unbond an amount of bonded shares from a validator:
-$ hscli tx staking unbond htdf1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
-						  htdfvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc \
+$ hscli tx staking unbond sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
+						  sscqvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc \
 						  100satoshi
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -241,8 +241,8 @@ func GetCmdUpgradeDelStatus(storeName string, cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.ExactArgs(1),
 		Long: strings.TrimSpace(`Upgrade delegator status from a validator:
 $ hscli tx staking uds 
-						  htdf1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz 
-						  --delegator-manager=htdfvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc
+						  sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz 
+						  --delegator-manager=sscqvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc
 						  --delegator-status=true
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {

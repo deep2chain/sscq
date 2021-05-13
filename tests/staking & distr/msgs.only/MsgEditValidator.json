@@ -1,13 +1,13 @@
 {
-    "type": "htdf/MsgEditValidator", 
+    "type": "sscq/MsgEditValidator", 
     "value": {
         "Description": {
             "details": "To infinity and beyond!", 
             "identity": "23870f5bb12ba2c4967c46db", 
             "moniker": "client", 
-            "website": "https://htdf.network"
+            "website": "https://sscq.network"
         }, 
-        "address": "htdfvaloper1sejc6tedytvkgshf5yfyfl2dlw4xxkq040st0h", 
+        "address": "sscqvaloper1sejc6tedytvkgshf5yfyfl2dlw4xxkq040st0h", 
         "commission_rate": "0.100000000000000000", 
         "min_self_delegation": null
     }

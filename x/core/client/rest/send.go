@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/deep2chain/sscq/accounts/keystore"
-	htdfRest "github.com/deep2chain/sscq/accounts/rest"
+	sscqRest "github.com/deep2chain/sscq/accounts/rest"
 	"github.com/deep2chain/sscq/client"
 	"github.com/deep2chain/sscq/client/context"
 	"github.com/deep2chain/sscq/client/utils"
@@ -40,7 +40,7 @@ func SendTxRequestHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Ha
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		var req SendReq
-		var mreq htdfRest.SendShiftReq
+		var mreq sscqRest.SendShiftReq
 		if !rest.ReadRESTReq(w, r, cdc, &mreq) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return

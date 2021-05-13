@@ -230,7 +230,7 @@ func handleMsgSvcWithdrawTax(ctx sdk.Context, k Keeper, msg MsgSvcWithdrawTax) s
 
 // Called every block, update request status
 func EndBlocker(ctx sdk.Context, keeper Keeper) (resTags sdk.Tags) {
-	ctx = ctx.WithLogger(ctx.Logger().With("handler", "endBlock").With("module", "htdf/service"))
+	ctx = ctx.WithLogger(ctx.Logger().With("handler", "endBlock").With("module", "sscq/service"))
 	logger := ctx.Logger()
 	// Reset the intra-transaction counter.
 	keeper.SetIntraTxCounter(ctx, 0)

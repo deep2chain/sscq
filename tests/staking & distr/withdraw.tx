@@ -8,10 +8,10 @@
         "memo": "contract test", 
         "msg": [
             {
-                "type": "htdf/MsgWithdrawDelegationReward", 
+                "type": "sscq/MsgWithdrawDelegationReward", 
                 "value": {
-                    "delegator_address": "htdf1sejc6tedytvkgshf5yfyfl2dlw4xxkq0lkgjcu", 
-                    "validator_address": "htdfvaloper1n8lxc8n7dhc50hv5rqemuljrkmm0tstpawx96y"
+                    "delegator_address": "sscq1sejc6tedytvkgshf5yfyfl2dlw4xxkq0lkgjcu", 
+                    "validator_address": "sscqvaloper1n8lxc8n7dhc50hv5rqemuljrkmm0tstpawx96y"
                 }
             }
         ]

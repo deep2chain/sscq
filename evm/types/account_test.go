@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	strAddr = "htdf1gh8yeqhxx7n29fx3fuaksqpdsau7gxc0rteptt"
+	strAddr = "sscq1gh8yeqhxx7n29fx3fuaksqpdsau7gxc0rteptt"
 )
 
 func init() {

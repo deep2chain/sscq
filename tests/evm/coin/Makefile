@@ -2,12 +2,12 @@
 
 # contract tx hash: 141D3CD4EB7B0BDB41C2313CF2170F6FBF0410898BEB05FBB7D88BA182E5028B
 #					58A1FD7C7FD874FB72E9776638DF4C9107EF263CC8401738AC2FD60AB5BC08B6
-# contract addr: htdf1hx484kx6nntkv5ascuw20c5pn7a879agvmurh7
-# issuer:		 htdf1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
+# contract addr: sscq1hx484kx6nntkv5ascuw20c5pn7a879agvmurh7
+# issuer:		 sscq1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
 # query data:	 0x07546172
 # log:			 "log": "{\"code\":0,\"message\":\"ok\",\"contract_address\":\"\",\"evm_output\":\"000000000000000000000000bf7c3270279e15d623304f2665076a53ba062b06\"}"
 # result:		 hsutils hex2json bf7c3270279e15d623304f2665076a53ba062b06
-#				 htdf1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
+#				 sscq1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
 
 calc.method.id:
 	@make -sC ../ get.method.id

@@ -4,7 +4,7 @@
 # [.hsd] for validators
 # [genesis.json, config.toml] for observers
 # from usdp
-# source: github.com//htdf/tools/deploy/ssh/remote/no-sentry/pubip-only/pem/Makefile
+# source: github.com//sscq/tools/deploy/ssh/remote/no-sentry/pubip-only/pem/Makefile
 # you should prepare the following files.
 # 1. servers.info
 # >>>
@@ -22,8 +22,8 @@
 # server4 ansible_host=47.11.5.14 ansible_user=root ansible_ssh_private_key_file=/tmp/47.11.5.14.pem
 
 ### hint
-# issuer: htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
-# staker: htdf1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
+# issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+# staker: sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
 
 # index
 PEM_COL_INDEX = 2
@@ -37,13 +37,13 @@ FIRST_ROW_INDEX = 2
 ## chain
 CHAIN_ID = mainchain
 MINIMUM_GAS_PRICES = 100satoshi
-GUARDIAN_ADDRESS = htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
-ISSUER_ADDRESS = htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+GUARDIAN_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
 ISSUER_AMOUNT = $$(python -c "print 1000000*10**8")
-# STAKER_ADDRESS = htdf1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
+# STAKER_ADDRESS = sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
 DEFAULT_PORT = 26656
 ## setup
-CONFIGDIR = $(HOME)/config/nosentry/htdf/production
+CONFIGDIR = $(HOME)/config/nosentry/sscq/production
 SERVER_INFO = $(CONFIGDIR)/servers.info
 SERVER_LIST = $(CONFIGDIR)/server.list
 PEMDIR = $(CONFIGDIR)/pems
@@ -74,7 +74,7 @@ create.accounts.list:
 
 # junying-todo, 2020-02-13
 # caution: tab insert doesn't work well. it needs manual works on some condition
-# htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3	100000000000000
+# sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3	100000000000000
 add.issuer:
 	@echo ${ISSUER_ADDRESS}	${ISSUER_AMOUNT}>> ${CONFIGDIR}/accounts.list
 

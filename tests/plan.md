@@ -9,7 +9,7 @@
   * [ ] **checkpoint**: potential & historical hacks
   * [ ] **checkpoint**: possible security holes(leaks)
     * [ ] *backdoors/uap*(rest/cmd apis)
-      * [ ] htdf backdoors
+      * [ ] sscq backdoors
       * [ ] tendermint backdoors
       * [ ] cosmos backdoors
     * [ ] *system-issuer* manipulation attack

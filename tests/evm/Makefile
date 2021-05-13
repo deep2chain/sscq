@@ -32,7 +32,7 @@ get.method.id:
 	 echo $$data
 
 # param: address
-# In:  htdf1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
+# In:  sscq1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
 # Out: BF7C3270279E15D623304F2665076A53BA062B06
 # 	   bf7c3270279e15d623304f2665076a53ba062b06
 #	   000000000000000000000000bf7c3270279e15d623304f2665076a53ba062b06
@@ -87,8 +87,8 @@ create.contract.default:
 	 make -sC . execute
 
 # contract tx hash: 141D3CD4EB7B0BDB41C2313CF2170F6FBF0410898BEB05FBB7D88BA182E5028B
-# contract addr: htdf1hx484kx6nntkv5ascuw20c5pn7a879agvmurh7
-# issuer:		 htdf1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
+# contract addr: sscq1hx484kx6nntkv5ascuw20c5pn7a879agvmurh7
+# issuer:		 sscq1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
 
 TMP_PATH = /tmp/result.json
 

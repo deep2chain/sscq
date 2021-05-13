@@ -59,7 +59,7 @@ func TestMsgDepositGetSignBytes(t *testing.T) {
 	msg := NewMsgDeposit(addr, 0, coinsPos)
 	res := msg.GetSignBytes()
 
-	expected := `{"type":"htdf/gov/MsgDeposit","value":{"amount":[{"amount":"1000","denom":"satoshi"}],"depositor":"htdf1v9jxgu33q992ng","proposal_id":"0"}}`
+	expected := `{"type":"sscq/gov/MsgDeposit","value":{"amount":[{"amount":"1000","denom":"satoshi"}],"depositor":"sscq1v9jxgu33q992ng","proposal_id":"0"}}`
 	require.Equal(t, expected, string(res))
 }
 

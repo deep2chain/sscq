@@ -12,7 +12,7 @@ COPY ../../build/* /usr/local/bin/
 
 ENV CHAINID testchain
 ENV PASSPHRASE 12345678
-ENV BALANCE 10000000htdf
+ENV BALANCE 10000000sscq
 
 RUN hsd init --chain-id $CHAINID
 RUN hsd add-genesis-account $(hscli accounts new $PASSPHRASE) $BALANCE

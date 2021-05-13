@@ -69,7 +69,7 @@ func cleanup(dataDir string) {
 func TestStateDB(t *testing.T) {
 
 	//---------------------stateDB test--------------------------------------
-	dataPath := "/tmp/htdfStateDB"
+	dataPath := "/tmp/sscqStateDB"
 	db := dbm.NewDB("state", dbm.LevelDBBackend, dataPath)
 
 	cdc := newTestCodec1()

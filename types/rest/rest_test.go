@@ -14,7 +14,7 @@ import (
 type mockResponseWriter struct{}
 
 func TestBaseReqValidateBasic(t *testing.T) {
-	fromAddr := "htdf1lmyv4ars9j0glk6n0d23njlcjnrxuwxpxxqymd"
+	fromAddr := "sscq1lmyv4ars9j0glk6n0d23njlcjnrxuwxpxxqymd"
 	gasWanted := "200000"
 	gasPrice := "100"
 	req1 := NewBaseReq(

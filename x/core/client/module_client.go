@@ -20,24 +20,24 @@ func NewModuleClient(storeKey string, cdc *amino.Codec) ModuleClient {
 // GetQueryCmd returns the cli query commands for this module
 func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 	// Group sscqservice queries under a subcommand
-	htdfsvcQueryCmd := &cobra.Command{
+	sscqsvcQueryCmd := &cobra.Command{
 		Use:   "hs",
 		Short: "Querying commands for the sscqservice module",
 	}
 
-	htdfsvcQueryCmd.AddCommand(client.GetCommands()...)
+	sscqsvcQueryCmd.AddCommand(client.GetCommands()...)
 
-	return htdfsvcQueryCmd
+	return sscqsvcQueryCmd
 }
 
 // GetTxCmd returns the transaction commands for this module
 func (mc ModuleClient) GetTxCmd() *cobra.Command {
-	htdfsvcTxCmd := &cobra.Command{
+	sscqsvcTxCmd := &cobra.Command{
 		Use:   "hs",
 		Short: "HtdfService transactions subcommands",
 	}
 
-	htdfsvcTxCmd.AddCommand(client.PostCommands(
+	sscqsvcTxCmd.AddCommand(client.PostCommands(
 		//sscqservicecmd.GetCmdAdd(mc.cdc),
 		//sscqservicecmd.GetCmdIssue(mc.cdc),
 		sscqservicecmd.GetCmdSend(mc.cdc),
@@ -46,5 +46,5 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 		sscqservicecmd.GetCmdBroadCast(mc.cdc),
 	)...)
 
-	return htdfsvcTxCmd
+	return sscqsvcTxCmd
 }

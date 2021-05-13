@@ -5,7 +5,7 @@ test contract call contract
 
 pragma solidity ^0.4.20;
 
-import "./htdf_faucet.sol";
+import "./sscq_faucet.sol";
 
 contract CallFaucet {
 

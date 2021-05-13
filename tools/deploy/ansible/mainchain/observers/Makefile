@@ -10,7 +10,7 @@
 #
 # 2. config.toml, genesis.json, hsd, hscli, Makefile
 #################################################################
-CONFIG_DIR=/home/ubuntu/config/nosentry/htdf/observation
+CONFIG_DIR=/home/ubuntu/config/nosentry/sscq/observation
 
 all: init cp.config start
 
@@ -19,14 +19,14 @@ init:
 
 copy: cp.config cp.hsd cp.hscli cp.Makefile
 cp.config:
-	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/htdf/observation/config.toml dest=/root/.hsd/config force=yes"
-	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/htdf/observation/genesis.json dest=/root/.hsd/config force=yes"
+	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/sscq/observation/config.toml dest=/root/.hsd/config force=yes"
+	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/sscq/observation/genesis.json dest=/root/.hsd/config force=yes"
 cp.hsd:	
 	@ansible observers -m copy -a "src=/home/ubuntu/go/bin/hsd dest=/usr/local/bin force=yes mode=755"
 cp.hscli:	
 	@ansible observers -m copy -a "src=/home/ubuntu/go/bin/hscli dest=/usr/local/bin force=yes mode=755"
 cp.Makefile:
-	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/htdf/observation/Makefile dest=/root force=yes"	
+	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/sscq/observation/Makefile dest=/root force=yes"	
 
 start:
 	@ansible observers -m shell -a "make start-daemon start-rest"

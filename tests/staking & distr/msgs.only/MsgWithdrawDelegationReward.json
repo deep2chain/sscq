@@ -1,7 +1,7 @@
 {
-    "type": "htdf/MsgWithdrawDelegationReward", 
+    "type": "sscq/MsgWithdrawDelegationReward", 
     "value": {
-        "delegator_address": "htdf10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj", 
-        "validator_address": "htdfvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme"
+        "delegator_address": "sscq10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj", 
+        "validator_address": "sscqvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme"
     }
 }

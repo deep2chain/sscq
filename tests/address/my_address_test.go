@@ -21,7 +21,7 @@ func init() {
 func TestBech32Address(t *testing.T) {
 
 	//bech32 to binary
-	bech32Contract := "htdf1nkkc48lfchy92ahg50akj2384v4yfqpm4hsq6y"
+	bech32Contract := "sscq1nkkc48lfchy92ahg50akj2384v4yfqpm4hsq6y"
 	binContractAddr, err := sdk.AccAddressFromBech32(bech32Contract)
 	assert.Equal(t, err, nil)
 
@@ -29,7 +29,7 @@ func TestBech32Address(t *testing.T) {
 	assert.Equal(t, bech32Contract == binContractAddr.String(), true)
 	fmt.Printf("binContractAddr=%x|binAddress.String=%s\n", binContractAddr, binContractAddr.String())
 
-	bech32Minter := "htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3"
+	bech32Minter := "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3"
 	accaddrTmp, err := sdk.AccAddressFromHex("85ced8ddf399d75c9e381e01f3bddcefb9132fe9")
 	assert.Equal(t, err, nil)
 	assert.Equal(t, bech32Minter == accaddrTmp.String(), true)
@@ -37,7 +37,7 @@ func TestBech32Address(t *testing.T) {
 	fmt.Printf("accaddrTmp.String=%s\n", accaddrTmp.String())
 
 	//bech32 to binary
-	bech32BitKeep := "htdf17qarupfh9gee0yvywhxfy2zv39fjttracvgapx"
+	bech32BitKeep := "sscq17qarupfh9gee0yvywhxfy2zv39fjttracvgapx"
 	binBitKeepAddr, err := sdk.AccAddressFromBech32(bech32BitKeep)
 	assert.Equal(t, err, nil)
 	fmt.Printf("binBitKeepAddr=%x|\n", binBitKeepAddr)

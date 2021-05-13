@@ -452,7 +452,7 @@ func (p *ProtocolV0) initFromGenesisState(ctx sdk.Context, DeliverTx sdk.Deliver
 	return validators
 }
 
-// custom logic for htdf initialization
+// custom logic for sscq initialization
 // just 0 version need Initchainer
 func (p *ProtocolV0) InitChainer(ctx sdk.Context, DeliverTx sdk.DeliverTx, req abci.RequestInitChain) abci.ResponseInitChain {
 	stateJSON := req.AppStateBytes

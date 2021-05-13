@@ -4,8 +4,8 @@
 # it will call constructor with arguments when creating a contract.
 
 # contract tx hash: 2861E1B659A72195DFDC25FBDF97EE7A17BBA7557051AC6BCDEB7ACB756A6B26
-# contract addr: htdf1guam0nv5ky049g6zg05qtx9y3ayv0v3pvaavu9
-# issuer:		 htdf1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
+# contract addr: sscq1guam0nv5ky049g6zg05qtx9y3ayv0v3pvaavu9
+# issuer:		 sscq1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
 # bid
 # 0x1998aeef
 #---------------------

@@ -45,7 +45,7 @@ func GetCmdSubmitProposal(cdc *codec.Codec) *cobra.Command {
 		Long: strings.TrimSpace(`
 Submit a proposal along with an initial deposit. Proposal title, description, type and deposit can be given directly or through a proposal JSON file. For example:
 
-$ hscli gov submit-proposal htdf1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 --proposal="path/to/proposal.json" --from mykey
+$ hscli gov submit-proposal sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 --proposal="path/to/proposal.json" --from mykey
 
 where proposal.json contains:
 
@@ -157,7 +157,7 @@ func GetCmdDeposit(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Long: strings.TrimSpace(`
 Submit a deposit for an acive proposal. You can find the proposal-id by running hscli query gov proposals:
 
-$ hscli tx gov deposit htdf1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 10stake
+$ hscli tx gov deposit sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 10stake
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
@@ -218,7 +218,7 @@ func GetCmdVote(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Long: strings.TrimSpace(`
 Submit a vote for an acive proposal. You can find the proposal-id by running hscli query gov proposals:
 
-$ hscli tx gov vote htdf1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 yes --from mykey
+$ hscli tx gov vote sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 yes --from mykey
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))

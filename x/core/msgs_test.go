@@ -89,7 +89,7 @@ func TestMsgSendGetSignBytes(t *testing.T) {
 	coins := sdk.NewCoins(sdk.NewInt64Coin("atom", 10))
 	var msg = NewMsgSendDefault(addr1, addr2, coins)
 	res := string(msg.GetSignBytes())
-	expected := `{"Amount":[{"amount":"10","denom":"atom"}],"Data":"","From":"htdf1d9h8qat5gn84g8","GasPrice":100,"GasWanted":30000,"To":"htdf1da6hgur4wsj5g5jq"}`
+	expected := `{"Amount":[{"amount":"10","denom":"atom"}],"Data":"","From":"sscq1d9h8qat5gn84g8","GasPrice":100,"GasWanted":30000,"To":"sscq1da6hgur4wsj5g5jq"}`
 	require.Equal(t, expected, res)
 }
 

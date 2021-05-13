@@ -4,27 +4,27 @@
 curl -X POST "http://localhost:1317/accounts/newaccount" -H "accept: application/json" -d "{\"password\": \"12345678\"}"
 ```
 ```json
-{"address": "htdf1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5"}
+{"address": "sscq1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5"}
 ```
 [get accountlist]
 ```bash
 curl -X GET "http://localhost:1317/accounts/list" -H "accept: application/json"
-Account #0: {htdf1yt0q9rdypm6zw83tm7r58etglsvgxzz6rymz0w}
-Account #1: {htdf1yysruaystrfuxuxfdsqjxa0shvzts27p8l2r2x}
+Account #0: {sscq1yt0q9rdypm6zw83tm7r58etglsvgxzz6rymz0w}
+Account #1: {sscq1yysruaystrfuxuxfdsqjxa0shvzts27p8l2r2x}
 ```
 
 [get account information]
 ```bash
-curl -X GET "http://localhost:1317/auth/accounts/htdf14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga" -H "accept: application/json"
+curl -X GET "http://localhost:1317/auth/accounts/sscq14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga" -H "accept: application/json"
 ```
 ```json
 {
 	"type": "auth/Account",
 	"value": {
-		"address": "htdf14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga",
+		"address": "sscq14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga",
 		"coins": [
 			{
-				"denom": "htdf",
+				"denom": "sscq",
 				"amount": "1000"
 			}
 		],
@@ -36,12 +36,12 @@ curl -X GET "http://localhost:1317/auth/accounts/htdf14yz30q7fqkvkks3wnmdm3sxkaf
 ```
 [getbalance]
 ```bash
-curl -X GET "http://localhost:1317/bank/balances/htdf14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga" -H "accept: application/json"
+curl -X GET "http://localhost:1317/bank/balances/sscq14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga" -H "accept: application/json"
 ```
 ```json
 [
 	{
-		"denom": "htdf",
+		"denom": "sscq",
 		"amount": "1000"
 	}
 ]
@@ -49,7 +49,7 @@ curl -X GET "http://localhost:1317/bank/balances/htdf14yz30q7fqkvkks3wnmdm3sxkaf
 ### transaction rest
 ```bash
 [send transaction]
-curl -X POST "http://localhost:1317/hs/send" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"htdf1njv34aldy8nn90jjqursjvvyvgmk38ez6hwpne\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"12345678\", \"chain_id\": \"testchain\", \"account_number\": \"0\", \"sequence\": \"0\", \"gas_wanted\": \"200000\", \"gas_price\": \"100\", \"simulate\": false }, \"amount\": [ { \"denom\": \"htdf\", \"amount\": \"0.1\" } ],\"to\": \"htdf1xxe7xd28zf4njuszp6m5hlut5mvlyna8pvdwf6\"}"
+curl -X POST "http://localhost:1317/hs/send" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"sscq1njv34aldy8nn90jjqursjvvyvgmk38ez6hwpne\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"12345678\", \"chain_id\": \"testchain\", \"account_number\": \"0\", \"sequence\": \"0\", \"gas_wanted\": \"200000\", \"gas_price\": \"100\", \"simulate\": false }, \"amount\": [ { \"denom\": \"sscq\", \"amount\": \"0.1\" } ],\"to\": \"sscq1xxe7xd28zf4njuszp6m5hlut5mvlyna8pvdwf6\"}"
 ```
 ```json
 {
@@ -65,18 +65,18 @@ curl -X POST "http://localhost:1317/hs/send" -H "accept: application/json" -H "C
 		},
 		{
 			"key": "sender",
-			"value": "htdf14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga"
+			"value": "sscq14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga"
 		},
 		{
 			"key": "recipient",
-			"value": "htdf1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5"
+			"value": "sscq1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5"
 		}
 	]
 }
 ```
 [create contraction]
 ```bash
-curl -X POST "http://localhost:1317/hs/send" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"htdf188ptmpj3rvthmtd5af2ajvyxg9qarkdf69kmzr\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"12345678\", \"chain_id\": \"testchain\", \"account_number\": \"0\", \"sequence\": \"2\", \"gas_wanted\": \"1200000\", \"gas_price\": \"100\", \"gas_adjustment\": \"1.2\", \"simulate\": false }, \"amount\": [ { \"denom\": \"htdf\", \"amount\": \"0.1\" } ],\"to\": \"\",\"data\": \"6060604052341561000f57600080fd5b336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555061042d8061005e6000396000f300606060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063075461721461006757806327e235e3146100bc57806340c10f1914610109578063d0679d341461014b575b600080fd5b341561007257600080fd5b61007a61018d565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156100c757600080fd5b6100f3600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506101b2565b6040518082815260200191505060405180910390f35b341561011457600080fd5b610149600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080359060200190919050506101ca565b005b341561015657600080fd5b61018b600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091908035906020019091905050610277565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60016020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561022557610273565b80600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055505b5050565b80600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205410156102c3576103fd565b80600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000828254039250508190555080600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055507f3990db2d31862302a685e8086b5755072a6e2b5b780af1ee81ece35ee3cd3345338383604051808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001828152602001935050505060405180910390a15b50505600a165627a7a7230582025e341a800f5478ed9b8aa0ee7a05d1165c779df9fd2479f9efaabdd937329b50029\",\"encode\":true}"
+curl -X POST "http://localhost:1317/hs/send" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"sscq188ptmpj3rvthmtd5af2ajvyxg9qarkdf69kmzr\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"12345678\", \"chain_id\": \"testchain\", \"account_number\": \"0\", \"sequence\": \"2\", \"gas_wanted\": \"1200000\", \"gas_price\": \"100\", \"gas_adjustment\": \"1.2\", \"simulate\": false }, \"amount\": [ { \"denom\": \"sscq\", \"amount\": \"0.1\" } ],\"to\": \"\",\"data\": \"6060604052341561000f57600080fd5b336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555061042d8061005e6000396000f300606060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063075461721461006757806327e235e3146100bc57806340c10f1914610109578063d0679d341461014b575b600080fd5b341561007257600080fd5b61007a61018d565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156100c757600080fd5b6100f3600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506101b2565b6040518082815260200191505060405180910390f35b341561011457600080fd5b610149600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080359060200190919050506101ca565b005b341561015657600080fd5b61018b600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091908035906020019091905050610277565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60016020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561022557610273565b80600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055505b5050565b80600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205410156102c3576103fd565b80600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000828254039250508190555080600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055507f3990db2d31862302a685e8086b5755072a6e2b5b780af1ee81ece35ee3cd3345338383604051808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001828152602001935050505060405180910390a15b50505600a165627a7a7230582025e341a800f5478ed9b8aa0ee7a05d1165c779df9fd2479f9efaabdd937329b50029\",\"encode\":true}"
 ```
 ```json
 {
@@ -86,7 +86,7 @@ curl -X POST "http://localhost:1317/hs/send" -H "accept: application/json" -H "C
 ```
 [create raw transaction]
 ```bash
-curl -X POST "http://localhost:1317/hs/create" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"htdf103x7taejyqwxrvyadu2yxd7u04wdqs5stq5a40\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"\", \"chain_id\": \"testchain\", \"account_number\": \"3\", \"sequence\": \"3\", \"gas_wanted\": \"30000\", \"gas_price\": \"100\", \"gas_adjustment\": \"1.2\", \"simulate\": false }, \"amount\": [ { \"denom\": \"htdf\", \"amount\": \"0.1\" } ],\"to\": \"htdf1ec5yff9km0tlaemmuz6lk5zftkjv44hztjtfnc\",\"encode\":true}"
+curl -X POST "http://localhost:1317/hs/create" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"base_req\": { \"from\": \"sscq103x7taejyqwxrvyadu2yxd7u04wdqs5stq5a40\", \"memo\": \"Sent via Cosmos Voyager \",\"password\": \"\", \"chain_id\": \"testchain\", \"account_number\": \"3\", \"sequence\": \"3\", \"gas_wanted\": \"30000\", \"gas_price\": \"100\", \"gas_adjustment\": \"1.2\", \"simulate\": false }, \"amount\": [ { \"denom\": \"sscq\", \"amount\": \"0.1\" } ],\"to\": \"sscq1ec5yff9km0tlaemmuz6lk5zftkjv44hztjtfnc\",\"encode\":true}"
 7b2274797065223a22617574682f5374645478222c2276616c7565223a7b226d7367223a5b7b2274797065223a2268746466736572766963652f73656e64222c2276616c7565223a7b2246726f6d223a22757364703134797a3330713766716b766b6b7333776e6d646d3373786b6166756767756576756c34346761222c22546f223a2275736470316832393066366b666a776a657875647174703768756a6d35326338366d663871357675736835222c22416d6f756e74223a5b7b2264656e6f6d223a2268746466222c22616d6f756e74223a223130227d5d7d7d5d2c22666565223a7b22616d6f756e74223a5b7b2264656e6f6d223a2268746466222c22616d6f756e74223a223130227d5d2c22676173223a22323030303030227d2c227369676e617475726573223a6e756c6c2c226d656d6f223a2253656e742076696120436f736d6f7320566f7961676572227d7d
 ```
 [sign raw transaction]
@@ -112,11 +112,11 @@ curl -X POST "http://localhost:1317/hs/broadcast" -H "accept: aplication/json" -
 		},
 		{
 			"key": "sender",
-			"value": "htdf14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga"
+			"value": "sscq14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga"
 		},
 		{
 			"key": "recipient",
-			"value": "htdf1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5"
+			"value": "sscq1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5"
 		}
 	]
 }
@@ -380,11 +380,11 @@ curl -X GET "http://localhost:1317/block_detail/315817" -H "accept: application/
   "block": {
     "txs": [
       {
-        "From": "htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3",
+        "From": "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3",
         "To": "",
         "Amount": [
           {
-            "denom": "htdf",
+            "denom": "sscq",
             "amount": "0"
           }
         ],
@@ -511,11 +511,11 @@ curl -X GET "http://localhost:1317/txs/02A61744D89A14E9C01C9B08B74EFADD6FE9DB9A6
 		},
 		{
 			"key": "sender",
-			"value": "htdf14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga"
+			"value": "sscq14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga"
 		},
 		{
 			"key": "recipient",
-			"value": "htdf1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5"
+			"value": "sscq1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5"
 		}
 	],
 	"tx": {
@@ -525,11 +525,11 @@ curl -X GET "http://localhost:1317/txs/02A61744D89A14E9C01C9B08B74EFADD6FE9DB9A6
 				{
 					"type": "sscqservice/send",
 					"value": {
-						"From": "htdf14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga",
-						"To": "htdf1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5",
+						"From": "sscq14yz30q7fqkvkks3wnmdm3sxkafugguevul44ga",
+						"To": "sscq1h290f6kfjwjexudqtp7hujm52c86mf8q5vush5",
 						"Amount": [
 							{
-								"denom": "htdf",
+								"denom": "sscq",
 								"amount": "10"
 							}
 						]
@@ -539,7 +539,7 @@ curl -X GET "http://localhost:1317/txs/02A61744D89A14E9C01C9B08B74EFADD6FE9DB9A6
 			"fee": {
 				"amount": [
 					{
-						"denom": "htdf",
+						"denom": "sscq",
 						"amount": "10"
 					}
 				],
@@ -593,8 +593,8 @@ curl -X GET "http://localhost:1317/validatorsets/latest" -H "accept: application
 		"block_height": "541",
 		"validators": [
 			{
-				"address": "htdfvalcons1ad7rzcehm76c6zn0d9e9wrdjymlylas8mgjer3",
-				"pub_key": "htdfvalconspub1zcjduepqwvxldrg9ftnwwskst7n5u8p8lny8mffuxql3yrscf75pynwt505s0rt3xl",
+				"address": "sscqvalcons1ad7rzcehm76c6zn0d9e9wrdjymlylas8mgjer3",
+				"pub_key": "sscqvalconspub1zcjduepqwvxldrg9ftnwwskst7n5u8p8lny8mffuxql3yrscf75pynwt505s0rt3xl",
 				"proposer_priority": "0",
 				"voting_power": "10"
 			}
@@ -611,8 +611,8 @@ curl -X GET "http://localhost:1317/validatorsets/5" -H "accept: application/json
 		"block_height": "5",
 		"validators": [
 			{
-				"address": "htdfvalcons1ad7rzcehm76c6zn0d9e9wrdjymlylas8mgjer3",
-				"pub_key": "htdfvalconspub1zcjduepqwvxldrg9ftnwwskst7n5u8p8lny8mffuxql3yrscf75pynwt505s0rt3xl",
+				"address": "sscqvalcons1ad7rzcehm76c6zn0d9e9wrdjymlylas8mgjer3",
+				"pub_key": "sscqvalconspub1zcjduepqwvxldrg9ftnwwskst7n5u8p8lny8mffuxql3yrscf75pynwt505s0rt3xl",
 				"proposer_priority": "0",
 				"voting_power": "10"
 			}
@@ -631,14 +631,14 @@ curl -X GET "http://localhost:1317/minting/rewards/2" -H "accept: application/js
 ```
 #### - validator rewards
 ```bash
-curl -X GET "http://localhost:1317/distribution/validators/htdfvaloper1hv3hgjq9qadlnsf38qsrmnjwua92gm80ql45g7" -H "accept: application/json"
+curl -X GET "http://localhost:1317/distribution/validators/sscqvaloper1hv3hgjq9qadlnsf38qsrmnjwua92gm80ql45g7" -H "accept: application/json"
 ```
 ```json
-{"operator_address":"htdf1hv3hgjq9qadlnsf38qsrmnjwua92gm802xddl4","self_bond_rewards":[{"denom":"satoshi","amount":"193328.804218410200000000"}],"val_commission":[{"denom":"satoshi","amount":"25890302.770065504352646621"}]}
+{"operator_address":"sscq1hv3hgjq9qadlnsf38qsrmnjwua92gm802xddl4","self_bond_rewards":[{"denom":"satoshi","amount":"193328.804218410200000000"}],"val_commission":[{"denom":"satoshi","amount":"25890302.770065504352646621"}]}
 ```
 #### - delegator rewards
 ```bash
-curl -X GET "http://localhost:1317/distribution/delegators/htdf10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj/rewards/htdfvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme" -H "accept: application/json"
+curl -X GET "http://localhost:1317/distribution/delegators/sscq10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj/rewards/sscqvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme" -H "accept: application/json"
 ```
 ```json
 [
@@ -649,7 +649,7 @@ curl -X GET "http://localhost:1317/distribution/delegators/htdf10fjsnx05ewesqjlm
 ]
 ```
 ```bash
-curl -X GET "http://localhost:1317/distribution/validators/htdfvaloper1hv3hgjq9qadlnsf38qsrmnjwua92gm80ql45g7/rewards" -H "accept: application/json"
+curl -X GET "http://localhost:1317/distribution/validators/sscqvaloper1hv3hgjq9qadlnsf38qsrmnjwua92gm80ql45g7/rewards" -H "accept: application/json"
 ```
 ```json
 [
@@ -660,7 +660,7 @@ curl -X GET "http://localhost:1317/distribution/validators/htdfvaloper1hv3hgjq9q
 ]
 ```
 ```bash
-curl -X GET "http://localhost:1317/distribution/delegators/htdf10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj/rewards" -H "accept: application/json"
+curl -X GET "http://localhost:1317/distribution/delegators/sscq10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj/rewards" -H "accept: application/json"
 ```
 ```json
 [
@@ -673,7 +673,7 @@ curl -X GET "http://localhost:1317/distribution/delegators/htdf10fjsnx05ewesqjlm
 ```
 #### outstanding
 ```bash
-curl -X GET "http://localhost:1317/distribution/validators/htdfvaloper1hv3hgjq9qadlnsf38qsrmnjwua92gm80ql45g7/outstanding_rewards" -H "accept: application/json"
+curl -X GET "http://localhost:1317/distribution/validators/sscqvaloper1hv3hgjq9qadlnsf38qsrmnjwua92gm80ql45g7/outstanding_rewards" -H "accept: application/json"
 ```
 ```json
 [
@@ -695,44 +695,44 @@ curl -X GET "http://localhost:1317/minting/total-provisions" -H "accept: applica
 ### contract call
 [call contract]
 ```bash
-curl -X GET "http://localhost:1317/hs/contract/htdf12dvguqedrvgfrdl35hcgfmz4fz6rm6chrvf96g/70a0823100000000000000000000000027681ceb7de9bae3c5f7f10f81ff5106e2ca48a7" -H "accept: application/json"
+curl -X GET "http://localhost:1317/hs/contract/sscq12dvguqedrvgfrdl35hcgfmz4fz6rm6chrvf96g/70a0823100000000000000000000000027681ceb7de9bae3c5f7f10f81ff5106e2ca48a7" -H "accept: application/json"
 ```
 [get contract code]
 ```bash
-curl -X GET "http://localhost:1317/hs/contract/htdf1ks6vgnp25r2eaa9k70dmsp448wmrma8mnucrsz/0000" -H "accept: application/json"
+curl -X GET "http://localhost:1317/hs/contract/sscq1ks6vgnp25r2eaa9k70dmsp448wmrma8mnucrsz/0000" -H "accept: application/json"
 ``` 
 ### Delegations
 ```
-curl -X GET "http://localhost:1317/staking/delegators/htdf1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/delegations" -H "accept: application/json"
+curl -X GET "http://localhost:1317/staking/delegators/sscq1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/delegations" -H "accept: application/json"
 
-curl -X GET "http://localhost:1317/staking/delegators/htdf1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/delegations/htdfvaloper1v8j6r7ttfac07nuhy8uhxgumy7442ck532287d" -H "accept: application/json"
+curl -X GET "http://localhost:1317/staking/delegators/sscq1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/delegations/sscqvaloper1v8j6r7ttfac07nuhy8uhxgumy7442ck532287d" -H "accept: application/json"
 
-curl -X GET "http://localhost:1317/staking/validators/htdfvaloper1v8j6r7ttfac07nuhy8uhxgumy7442ck532287d/delegations" -H "accept: application/json"
+curl -X GET "http://localhost:1317/staking/validators/sscqvaloper1v8j6r7ttfac07nuhy8uhxgumy7442ck532287d/delegations" -H "accept: application/json"
 ```
 ```json
 >
 [
   {
-    "delegator_address": "htdf10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj",
-    "validator_address": "htdfvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme",
+    "delegator_address": "sscq10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj",
+    "validator_address": "sscqvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme",
     "shares": "10000000000.000000000000000000",
     "status": false
   }
 ]
 ```
 ```
-curl -X GET "http://localhost:1317/staking/delegators/htdf1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/delegations/extended" -H "accept: application/json"
+curl -X GET "http://localhost:1317/staking/delegators/sscq1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/delegations/extended" -H "accept: application/json"
 
-curl -X GET "http://localhost:1317/staking/delegators/htdf1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/delegations/htdfvaloper1v8j6r7ttfac07nuhy8uhxgumy7442ck532287d/extended" -H "accept: application/json"
+curl -X GET "http://localhost:1317/staking/delegators/sscq1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/delegations/sscqvaloper1v8j6r7ttfac07nuhy8uhxgumy7442ck532287d/extended" -H "accept: application/json"
 
-curl -X GET "http://localhost:1317/staking/validators/htdfvaloper1v8j6r7ttfac07nuhy8uhxgumy7442ck532287d/delegations/extended" -H "accept: application/json"
+curl -X GET "http://localhost:1317/staking/validators/sscqvaloper1v8j6r7ttfac07nuhy8uhxgumy7442ck532287d/delegations/extended" -H "accept: application/json"
 ```
 ```json
 >
 [
   {
-    "delegator_address": "htdf10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj",
-    "validator_address": "htdfvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme",
+    "delegator_address": "sscq10fjsnx05ewesqjlmy5pesxzwa2t7z4e6vvqxvj",
+    "validator_address": "sscqvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme",
     "shares": "10000000000.000000000000000000",
 		"tokens": "99000618.000000000000000000",
     "status": false
@@ -741,15 +741,15 @@ curl -X GET "http://localhost:1317/staking/validators/htdfvaloper1v8j6r7ttfac07n
 ```
 ### Validators
 ```
-curl -X GET "http://localhost:1317/staking/delegators/htdf1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/validators" -H "accept: application/json"
+curl -X GET "http://localhost:1317/staking/delegators/sscq1v8j6r7ttfac07nuhy8uhxgumy7442ck5mnj7fx/validators" -H "accept: application/json"
 
-curl -X GET "http://localhost:1317/staking/validators/htdfvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme" -H "accept: application/json"
+curl -X GET "http://localhost:1317/staking/validators/sscqvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme" -H "accept: application/json"
 ```
 ```json
 [
   {
-    "operator_address": "htdfvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme",
-    "consensus_pubkey": "htdfvalconspub1zcjduepq7tcl9n4zrxekcnl7yqz3r9paaw2qs3vurd0z7ygl24zg73302wjq4n7nym",
+    "operator_address": "sscqvaloper10fjsnx05ewesqjlmy5pesxzwa2t7z4e6x4clme",
+    "consensus_pubkey": "sscqvalconspub1zcjduepq7tcl9n4zrxekcnl7yqz3r9paaw2qs3vurd0z7ygl24zg73302wjq4n7nym",
     "jailed": false,
     "status": 2,
     "tokens": "10000000000",

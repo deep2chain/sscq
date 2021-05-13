@@ -24,10 +24,10 @@ const (
 	UserProvisions = float64(60000000) // if not, this should be set as zero
 
 	CurrentProvisions          = UserProvisions + ValidatorTotalProvisions + IssuerAmount // ~60,000,000 at genesis
-	CurrentProvisionsAsSatoshi = int64(CurrentProvisions * htdf2satoshi)                  // ~60,000,000 at genesis
+	CurrentProvisionsAsSatoshi = int64(CurrentProvisions * sscq2satoshi)                  // ~60,000,000 at genesis
 	TotalLiquid                = MineTotalProvisions + CurrentProvisions                  // 96,000,000
-	TotalLiquidAsSatoshi       = int64(TotalLiquid * htdf2satoshi)                        // 96,000,000 * 100,000,000
+	TotalLiquidAsSatoshi       = int64(TotalLiquid * sscq2satoshi)                        // 96,000,000 * 100,000,000
 
-	htdf2satoshi = 100000000 // 1 htdf = 10 ** 8 satoshi
+	sscq2satoshi = 100000000 // 1 sscq = 10 ** 8 satoshi
 
 )

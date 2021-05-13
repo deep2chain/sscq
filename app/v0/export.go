@@ -20,7 +20,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
-// export the state of htdf for a genesis file
+// export the state of sscq for a genesis file
 func (p *ProtocolV0) ExportAppStateAndValidators(ctx sdk.Context, forZeroHeight bool, jailWhiteList []string) (
 	appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 

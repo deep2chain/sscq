@@ -279,7 +279,7 @@ func TestValidatorMarshalUnmarshalJSON(t *testing.T) {
 	require.NoError(t, err)
 	require.NotEmpty(t, js)
 	fmt.Printf("js=%s\n", string(js))
-	require.Contains(t, string(js), "\"consensus_pubkey\":\"htdfvalconspu")
+	require.Contains(t, string(js), "\"consensus_pubkey\":\"sscqvalconspu")
 	got := &Validator{}
 	err = codec.Cdc.UnmarshalJSON(js, got)
 	assert.NoError(t, err)

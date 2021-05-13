@@ -4,7 +4,7 @@
 
 # contract tx hash: 
 # contract addr: 
-# issuer:		 htdf1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
+# issuer:		 sscq1ha7ryup8nc2avgesfunx2pm22waqv2cx6dj0ac
 # vote
 ## parameters: 'uint256'
 ## query:	0x0121b93f

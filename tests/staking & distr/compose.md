@@ -29,10 +29,10 @@
     hsd tendermint show-validator
     - check status
     hscli query staking validators
-    hscli  query staking validator [htdfvaloper]
+    hscli  query staking validator [sscqvaloper]
     - confirm running
     hscli query tendermint-validator-set
-    hscli query tendermint-validator-set | grep [htdfvalcons/htdfvalconspub]
+    hscli query tendermint-validator-set | grep [sscqvalcons/sscqvalconspub]
     hscli query tendermint-validator-set | grep "$(hsd tendermint show-validator)"
     - start yours(tip: 100,000,000 for voting power 1, 1,000,000,000 for 10, 10,000,000,000 for 100)
     hscli tx staking create-validator $(hscli accounts list| sed -n '2p') \
@@ -49,7 +49,7 @@
     hscli tx staking edit-validator $(hscli accounts list| sed -n '2p')\
                 --moniker=client \
                 --chain-id=testchain \
-                --website="https://htdf.network" \
+                --website="https://sscq.network" \
                 --identity=23870f5bb12ba2c4967c46db \
                 --details="To infinity and beyond!" \
                 --gas-price=100 \
@@ -57,7 +57,7 @@
     - unjail
     hscli tx slashing unjail $(hscli accounts list| sed -n '2p') --gas-price=100
     - log
-    hscli query slashing signing-info [htdfvalconspub]
+    hscli query slashing signing-info [sscqvalconspub]
     - check
 
     [delegators]

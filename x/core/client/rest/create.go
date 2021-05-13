@@ -3,7 +3,7 @@ package rest
 import (
 	"net/http"
 
-	htdfRest "github.com/deep2chain/sscq/accounts/rest"
+	sscqRest "github.com/deep2chain/sscq/accounts/rest"
 	"github.com/deep2chain/sscq/client"
 	"github.com/deep2chain/sscq/client/context"
 	"github.com/deep2chain/sscq/client/utils"
@@ -29,7 +29,7 @@ func CreateTxRequestHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.
 	return func(w http.ResponseWriter, r *http.Request) {
 		// Load Request
 		var req CreateReq
-		var mreq htdfRest.CreateShiftReq
+		var mreq sscqRest.CreateShiftReq
 		if !rest.ReadRESTReq(w, r, cdc, &mreq) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return

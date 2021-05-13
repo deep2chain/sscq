@@ -44,7 +44,7 @@ necessary files (private validator, genesis, config, etc.).
 Note, strict routability for addresses is turned off in the config file.
 
 Example:
-hsd livenet --chain-id testchain --v 4 -o output --validator-ip-addresses ip.list --minimum-gas-prices 100satoshi --issuer-bech-address htdf1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3 --password-from-file password.list
+hsd livenet --chain-id testchain --v 4 -o output --validator-ip-addresses ip.list --minimum-gas-prices 100satoshi --issuer-bech-address sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3 --password-from-file password.list
 	`,
 		RunE: func(_ *cobra.Command, _ []string) error {
 			config := ctx.Config

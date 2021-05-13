@@ -3,15 +3,15 @@
     "value": {
       "msg": [
         {
-          "type": "htdf/MsgEditValidator",
+          "type": "sscq/MsgEditValidator",
           "value": {
             "Description": {
               "moniker": "xxx",
               "identity": "23870f5bb12ba2c4967c46db",
-              "website": "https://htdf.network",
+              "website": "https://sscq.network",
               "details": "To infinity and beyond!"
             },
-            "address": "htdfvaloper1n8lxc8n7dhc50hv5rqemuljrkmm0tstpawx96y",
+            "address": "sscqvaloper1n8lxc8n7dhc50hv5rqemuljrkmm0tstpawx96y",
             "commission_rate": "0.100000000000000000",
             "min_self_delegation": null
           }

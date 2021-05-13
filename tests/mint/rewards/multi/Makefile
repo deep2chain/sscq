@@ -1,7 +1,7 @@
 # junying-todo, 2020-01-13
 # hscli config text format based
 # ex: 
-# $ hscli query distr rewards htdf1j9fhvpfrhlmx2m3xn487qpuyhe56x7wfptssqz
+# $ hscli query distr rewards sscq1j9fhvpfrhlmx2m3xn487qpuyhe56x7wfptssqz
 # $ 271771554720.370000000000000000satoshi
 # [metrics]
 # commission rate, community pool rate
@@ -16,7 +16,7 @@ DELEGATOR_CNTS = $$(findstr delegator_address ~/.hsd/config/genesis.json | linec
 VALIDATOR_CNTS = $$(findstr validator_address ~/.hsd/config/genesis.json | linecount)
 
 clean:
-	@rm -rf htdf*
+	@rm -rf sscq*
 
 initialize:
 	@for i in $$(python -c "print ' '.join(str(item) for item in range(${VALIDATOR_CNTS}))"); \
@@ -27,12 +27,12 @@ initialize:
 	 echo $$delegator >> $$validator/delegators.list;\
 	 done
 
-# VALIDATOR_CNTS = $$(ls|grep htdf|linecount)
+# VALIDATOR_CNTS = $$(ls|grep sscq|linecount)
 
 print.validator.rewards:
 	@for i in $$(python -c "print ' '.join(str(item) for item in range(${VALIDATOR_CNTS}))"); \
 	 do \
-	 validator=$$(ls|grep htdf|row $$(($$i+1)));\
+	 validator=$$(ls|grep sscq|row $$(($$i+1)));\
 	 echo V$$i:$$validator;\
 	 reward=$$(hscli query distr commission $$validator);\
 	 echo VRewards:$$reward;\
@@ -42,7 +42,7 @@ print.delegator.rewards:
 	@for i in $$(python -c "print ' '.join(str(item) for item in range(${VALIDATOR_CNTS}))"); \
 	 do \
 	 rewards=$$(echo DRewards:);\
-	 validator=$$(ls|grep htdf|row $$(($$i+1)));\
+	 validator=$$(ls|grep sscq|row $$(($$i+1)));\
 	 echo ------------------------------------------------------;\
 	 echo V$$i:$$validator;\
 	 delcnts=$$(linecount $$validator/delegators.list);\
@@ -60,7 +60,7 @@ print.all:
 	@for i in $$(python -c "print ' '.join(str(item) for item in range(${VALIDATOR_CNTS}))"); \
 	 do \
 	 echo ------------------------------------------------------;\
-	 validator=$$(ls|grep htdf|row $$(($$i+1)));\
+	 validator=$$(ls|grep sscq|row $$(($$i+1)));\
 	 vreward=$$(hscli query distr commission $$validator|excludestr satoshi|endstr .);\
 	 drewards=$$(echo );\
 	 echo V$$(($$i+1)): $$validator, $$vreward;\

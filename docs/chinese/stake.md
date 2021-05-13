@@ -1,5 +1,5 @@
-    delegator-addr: htdf1zf07fyt2an2ral8zve0u4y7lzqa6x4lqfeyl8m
-    validator-addr: htdfvaloper1zf07fyt2an2ral8zve0u4y7lzqa6x4lqrquxss
+    delegator-addr: sscq1zf07fyt2an2ral8zve0u4y7lzqa6x4lqfeyl8m
+    validator-addr: sscqvaloper1zf07fyt2an2ral8zve0u4y7lzqa6x4lqrquxss
     amount: 10000000stake
     samount: 100satoshi
 ### 设置chain-id

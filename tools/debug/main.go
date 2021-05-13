@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	htdf "github.com/deep2chain/sscq/app"
+	sscq "github.com/deep2chain/sscq/app"
 	sdk "github.com/deep2chain/sscq/types"
 	"github.com/deep2chain/sscq/x/auth"
 	"github.com/tendermint/tendermint/crypto"
@@ -28,13 +28,13 @@ func init() {
 
 var RootCmd = &cobra.Command{
 	Use:          "debug",
-	Short:        "htdf debug tool",
+	Short:        "sscq debug tool",
 	SilenceUsage: true,
 }
 
 var txCmd = &cobra.Command{
 	Use:   "tx",
-	Short: "Decode a htdf tx from hex or base64",
+	Short: "Decode a sscq tx from hex or base64",
 	RunE:  runTxCmd,
 }
 
@@ -130,7 +130,7 @@ func runPubKeyCmd(cmd *cobra.Command, args []string) error {
 		pubkeyBytes = pubKey[:]
 	}
 
-	cdc := htdf.MakeLatestCodec()
+	cdc := sscq.MakeLatestCodec()
 	pubKeyJSONBytes, err := cdc.MarshalJSON(pubKey)
 	if err != nil {
 		return err
@@ -222,7 +222,7 @@ func runTxCmd(cmd *cobra.Command, args []string) error {
 	}
 
 	var tx = auth.StdTx{}
-	cdc := htdf.MakeLatestCodec()
+	cdc := sscq.MakeLatestCodec()
 
 	err = cdc.UnmarshalBinaryLengthPrefixed(txBytes, &tx)
 	if err != nil {

@@ -61,7 +61,7 @@ func TestConvert1(t *testing.T) {
 func TestConvert2(t *testing.T) {
 
 	var bigCoin sdk.BigCoin
-	bigCoin.Denom = "htdf"
+	bigCoin.Denom = "sscq"
 	bigCoin.Amount = "1.2345678"
 
 	var defaultCoin sdk.Coin
@@ -82,11 +82,11 @@ func TestConvert2(t *testing.T) {
 	fmt.Printf("bigCoin=%v\n", bigCoin)
 	fmt.Printf("defaultCoin=%v\n", defaultCoin)
 
-	//htdf to satoshi
+	//sscq to satoshi
 	var bigCoins []sdk.BigCoin
-	bigCoins = append(bigCoins, sdk.BigCoin{Denom: "htdf", Amount: "1.2345"})
-	bigCoins = append(bigCoins, sdk.BigCoin{Denom: "htdf", Amount: "2.3456"})
-	bigCoins = append(bigCoins, sdk.BigCoin{Denom: "htdf", Amount: "3.4567"})
+	bigCoins = append(bigCoins, sdk.BigCoin{Denom: "sscq", Amount: "1.2345"})
+	bigCoins = append(bigCoins, sdk.BigCoin{Denom: "sscq", Amount: "2.3456"})
+	bigCoins = append(bigCoins, sdk.BigCoin{Denom: "sscq", Amount: "3.4567"})
 	fmt.Printf("bigCoins=%v\n", bigCoins)
 
 	var defaultCoins []sdk.Coin

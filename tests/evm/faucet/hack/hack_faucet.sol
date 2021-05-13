@@ -5,7 +5,7 @@ hack the faucet contract , re-entrancy attack
 */
 pragma solidity ^0.4.20;
 
-import "./htdf_faucet_with_bug.sol";
+import "./sscq_faucet_with_bug.sol";
 
 contract Hack {
 

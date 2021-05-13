@@ -7,7 +7,7 @@
 
 # SSCQ
 ## Introduction
-   SSCQ is based on htdf of orientwalt.
+   SSCQ is based on sscq of orientwalt.
    
    **Note**: Requires Go 12.9+
 ## Executables
