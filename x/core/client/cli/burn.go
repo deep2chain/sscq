@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	// hscli bech32 h2b 0000000000000000000000000000000000000000
+	// sscli bech32 h2b 0000000000000000000000000000000000000000
 	blackholeAddr = "sscq1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq0d4n7t"
 )
 
@@ -24,7 +24,7 @@ func GetCmdBurn(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "burn [burn] [amount]",
 		Short: "burn own balance",
-		Long: `hscli tx burn sscq1qn38r8re3lwlf5t6zgrdycrerd5w0 \
+		Long: `sscli tx burn sscq1qn38r8re3lwlf5t6zgrdycrerd5w0 \
 							 5satoshi \
 							 --gas=30000 \
 							 --gas-price=100`,

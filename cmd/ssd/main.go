@@ -21,14 +21,14 @@ import (
 	"github.com/tendermint/tendermint/proxy"
 
 	bam "github.com/deep2chain/sscq/app"
-	hsinit "github.com/deep2chain/sscq/init"
+	ssinit "github.com/deep2chain/sscq/init"
 	lite "github.com/deep2chain/sscq/lite/cmd"
 	guardian "github.com/deep2chain/sscq/x/guardian/client/cli"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cfg "github.com/tendermint/tendermint/config"
 	dbm "github.com/tendermint/tendermint/libs/db"
-	tmtypes "github.com/tendermint/tendermint/types"
 	pvm "github.com/tendermint/tendermint/privval"
+	tmtypes "github.com/tendermint/tendermint/types"
 )
 
 const (
@@ -54,24 +54,24 @@ func main() {
 	config.Seal()
 
 	rootCmd := &cobra.Command{
-		Use:               "hsd",
+		Use:               "ssd",
 		Short:             "HtdfService App Daemon (server)",
 		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
 	}
 	// rootCmd
 
-	rootCmd.AddCommand(hsinit.InitCmd(ctx, cdc))
-	rootCmd.AddCommand(hsinit.CollectGenTxsCmd(ctx, cdc))
-	rootCmd.AddCommand(hsinit.LiveNetFilesCmd(ctx, cdc))
-	rootCmd.AddCommand(hsinit.RealNetFilesCmd(ctx, cdc))
-	rootCmd.AddCommand(hsinit.TestnetFilesCmd(ctx, cdc))
-	rootCmd.AddCommand(hsinit.GenTxCmd(ctx, cdc))
-	rootCmd.AddCommand(hsinit.AddGenesisAccountCmd(ctx, cdc))
+	rootCmd.AddCommand(ssinit.InitCmd(ctx, cdc))
+	rootCmd.AddCommand(ssinit.CollectGenTxsCmd(ctx, cdc))
+	rootCmd.AddCommand(ssinit.LiveNetFilesCmd(ctx, cdc))
+	rootCmd.AddCommand(ssinit.RealNetFilesCmd(ctx, cdc))
+	rootCmd.AddCommand(ssinit.TestnetFilesCmd(ctx, cdc))
+	rootCmd.AddCommand(ssinit.GenTxCmd(ctx, cdc))
+	rootCmd.AddCommand(ssinit.AddGenesisAccountCmd(ctx, cdc))
 	rootCmd.AddCommand(guardian.AddGuardianAccountCmd(ctx, cdc))
-	rootCmd.AddCommand(hsinit.ValidateGenesisCmd(ctx, cdc))
+	rootCmd.AddCommand(ssinit.ValidateGenesisCmd(ctx, cdc))
 	rootCmd.AddCommand(lite.Commands())
 	rootCmd.AddCommand(versionCmd(ctx, cdc))
-	rootCmd.AddCommand(server.ResetCmd(ctx, cdc,  resetAppState) ) 
+	rootCmd.AddCommand(server.ResetCmd(ctx, cdc, resetAppState))
 
 	server.AddCommands(ctx, cdc, rootCmd, newApp, exportAppStateAndTMValidators)
 
@@ -123,7 +123,7 @@ func exportAppStateAndTMValidators(ctx *server.Context,
 
 func resetAppState(ctx *server.Context,
 	logger log.Logger, db dbm.DB, traceStore io.Writer, height int64) error {
-	gApp :=  bam.NewHtdfServiceApp(logger, ctx.Config.Instrumentation, db, traceStore, false, uint(1))
+	gApp := bam.NewHtdfServiceApp(logger, ctx.Config.Instrumentation, db, traceStore, false, uint(1))
 	if height > 0 {
 		if replay, replayHeight := gApp.ResetOrReplay(height); replay {
 			_, err := startNodeAndReplay(ctx, gApp, replayHeight)

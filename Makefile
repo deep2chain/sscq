@@ -90,14 +90,14 @@ all: build
 buildquick: go.sum
 ifeq ($(CURRENT_OS),Windows)
 	@echo BUILD_FLAGS=$(BUILD_FLAGS)
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hsd.exe ./cmd/hsd
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hscli.exe ./cmd/hscli
+	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/ssd.exe ./cmd/ssd
+	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/sscli.exe ./cmd/sscli
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hsutils.exe ./cmd/hsutil
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hscli.exe ./cmd/hsinfo
+	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/sscli.exe ./cmd/hsinfo
 else
 	@echo BUILD_FLAGS=$(BUILD_FLAGS)
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hsd ./cmd/hsd
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hscli ./cmd/hscli
+	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/ssd ./cmd/ssd
+	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/sscli ./cmd/sscli
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hsutils ./cmd/hsutil
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bin/hsinfo ./cmd/hsinfo
 endif
@@ -110,8 +110,8 @@ build.CGO_DISABLED: go.sum
 
 build.static: go.sum
 	@echo BUILD_FLAGS=$(BUILD_FLAGS_STATIC_LINK)
-	@go build -mod=readonly $(BUILD_FLAGS_STATIC_LINK) -o build/testnet/hsd ./cmd/hsd
-	@go build -mod=readonly $(BUILD_FLAGS_STATIC_LINK) -o build/testnet/hscli ./cmd/hscli
+	@go build -mod=readonly $(BUILD_FLAGS_STATIC_LINK) -o build/testnet/ssd ./cmd/ssd
+	@go build -mod=readonly $(BUILD_FLAGS_STATIC_LINK) -o build/testnet/sscli ./cmd/sscli
 
 build: unittest buildquick
 
@@ -119,8 +119,8 @@ build-batchsend:
 	@build/env.sh go run build/ci.go install ./cmd/hsbatchsend
 
 install: go.sum
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/hsd
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/hscli
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/ssd
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/sscli
 
 go.sum: go.mod
 	@echo "--> Ensure dependencies have not been modified"
@@ -163,46 +163,46 @@ GENESIS_ACCOUNT_PASSWORD = 12345678
 GENESIS_ACCOUNT_BALANCE = 3000000000000000satoshi
 MINIMUM_GAS_PRICES = 100satoshi
 
-new: install clear hsinit accs conf vals
+new: install clear ssinit accs conf vals
 
-new.pure: clear hsinit accs conf vals
+new.pure: clear ssinit accs conf vals
 
-hsinit:
-	@hsd init mynode --chain-id $(CHAIN_ID)
+ssinit:
+	@ssd init mynode --chain-id $(CHAIN_ID)
 
 accs:
 	@echo create new accounts....;\
-    $(eval ACC1=$(shell hscli accounts new $(GENESIS_ACCOUNT_PASSWORD)))\
-	$(eval ACC2=$(shell hscli accounts new $(GENESIS_ACCOUNT_PASSWORD)))
-	@hsd add-genesis-account $(ACC1) $(GENESIS_ACCOUNT_BALANCE)
-	@hsd add-guardian-account $(ACC1) 
-	@hsd add-genesis-account $(ACC2) $(GENESIS_ACCOUNT_BALANCE)
+    $(eval ACC1=$(shell sscli accounts new $(GENESIS_ACCOUNT_PASSWORD)))\
+	$(eval ACC2=$(shell sscli accounts new $(GENESIS_ACCOUNT_PASSWORD)))
+	@ssd add-genesis-account $(ACC1) $(GENESIS_ACCOUNT_BALANCE)
+	@ssd add-guardian-account $(ACC1) 
+	@ssd add-genesis-account $(ACC2) $(GENESIS_ACCOUNT_BALANCE)
 
 conf:
 	@echo setting config....
-	@hscli config chain-id $(CHAIN_ID)
-	@hscli config output json
-	@hscli config indent true
-	@hscli config trust-node true
+	@sscli config chain-id $(CHAIN_ID)
+	@sscli config output json
+	@sscli config indent true
+	@sscli config trust-node true
 
 vals:
 	@echo setting validators....
-	@hsd gentx $(ACC1)
-	@hsd collect-gentxs
+	@ssd gentx $(ACC1)
+	@ssd collect-gentxs
 
 start: start.daemon start.rest
 
 start.daemon:
 	@echo starting daemon....
-	@nohup hsd start >> ${HOME}/.hsd/app.log  2>&1  &
+	@nohup ssd start >> ${HOME}/.ssd/app.log  2>&1  &
 
 start.rest:
 	@echo starting rest server...
-	@nohup hscli rest-server --chain-id=${CHAIN_ID} --trust-node=true --laddr=tcp://0.0.0.0:1317 >> ${HOME}/.hsd/restServer.log  2>&1  &
+	@nohup sscli rest-server --chain-id=${CHAIN_ID} --trust-node=true --laddr=tcp://0.0.0.0:1317 >> ${HOME}/.ssd/restServer.log  2>&1  &
 
 stop:
-	@pkill hsd
-	@pkill hscli
+	@pkill ssd
+	@pkill sscli
 
 # clean part
 clean:
@@ -211,8 +211,8 @@ clean:
 clear: clean
 	@rm -rf ~/.hs*
 
-DOCKER_VALIDATOR_IMAGE = falcon0125/hsdnode
-DOCKER_CLIENT_IMAGE = falcon0125/hsclinode
+DOCKER_VALIDATOR_IMAGE = falcon0125/ssdnode
+DOCKER_CLIENT_IMAGE = falcon0125/ssclinode
 VALIDATOR_COUNT = 4
 TESTNODE_NAME = client
 TESTNETDIR = build/testnet
@@ -230,53 +230,53 @@ hsnode: clean build.static# hstop
 echotest:
 	@echo  $(CURDIR)/${TESTNETDIR}
 
-hsinit-v4: 
-	@if ! [ -f ${TESTNETDIR}/node0/.hsd/config/genesis.json ]; then\
+ssinit-v4: 
+	@if ! [ -f ${TESTNETDIR}/node0/.ssd/config/genesis.json ]; then\
 	 docker run --rm -v $(CURDIR)/build/testnet:/root:Z ${DOCKER_VALIDATOR_IMAGE} testnet \
 																				  --chain-id ${CHAIN_ID} \
 																				  --v ${VALIDATOR_COUNT} \
 																				  -o . \
 																				  --starting-ip-address 192.168.10.2 \
 																				  --minimum-gas-prices ${MINIMUM_GAS_PRICES}; fi
-hsinit-test: 
-	@hsd testnet --chain-id ${CHAIN_ID} \
+ssinit-test: 
+	@ssd testnet --chain-id ${CHAIN_ID} \
 				 --v ${VALIDATOR_COUNT} \
 				 -o ${TESTNETDIR} \
 				 --starting-ip-address 192.168.10.2 \
 				 --minimum-gas-prices ${MINIMUM_GAS_PRICES}
-hsinit-o1:
-	@mkdir -p ${TESTNETDIR}/node4/.hsd ${TESTNETDIR}/node4/.hscli
-	@hsd init node4 --home ${TESTNETDIR}/node4/.hsd
-	@cp ${TESTNETDIR}/node0/.hsd/config/genesis.json ${TESTNETDIR}/node4/.hsd/config
-	# @cp ${TESTNETDIR}/node0/.hsd/config/hsd.toml ${TESTNETDIR}/node4/.hsd/config
-	@cp ${TESTNETDIR}/node0/.hsd/config/config.toml ${TESTNETDIR}/node4/.hsd/config
-	@sed -i s/node0/node4/g ${TESTNETDIR}/node4/.hsd/config/config.toml
-	@cp -rf ${TESTNETDIR}/node0/.hscli/* ${TESTNETDIR}/node4/.hscli
+ssinit-o1:
+	@mkdir -p ${TESTNETDIR}/node4/.ssd ${TESTNETDIR}/node4/.sscli
+	@ssd init node4 --home ${TESTNETDIR}/node4/.ssd
+	@cp ${TESTNETDIR}/node0/.ssd/config/genesis.json ${TESTNETDIR}/node4/.ssd/config
+	# @cp ${TESTNETDIR}/node0/.ssd/config/ssd.toml ${TESTNETDIR}/node4/.ssd/config
+	@cp ${TESTNETDIR}/node0/.ssd/config/config.toml ${TESTNETDIR}/node4/.ssd/config
+	@sed -i s/node0/node4/g ${TESTNETDIR}/node4/.ssd/config/config.toml
+	@cp -rf ${TESTNETDIR}/node0/.sscli/* ${TESTNETDIR}/node4/.sscli
 
-hsinit-o2:
-	@mkdir -p ${TESTNETDIR}/node5/.hsd ${TESTNETDIR}/node5/.hscli
-	@hsd init node5 --home ${TESTNETDIR}/node5/.hsd
-	@cp ${TESTNETDIR}/node0/.hsd/config/genesis.json ${TESTNETDIR}/node5/.hsd/config
-	# @cp ${TESTNETDIR}/node0/.hsd/config/hsd.toml ${TESTNETDIR}/node5/.hsd/config
-	@cp ${TESTNETDIR}/node0/.hsd/config/config.toml ${TESTNETDIR}/node5/.hsd/config
-	@sed -i s/node0/node5/g ${TESTNETDIR}/node5/.hsd/config/config.toml
-	@cp -rf ${TESTNETDIR}/node1/.hscli/* ${TESTNETDIR}/node5/.hscli
+ssinit-o2:
+	@mkdir -p ${TESTNETDIR}/node5/.ssd ${TESTNETDIR}/node5/.sscli
+	@ssd init node5 --home ${TESTNETDIR}/node5/.ssd
+	@cp ${TESTNETDIR}/node0/.ssd/config/genesis.json ${TESTNETDIR}/node5/.ssd/config
+	# @cp ${TESTNETDIR}/node0/.ssd/config/ssd.toml ${TESTNETDIR}/node5/.ssd/config
+	@cp ${TESTNETDIR}/node0/.ssd/config/config.toml ${TESTNETDIR}/node5/.ssd/config
+	@sed -i s/node0/node5/g ${TESTNETDIR}/node5/.ssd/config/config.toml
+	@cp -rf ${TESTNETDIR}/node1/.sscli/* ${TESTNETDIR}/node5/.sscli
 
-hstart: build.static hsinit-test hsinit-o1 hsinit-o2
+hstart: build.static ssinit-test ssinit-o1 ssinit-o2
 	@docker-compose up -d
 
-hstart.debug: build hsinit-test hsinit-o1 hsinit-o2
+hstart.debug: build ssinit-test ssinit-o1 ssinit-o2
 	@docker-compose up
 
 hsattach:
-	@docker attach hsclinode1
+	@docker attach ssclinode1
 
 # Stop testnet
 hstop:
 	docker-compose down
 
 hscheck:
-	@docker logs -f hsdnode0
+	@docker logs -f ssdnode0
 
 hsclean:
 	@docker rmi ${DOCKER_VALIDATOR_IMAGE} ${DOCKER_CLIENT_IMAGE}
@@ -295,45 +295,45 @@ clean-t:
 # 	 echo $$ipaddr >> ipaddrs.conf; done
 
 # killall:
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p') pkill -9 hsd
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p') pkill -9 hsd
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p') pkill -9 hsd
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p') pkill -9 hsd
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p') pkill -9 ssd
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p') pkill -9 ssd
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p') pkill -9 ssd
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p') pkill -9 ssd
 
 # startall:
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p') nohup hsd start & > /dev/null
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p') nohup hsd start & > /dev/null
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p') nohup hsd start & > /dev/null
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p') nohup hsd start & > /dev/null
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p') nohup ssd start & > /dev/null
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p') nohup ssd start & > /dev/null
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p') nohup ssd start & > /dev/null
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p') nohup ssd start & > /dev/null
 
 # cleanall:
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p') rm -rf /root/.hsd /root/.hscli
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p') rm -rf /root/.hsd /root/.hscli
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p') rm -rf /root/.hsd /root/.hscli
-# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p') rm -rf /root/.hsd /root/.hscli
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p') rm -rf /root/.ssd /root/.sscli
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p') rm -rf /root/.ssd /root/.sscli
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p') rm -rf /root/.ssd /root/.sscli
+# 	@sshpass -p miss16980 ssh root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p') rm -rf /root/.ssd /root/.sscli
 
 # copyall:
 # 	# upload files
 # 	### 1st server
-# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node0/.hsd root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p'):/root
-# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node0/.hscli root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p'):/root
-# 	@sshpass -p miss16980 scp -r build/bin/hsd root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p'):/usr/local/bin
+# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node0/.ssd root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p'):/root
+# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node0/.sscli root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p'):/root
+# 	@sshpass -p miss16980 scp -r build/bin/ssd root@$$(cat networks/remote/ipaddrs.conf | sed -n '1p'):/usr/local/bin
 # 	### 2nd server
-# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node1/.hsd root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p'):/root
-# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node1/.hscli root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p'):/root
-# 	@sshpass -p miss16980 scp -r build/bin/hsd root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p'):/usr/local/bin
+# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node1/.ssd root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p'):/root
+# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node1/.sscli root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p'):/root
+# 	@sshpass -p miss16980 scp -r build/bin/ssd root@$$(cat networks/remote/ipaddrs.conf | sed -n '2p'):/usr/local/bin
 # 	### 3rd server
-# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node2/.hsd root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p'):/root
-# 	@sshpass -p miss16980 scp -r build/testnet/node2/.hscli root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p'):/root
-# 	@sshpass -p miss16980 scp -r build/bin/hsd root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p'):/usr/local/bin
+# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node2/.ssd root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p'):/root
+# 	@sshpass -p miss16980 scp -r build/testnet/node2/.sscli root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p'):/root
+# 	@sshpass -p miss16980 scp -r build/bin/ssd root@$$(cat networks/remote/ipaddrs.conf | sed -n '3p'):/usr/local/bin
 # 	### 4th server
-# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node3/.hsd root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p'):/root
-# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node3/.hscli root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p'):/root
-# 	@sshpass -p miss16980 scp -r build/bin/hsd root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p'):/usr/local/bin
+# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node3/.ssd root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p'):/root
+# 	@sshpass -p miss16980 scp -r ${TESTNETDIR}/node3/.sscli root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p'):/root
+# 	@sshpass -p miss16980 scp -r build/bin/ssd root@$$(cat networks/remote/ipaddrs.conf | sed -n '4p'):/usr/local/bin
 
 # resetall: #clean-4 install-
 # 	@if ! [ -d ${TESTNETDIR} ]; then mkdir -p ${TESTNETDIR}; fi
-# 	@hsd testnet --chain-id mainchain \
+# 	@ssd testnet --chain-id mainchain \
 # 				 --v 4 \
 # 				 -o ${TESTNETDIR} \
 # 				 --validator-ip-addresses $(CURDIR)/networks/remote/ipaddrs.conf \
@@ -355,7 +355,7 @@ clean-livenet:
 
 distall: #clean-4 install-
 	@if ! [ -d ${LIVENETDIR} ]; then mkdir -p ${LIVENETDIR}; fi
-	@hsd livenet --chain-id livenet \
+	@ssd livenet --chain-id livenet \
 				 --v $$(wc $(CURDIR)/networks/remote/ipaddrs.conf | awk '{print$$1F}') \
 				 -o ${LIVENETDIR} \
 				 --validator-ip-addresses $(CURDIR)/networks/remote/ipaddrs.conf \

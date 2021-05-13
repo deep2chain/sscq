@@ -22,9 +22,9 @@ func GetCmdQueryProposal(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.ExactArgs(1),
 		Short: "Query details of a single proposal",
 		Long: strings.TrimSpace(`
-Query details for a proposal. You can find the proposal-id by running hscli query gov proposals:
+Query details for a proposal. You can find the proposal-id by running sscli query gov proposals:
 
-$ hscli query gov proposal 1
+$ sscli query gov proposal 1
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -56,9 +56,9 @@ func GetCmdQueryProposals(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Long: strings.TrimSpace(`
 Query for a all proposals. You can filter the returns with the following flags:
 
-$ hscli query gov proposals --depositor sscq1skjwj5whet0lpe65qaq4rpq03hjxlwd9nf39lk
-$ hscli query gov proposals --voter sscq1skjwj5whet0lpe65qaq4rpq03hjxlwd9nf39lk
-$ hscli query gov proposals --status (DepositPeriod|VotingPeriod|Passed|Rejected)
+$ sscli query gov proposals --depositor sscq1skjwj5whet0lpe65qaq4rpq03hjxlwd9nf39lk
+$ sscli query gov proposals --voter sscq1skjwj5whet0lpe65qaq4rpq03hjxlwd9nf39lk
+$ sscli query gov proposals --status (DepositPeriod|VotingPeriod|Passed|Rejected)
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			bechDepositorAddr := viper.GetString(flagDepositor)
@@ -143,7 +143,7 @@ func GetCmdQueryVote(queryRoute string, cdc *codec.Codec) *cobra.Command {
 Query details for a single vote on a proposal given its identifier.
 
 Example:
-$ hscli query gov vote 1 sscq1skjwj5whet0lpe65qaq4rpq03hjxlwd9nf39lk
+$ sscli query gov vote 1 sscq1skjwj5whet0lpe65qaq4rpq03hjxlwd9nf39lk
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -206,7 +206,7 @@ func GetCmdQueryVotes(queryRoute string, cdc *codec.Codec) *cobra.Command {
 Query vote details for a single proposal by its identifier.
 
 Example:
-$ hscli query gov votes 1
+$ sscli query gov votes 1
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -262,7 +262,7 @@ func GetCmdQueryDeposit(queryRoute string, cdc *codec.Codec) *cobra.Command {
 Query details for a single proposal deposit on a proposal by its identifier.
 
 Example:
-$ hscli query gov deposit 1 sscq1skjwj5whet0lpe65qaq4rpq03hjxlwd9nf39lk
+$ sscli query gov deposit 1 sscq1skjwj5whet0lpe65qaq4rpq03hjxlwd9nf39lk
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -318,9 +318,9 @@ func GetCmdQueryDeposits(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.ExactArgs(1),
 		Short: "Query deposits on a proposal",
 		Long: strings.TrimSpace(`
-Query details for all deposits on a proposal. You can find the proposal-id by running hscli query gov proposals:
+Query details for all deposits on a proposal. You can find the proposal-id by running sscli query gov proposals:
 
-$ hscli query gov deposits 1
+$ sscli query gov deposits 1
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -371,9 +371,9 @@ func GetCmdQueryTally(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.ExactArgs(1),
 		Short: "Get the tally of a proposal vote",
 		Long: strings.TrimSpace(`
-Query tally of votes on a proposal. You can find the proposal-id by running hscli query gov proposals:
+Query tally of votes on a proposal. You can find the proposal-id by running sscli query gov proposals:
 
-$ hscli query gov tally 1
+$ sscli query gov tally 1
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -417,7 +417,7 @@ func GetCmdQueryParams(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query the parameters of the governance process",
 		Long: strings.TrimSpace(`Query the all the parameters for the governance process:
 
-$ hscli query gov params
+$ sscli query gov params
 `),
 		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -455,9 +455,9 @@ func GetCmdQueryParam(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query the parameters (voting|tallying|deposit) of the governance process",
 		Long: strings.TrimSpace(`Query the all the parameters for the governance process:
 
-$ hscli query gov param voting
-$ hscli query gov param tallying
-$ hscli query gov param deposit
+$ sscli query gov param voting
+$ sscli query gov param tallying
+$ sscli query gov param deposit
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -498,7 +498,7 @@ func GetCmdQueryProposer(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query the proposer of a governance proposal",
 		Long: strings.TrimSpace(`Query which address proposed a proposal with a given ID:
 
-$ hscli query gov proposer 1
+$ sscli query gov proposer 1
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)

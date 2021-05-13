@@ -20,7 +20,7 @@ import (
 // GetCmdCreate is the CLI command for creating unsigned transaction
 /*
 	inspired by
-	hscli send --generate-only cosmos1yqgv2rhxcgrf5jqrxlg80at5szzlarlcy254re 5sscqtoken --from junying > unsigned.json
+	sscli send --generate-only cosmos1yqgv2rhxcgrf5jqrxlg80at5szzlarlcy254re 5sscqtoken --from junying > unsigned.json
 	utils.PrintUnsignedStdTx(txBldr, cliCtx, []sdk.Msg{msg},false)
 	Tips:
 	check functions in utils
@@ -29,7 +29,7 @@ func GetCmdCreate(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create [fromaddr] [toaddr] [amount]",
 		Short: "create unsigned transaction",
-		Long:  "hscli tx create cosmos1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 cosmos1yqgv2rhxcgrf5jqrxlg80at5szzlarlcy254re 5satoshi --fees=1satoshi",
+		Long:  "sscli tx create cosmos1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 cosmos1yqgv2rhxcgrf5jqrxlg80at5szzlarlcy254re 5satoshi --fees=1satoshi",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))

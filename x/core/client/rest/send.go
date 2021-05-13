@@ -16,7 +16,7 @@ import (
 	"github.com/deep2chain/sscq/utils/unit_convert"
 	authtxb "github.com/deep2chain/sscq/x/auth/client/txbuilder"
 	sscqservice "github.com/deep2chain/sscq/x/core"
-	hscorecli "github.com/deep2chain/sscq/x/core/client/cli"
+	sscorecli "github.com/deep2chain/sscq/x/core/client/cli"
 )
 
 // SendReq defines the properties of a send request's body.
@@ -148,7 +148,7 @@ func CompleteAndBroadcastTxREST(w http.ResponseWriter, cliCtx context.CLIContext
 	// get fromaddr
 	fromaddr := msgs[0].(sscqservice.MsgSend).GetSigners()[0]
 
-	txBldr, err = hscorecli.PrepareTxBuilder(txBldr, cliCtx, fromaddr)
+	txBldr, err = sscorecli.PrepareTxBuilder(txBldr, cliCtx, fromaddr)
 	if err != nil {
 		rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 		return

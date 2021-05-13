@@ -64,8 +64,8 @@ const (
 
 // default home directories for expected binaries
 var (
-	DefaultCLIHome  = os.ExpandEnv("$HOME/.hscli")
-	DefaultNodeHome = os.ExpandEnv("$HOME/.hsd")
+	DefaultCLIHome  = os.ExpandEnv("$HOME/.sscli")
+	DefaultNodeHome = os.ExpandEnv("$HOME/.ssd")
 )
 
 // Extended ABCI application

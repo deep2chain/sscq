@@ -4,15 +4,15 @@
 ## Input parameters
 ##
 ## default: -x
-BINARY=/root/${BINARY:-hsd}
+BINARY=/root/${BINARY:-ssd}
 ID=${ID:-0}
-LOG=${LOG:-hsd.log}
+LOG=${LOG:-ssd.log}
 
 ##
 ## Assert linux binary
 ##
 if ! [ -f "${BINARY}" ]; then
-	echo "The binary $(basename "${BINARY}") cannot be found. Please add the binary to the shared folder. Please use the BINARY environment variable if the name of the binary is not 'hsd' E.g.: -e BINARY=hsd_my_test_version"
+	echo "The binary $(basename "${BINARY}") cannot be found. Please add the binary to the shared folder. Please use the BINARY environment variable if the name of the binary is not 'ssd' E.g.: -e BINARY=ssd_my_test_version"
 	exit 1
 fi
 BINARY_CHECK="$(file "$BINARY" | grep 'ELF 64-bit LSB executable, x86-64')"
@@ -26,9 +26,9 @@ fi
 ##
 # echo `pwd`
 # echo `ls -la ${BINARY}`
-# echo `which hsd`
+# echo `which ssd`
 
-export HSDHOME="/root/node${ID}/.hsd"
+export HSDHOME="/root/node${ID}/.ssd"
 
 if [ -d "`dirname ${HSDHOME}/${LOG}`" ]; then
   "$BINARY" --home "$HSDHOME" "$@" | tee "${HSDHOME}/${LOG}"

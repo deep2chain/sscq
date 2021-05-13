@@ -1,7 +1,7 @@
 package baseapp
 
 import (
-	hserver "github.com/deep2chain/sscq/server"
+	sserver "github.com/deep2chain/sscq/server"
 	sdk "github.com/deep2chain/sscq/types"
 	"github.com/tendermint/tendermint/abci/server"
 	abci "github.com/tendermint/tendermint/abci/types"
@@ -25,7 +25,7 @@ func (app *BaseApp) Deliver(tx sdk.Tx) (result sdk.Result) {
 
 // RunForever - BasecoinApp execution and cleanup
 func RunForever(app abci.Application) {
-	ctx := hserver.NewDefaultContext()
+	ctx := sserver.NewDefaultContext()
 	// Start the ABCI server
 	srv, err := server.NewServer("0.0.0.0:26658", "socket", app)
 	if err != nil {

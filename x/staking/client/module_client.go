@@ -5,7 +5,7 @@ import (
 	amino "github.com/tendermint/go-amino"
 
 	"github.com/deep2chain/sscq/client"
-	hstakingcli "github.com/deep2chain/sscq/x/staking/client/cli"
+	sstakingcli "github.com/deep2chain/sscq/x/staking/client/cli"
 	stakingcli "github.com/deep2chain/sscq/x/staking/client/cli"
 	"github.com/deep2chain/sscq/x/staking/types"
 )
@@ -54,12 +54,12 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 	}
 
 	stakingTxCmd.AddCommand(client.PostCommands(
-		hstakingcli.GetCmdCreateValidator(mc.cdc),
-		hstakingcli.GetCmdEditValidator(mc.cdc),
-		hstakingcli.GetCmdDelegate(mc.cdc),
-		hstakingcli.GetCmdRedelegate(mc.storeKey, mc.cdc),
-		hstakingcli.GetCmdUnbond(mc.storeKey, mc.cdc),
-		hstakingcli.GetCmdUpgradeDelStatus(mc.storeKey, mc.cdc),
+		sstakingcli.GetCmdCreateValidator(mc.cdc),
+		sstakingcli.GetCmdEditValidator(mc.cdc),
+		sstakingcli.GetCmdDelegate(mc.cdc),
+		sstakingcli.GetCmdRedelegate(mc.storeKey, mc.cdc),
+		sstakingcli.GetCmdUnbond(mc.storeKey, mc.cdc),
+		sstakingcli.GetCmdUpgradeDelStatus(mc.storeKey, mc.cdc),
 	)...)
 
 	return stakingTxCmd

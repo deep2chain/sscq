@@ -19,7 +19,7 @@ import (
 
 	govClientUtils "github.com/deep2chain/sscq/x/gov/client/utils"
 
-	hscorecli "github.com/deep2chain/sscq/x/core/client/cli"
+	sscorecli "github.com/deep2chain/sscq/x/core/client/cli"
 	"github.com/spf13/viper"
 )
 
@@ -45,7 +45,7 @@ func GetCmdSubmitProposal(cdc *codec.Codec) *cobra.Command {
 		Long: strings.TrimSpace(`
 Submit a proposal along with an initial deposit. Proposal title, description, type and deposit can be given directly or through a proposal JSON file. For example:
 
-$ hscli gov submit-proposal sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 --proposal="path/to/proposal.json" --from mykey
+$ sscli gov submit-proposal sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 --proposal="path/to/proposal.json" --from mykey
 
 where proposal.json contains:
 
@@ -58,7 +58,7 @@ where proposal.json contains:
 
 is equivalent to
 
-$ hscli gov submit-proposal --title="Test Proposal" --description="My awesome proposal" --type="Text" --deposit="10test"
+$ sscli gov submit-proposal --title="Test Proposal" --description="My awesome proposal" --type="Text" --deposit="10test"
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			proposal, err := parseSubmitProposalFlags()
@@ -124,9 +124,9 @@ $ hscli gov submit-proposal --title="Test Proposal" --description="My awesome pr
 				if err != nil {
 					return err
 				}
-				return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, from)
+				return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, from)
 			}
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, from)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, from)
 		},
 	}
 
@@ -155,9 +155,9 @@ func GetCmdDeposit(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.ExactArgs(3),
 		Short: "Deposit tokens for activing proposal",
 		Long: strings.TrimSpace(`
-Submit a deposit for an acive proposal. You can find the proposal-id by running hscli query gov proposals:
+Submit a deposit for an acive proposal. You can find the proposal-id by running sscli query gov proposals:
 
-$ hscli tx gov deposit sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 10stake
+$ sscli tx gov deposit sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 10stake
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
@@ -204,7 +204,7 @@ $ hscli tx gov deposit sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 10stake
 				return err
 			}
 
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, from)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, from)
 		},
 	}
 }
@@ -216,9 +216,9 @@ func GetCmdVote(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.ExactArgs(3),
 		Short: "Vote for an active proposal, options: yes/no/no_with_veto/abstain",
 		Long: strings.TrimSpace(`
-Submit a vote for an acive proposal. You can find the proposal-id by running hscli query gov proposals:
+Submit a vote for an acive proposal. You can find the proposal-id by running sscli query gov proposals:
 
-$ hscli tx gov vote sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 yes --from mykey
+$ sscli tx gov vote sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 yes --from mykey
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
@@ -254,7 +254,7 @@ $ hscli tx gov vote sscq1tq7zajghkxct4al0yf44ua9rjwnw06vdusflk4 1 yes --from myk
 				return err
 			}
 
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, from)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, from)
 		},
 	}
 }

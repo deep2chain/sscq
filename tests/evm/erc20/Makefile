@@ -11,11 +11,11 @@
 Contract_Address = sscq15zuywqfgvw955wg9hvdgkr3hxsdgja5z2tvrmc
 
 query:
-	@echo balanceOf=$$(hscli query contract ${Contract_Address} 70a0823100000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe9)
-	@name=$$(hscli query contract ${Contract_Address} 06fdde03);python -c "print 'symbol=%s'%bytearray.fromhex('$$name')"
-	@symbol=$$(hscli query contract ${Contract_Address} 95d89b41);python -c "print 'symbol=%s'%bytearray.fromhex('$$symbol')"
-	@decimals=$$(hscli query contract ${Contract_Address} 313ce567);python -c "print 'decimals=%d'%int('$$decimals',16)"
-	@echo founder=$$(hscli query contract ${Contract_Address} 4d853ee5)
+	@echo balanceOf=$$(sscli query contract ${Contract_Address} 70a0823100000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe9)
+	@name=$$(sscli query contract ${Contract_Address} 06fdde03);python -c "print 'symbol=%s'%bytearray.fromhex('$$name')"
+	@symbol=$$(sscli query contract ${Contract_Address} 95d89b41);python -c "print 'symbol=%s'%bytearray.fromhex('$$symbol')"
+	@decimals=$$(sscli query contract ${Contract_Address} 313ce567);python -c "print 'decimals=%d'%int('$$decimals',16)"
+	@echo founder=$$(sscli query contract ${Contract_Address} 4d853ee5)
 
 calc.method.id:
 	@make -sC ../ get.method.id
@@ -52,13 +52,13 @@ execute:
 	 echo $$contract; \
 	 unsigned=$$(hsutils json2hex "$$contract");\
 	 echo $$unsigned;\
-	 signed=$$(hscli tx sign $$unsigned);\
+	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\
-	 hscli tx broadcast $$signed > ${TMP_PATH};\
+	 sscli tx broadcast $$signed > ${TMP_PATH};\
 	 txid=$$(findkey txhash ${TMP_PATH});\
 	 echo $$txid;\
 	 sleep ${BLK_TIME};\
-	 hscli query tx $$txid > ${TMP_PATH};\
+	 sscli query tx $$txid > ${TMP_PATH};\
 	 findkey logs ${TMP_PATH};
 
 # function name: balanceOf
@@ -66,7 +66,7 @@ execute:
 # 0x70a08231
 balanceOf: #param.address
 	@queryaddr=$$(make -sC . param.address);\
-	 replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	 replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 70a08231$$queryaddr unsigned.tx y;\
 	 make -sC . execute;
  
@@ -97,7 +97,7 @@ transfer: #param.address param.int
 # B: 000000000000000000000000eff9f9c54e4ce0d78cfa3af525695fed0e6c38f7(sscq1aluln32wfnsd0r868t6j262la58xcw8h289462)
 # Z: 00000000000000000000000000000000000000000000021e19e0c9bab2400000(10000000000000000000000)
 # approve.data:095ea7b3000000000000000000000000eff9f9c54e4ce0d78cfa3af525695fed0e6c38f700000000000000000000000000000000000000000000021e19e0c9bab2400000
-# allowance: hscli query contract sscq178qsds3kzu37zlpd2ff7gulmk4z2gupwd8qm3p dd62ed3e00000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe90000000000000000000000006619a90ab3df26c3a66d25c53e3b982eadcc6212
+# allowance: sscli query contract sscq178qsds3kzu37zlpd2ff7gulmk4z2gupwd8qm3p dd62ed3e00000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe90000000000000000000000006619a90ab3df26c3a66d25c53e3b982eadcc6212
 #**********************************************************************************************************************************************************
 # [Airdrop Contract](airdrop:sscq1vcv6jz4nmunv8fndyhznuwuc96kuccsj4cuz34)
 # contract FutureEdgeAirdrop {
@@ -119,7 +119,7 @@ transfer: #param.address param.int
 # value:     10000000000000000000(0000000000000000000000000000000000000000000000008ac7230489e80000)
 # method.id + tokenaddr + pos.addr(hex(32*3)) + pos.value(hex(32*(3+1+array.len))) + addr.array.len + receiver.addr.1 + receiver.addr.2 + ... + value.array.len + value.1 + value.2 +...
 # 7da5efc8000000000000000000000000f1c106c2361723e17c2d5253e473fbb544a4702e000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000002000000000000000000000000c50b86e748e9c014d4ffce660d734743772d8a3c000000000000000000000000c7347b4d5c2371fe6ba0a54a806631da608e9294000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000001110000000000000000000000000000000000000000000000000000000000000112
-# hscli query contract sscq178qsds3kzu37zlpd2ff7gulmk4z2gupwd8qm3p 70a08231
+# sscli query contract sscq178qsds3kzu37zlpd2ff7gulmk4z2gupwd8qm3p 70a08231
 # *******************************************************************************************************
 # ref: https://teth.bitaps.com/0x3f371728058e3a1ca32408c6c9613801ba0559ade91b6b63a3a389f985b5b658
 # 1d833aae000000000000000000000000814f06ffad575cb9f13a62c835bc505394cb4678000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000001bc16d674ec8000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000019f87671e1bfd859b203816e54fa19f464c9a15500000000000000000000000037a6e30c37fbe6af220a99a029a60e5848745ae9

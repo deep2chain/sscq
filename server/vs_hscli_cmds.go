@@ -13,14 +13,14 @@ import (
 
 const (
 	flagsLong             = "long"
-	hscliClientIdentifier = "hscli"
+	sscliClientIdentifier = "sscli"
 )
 
 var (
 	// VersionCmd prints out the current sdk version
 	VersionHscliCmd = &cobra.Command{
 		Use:   "version",
-		Short: "Print the hscli version",
+		Short: "Print the sscli version",
 		RunE: func(_ *cobra.Command, _ []string) error {
 			return versionHscli()
 		},
@@ -32,7 +32,7 @@ func init() {
 }
 
 func versionHscli() error {
-	fmt.Println(strings.Title(hscliClientIdentifier))
+	fmt.Println(strings.Title(sscliClientIdentifier))
 	fmt.Println("Version:", params.VersionWithMeta)
 	fmt.Println("Architecture:", runtime.GOARCH)
 	fmt.Println("Go Version:", runtime.Version())

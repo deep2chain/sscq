@@ -25,7 +25,7 @@ install: stop clean regen dist start
 # generate
 vals: 
 	@if ! [ -d ${VALDIR} ]; then mkdir -p ${VALDIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${VALIDATOR_CONF_FILE} | awk '{print$$1F}') \
 				 -o ${VALDIR} \
 				 --validator-ip-addresses ${VALIDATOR_CONF_FILE} \
@@ -34,42 +34,42 @@ vals:
 
 sentries:
 	@if ! [ -d ${SENTRYDIR} ]; then mkdir -p ${SENTRYDIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${SENTRY_CONF_FILE} | awk '{print$$1F}') \
 				 -o ${SENTRYDIR} \
 				 --validator-ip-addresses ${SENTRY_CONF_FILE} \
 				 --minimum-gas-prices ${MINIMUM_GAS_PRICES} \
 				 --issuer-bech-address ${ISSUER_ADDRESS}
 genesis:
-	@rmempty $(VALDIR)/node0/.hsd/config/genesis.json genesis.json
+	@rmempty $(VALDIR)/node0/.ssd/config/genesis.json genesis.json
 	@for index in $(VALS_INDEX); do \
-	 cp -f genesis.json  ${VALDIR}/node$$index/.hsd/config ; done
+	 cp -f genesis.json  ${VALDIR}/node$$index/.ssd/config ; done
 	@for index in $(SENTRIES_INDEX); do \
-	 cp -f genesis.json ${SENTRYDIR}/node$$index/.hsd/config; done
+	 cp -f genesis.json ${SENTRYDIR}/node$$index/.ssd/config; done
 
 persistent_peers:
 	@for index in $(SENTRIES_INDEX); do \
-	 ip=$$(cat ${SENTRYDIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${SENTRYDIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${SENTRYDIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${SENTRYDIR}/node$$index/.ssd/config/node.conf);\
 	 port=26656;\
 	 echo "$$nodeid@$$ip:$$port" >> persistent_peers.conf;\
 	 done
 	@for index in $(VALS_INDEX); do \
-	 replconfkey persistent_peers $(VALDIR)/node$$index/.hsd/config/config.toml persistent_peers.conf ; done
+	 replconfkey persistent_peers $(VALDIR)/node$$index/.ssd/config/config.toml persistent_peers.conf ; done
 	@for index in $(SENTRIES_INDEX); do \
-	 replconfkey persistent_peers $(SENTRYDIR)/node$$index/.hsd/config/config.toml persistent_peers.conf ; done
+	 replconfkey persistent_peers $(SENTRYDIR)/node$$index/.ssd/config/config.toml persistent_peers.conf ; done
 
 private_peer_ids:
 	@for index in $(VALS_INDEX); do \
-	 ip=$$(cat ${VALDIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$index/.ssd/config/node.conf);\
 	 port=26656;\
 	 echo "$$nodeid@$$ip:$$port" >> private_peer_ids.conf;\
 	 done
 	@for index in $(VALS_INDEX); do \
-	 replconfkey private_peer_ids $(VALDIR)/node$$index/.hsd/config/config.toml private_peer_ids.conf ; done
+	 replconfkey private_peer_ids $(VALDIR)/node$$index/.ssd/config/config.toml private_peer_ids.conf ; done
 	@for index in $(SENTRIES_INDEX); do \
-	 replconfkey private_peer_ids $(SENTRYDIR)/node$$index/.hsd/config/config.toml private_peer_ids.conf ; done
+	 replconfkey private_peer_ids $(SENTRYDIR)/node$$index/.ssd/config/config.toml private_peer_ids.conf ; done
 
 clear:
 	@if [ -d ${VALDIR} ]; then rm -rf ${VALDIR}; fi
@@ -87,13 +87,13 @@ regen: clear vals sentries genesis persistent_peers private_peer_ids
 
 # restart
 stop:
-	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) pkill -9 hsd ; done
+	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) pkill -9 ssd ; done
 
 clean:
-	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) rm -rf /root/.hs* /root/nohup.out /usr/local/bin/hsd; done
+	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) rm -rf /root/.hs* /root/nohup.out /usr/local/bin/ssd; done
 
 start:
-	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) nohup hsd start & > /root/nohup.out ; done
+	@for index in ${SERVERS_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${SERVER_CONF_FILE}) nohup ssd start & > /root/nohup.out ; done
 
 restart: stop start
 # distribute
@@ -101,13 +101,13 @@ dist: dist-exe dist-val dist-sentry
 
 dist-exe:
 	@for index in ${SERVERS_INDEX}; do scp -i ${PEM_FILE} \
-	 ${BINDIR}/hsd root@$$(row $$index ${SERVER_CONF_FILE}):/usr/local/bin; done
+	 ${BINDIR}/ssd root@$$(row $$index ${SERVER_CONF_FILE}):/usr/local/bin; done
 
 dist-val:
 	@if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
 	@if ! [ -d ${TMPDIR} ]; then mkdir ${TMPDIR}; fi
 	@echo zipping....
-	@for index in $(VALS_INDEX); do cd $(VALDIR)/node$$index; tar cvf ${TMPDIR}/val-$$index.tar.gz .hsd; done
+	@for index in $(VALS_INDEX); do cd $(VALDIR)/node$$index; tar cvf ${TMPDIR}/val-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(VALS_INDEX); do scp -i ${PEM_FILE} -r \
 	 ${TMPDIR}/val-$$index.tar.gz root@$$(row $$(($$index+1)) ${SERVER_CONF_FILE}):/root ; done
@@ -122,7 +122,7 @@ dist-sentry:
 	@if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
 	@if ! [ -d ${TMPDIR} ]; then mkdir ${TMPDIR}; fi
 	@echo zipping....
-	@for index in $(SENTRIES_INDEX); do cd $(SENTRYDIR)/node$$index; tar cvf ${TMPDIR}/senty-$$index.tar.gz .hsd; done
+	@for index in $(SENTRIES_INDEX); do cd $(SENTRYDIR)/node$$index; tar cvf ${TMPDIR}/senty-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(SENTRIES_INDEX); do scp -i ${PEM_FILE} -r \
 	 ${TMPDIR}/senty-$$index.tar.gz root@$$(row $$(($$index+5)) ${SERVER_CONF_FILE}):/root ; done

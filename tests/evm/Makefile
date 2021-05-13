@@ -6,9 +6,9 @@
 # routine
 ## 1. create unsigned json-format tx using cmd
 ## 2. hsutil json2hex json-format-tx
-## 3. hscli tx sign hex-format-tx
-## 4. hscli tx broadcast hex-format-signed-tx
-## 5. hscli query tx txhash
+## 3. sscli tx sign hex-format-tx
+## 4. sscli tx broadcast hex-format-signed-tx
+## 5. sscli query tx txhash
 ## 6. check logs
 
 # create method_id
@@ -74,7 +74,7 @@ create.contract:
 
 create.contract.default:
 	@echo "fill in blankets";\
-	 contract_addr=$$(hscli accounts list|row 1);\
+	 contract_addr=$$(sscli accounts list|row 1);\
 	 read -p "contract data:" data;\
 	 read -p "GasWanted:" gaswanted;\
 	 read -p "GasPrice:" gasprice;\
@@ -100,13 +100,13 @@ execute:
 	 echo $$contract; \
 	 unsigned=$$(hsutils json2hex "$$contract");\
 	 echo $$unsigned;\
-	 signed=$$(hscli tx sign $$unsigned);\
+	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\
-	 hscli tx broadcast $$signed > ${TMP_PATH};\
+	 sscli tx broadcast $$signed > ${TMP_PATH};\
 	 txid=$$(findkey txhash ${TMP_PATH});\
 	 echo $$txid;\
 	 sleep ${BLK_TIME};\
-	 hscli query tx $$txid > ${TMP_PATH};\
+	 sscli query tx $$txid > ${TMP_PATH};\
 	 findkey logs ${TMP_PATH};
 	 
 .PHONY: create.contract.default 

@@ -17,7 +17,7 @@ func GetCmdCall(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "contract [contract-address] [callcode]",
 		Short: "query contract data",
-		Long:  "hscli query contract sscq...  7839124400000000...",
+		Long:  "sscli query contract sscq...  7839124400000000...",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			// load sign tx from string

@@ -11,7 +11,7 @@ import (
 	sdk "github.com/deep2chain/sscq/types"
 	"github.com/deep2chain/sscq/x/auth"
 	authtxb "github.com/deep2chain/sscq/x/auth/client/txbuilder"
-	hscorecli "github.com/deep2chain/sscq/x/core/client/cli"
+	sscorecli "github.com/deep2chain/sscq/x/core/client/cli"
 	"github.com/deep2chain/sscq/x/staking"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -41,7 +41,7 @@ func GetCmdCreateValidator(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, validatorAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, validatorAddr)
 		},
 	}
 
@@ -108,7 +108,7 @@ func GetCmdEditValidator(cdc *codec.Codec) *cobra.Command {
 			msg := staking.NewMsgEditValidator(sdk.ValAddress(validatorAddr), description, newRate, newMinSelfDelegation)
 
 			// build and sign the transaction, then broadcast to Tendermint
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, validatorAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, validatorAddr)
 		},
 	}
 
@@ -125,7 +125,7 @@ func GetCmdDelegate(cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.ExactArgs(3),
 		Short: "delegate liquid tokens to a validator",
 		Long: strings.TrimSpace(`Delegate an amount of liquid coins to a validator from your wallet:
-$ hscli tx staking delegate sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
+$ sscli tx staking delegate sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
 							sscqvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc \
 				   			1000satoshi
 `),
@@ -151,7 +151,7 @@ $ hscli tx staking delegate sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
 			}
 
 			msg := staking.NewMsgDelegate(delAddr, valAddr, amount)
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, delAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, delAddr)
 		},
 	}
 }
@@ -163,7 +163,7 @@ func GetCmdRedelegate(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "redelegate illiquid tokens from one validator to another",
 		Args:  cobra.ExactArgs(4),
 		Long: strings.TrimSpace(`Redelegate an amount of illiquid staking tokens from one validator to another:
-$ hscli tx staking redelegate sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
+$ sscli tx staking redelegate sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
 							  sscqvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc \
 							  sscqvaloper1lsh3qpmjmp7el92x4wp8a675eg9rlm5e9pukkf \
 							  100satoshi
@@ -193,7 +193,7 @@ $ hscli tx staking redelegate sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
 			}
 
 			msg := staking.NewMsgBeginRedelegate(delAddr, valSrcAddr, valDstAddr, amount)
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, delAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, delAddr)
 		},
 	}
 }
@@ -205,7 +205,7 @@ func GetCmdUnbond(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "unbond shares from a validator",
 		Args:  cobra.ExactArgs(3),
 		Long: strings.TrimSpace(`Unbond an amount of bonded shares from a validator:
-$ hscli tx staking unbond sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
+$ sscli tx staking unbond sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
 						  sscqvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc \
 						  100satoshi
 `),
@@ -228,7 +228,7 @@ $ hscli tx staking unbond sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz \
 			}
 
 			msg := staking.NewMsgUndelegate(delAddr, valAddr, amount)
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, delAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, delAddr)
 		},
 	}
 }
@@ -240,7 +240,7 @@ func GetCmdUpgradeDelStatus(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "upgarde delegator status",
 		Args:  cobra.ExactArgs(1),
 		Long: strings.TrimSpace(`Upgrade delegator status from a validator:
-$ hscli tx staking uds 
+$ sscli tx staking uds 
 						  sscq1020jcyjpqwph4q5ye2ymt8l35um4zdrktz5rnz 
 						  --delegator-manager=sscqvaloper1ya5pe6maaxaw830h7y8crl63qm3v5j987ugnhc
 						  --delegator-status=true
@@ -264,7 +264,7 @@ $ hscli tx staking uds
 			delegatorStatus := viper.GetBool(flagDelegatorStatus)
 
 			msg := staking.NewMsgSetUndelegateStatus(delAddr, valAddr, delegatorStatus)
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, manaAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, manaAddr)
 		},
 	}
 

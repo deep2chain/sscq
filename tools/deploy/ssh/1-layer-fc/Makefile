@@ -78,7 +78,7 @@ install: reset stop clean regen dist start
 # generate
 vals: 
 	@if ! [ -d ${VALDIR} ]; then mkdir -p ${VALDIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${VALIDATOR_PRIV_IP} | awk '{print$$1F}') \
 				 -o ${VALDIR} \
 				 --validator-ip-addresses ${VALIDATOR_PRIV_IP} \
@@ -87,42 +87,42 @@ vals:
 
 sentries:
 	@if ! [ -d ${SENTRYDIR} ]; then mkdir -p ${SENTRYDIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${SENTRY_PUB_IP} | awk '{print$$1F}') \
 				 -o ${SENTRYDIR} \
 				 --validator-ip-addresses ${SENTRY_PUB_IP} \
 				 --minimum-gas-prices ${MINIMUM_GAS_PRICES} \
 				 --issuer-bech-address ${ISSUER_ADDRESS}
 genesis:
-	@rmempty $(VALDIR)/node0/.hsd/config/genesis.json ${GENDIR}/genesis.json
+	@rmempty $(VALDIR)/node0/.ssd/config/genesis.json ${GENDIR}/genesis.json
 	@for index in $(VALS_INDEX); do \
-	 cp -f ${GENDIR}/genesis.json  ${VALDIR}/node$$index/.hsd/config ; done
+	 cp -f ${GENDIR}/genesis.json  ${VALDIR}/node$$index/.ssd/config ; done
 	@for index in $(SENTRIES_INDEX); do \
-	 cp -f ${GENDIR}/genesis.json ${SENTRYDIR}/node$$index/.hsd/config; done
+	 cp -f ${GENDIR}/genesis.json ${SENTRYDIR}/node$$index/.ssd/config; done
 
 persistent_peers:
 	@for index in $(SENTRIES_INDEX); do \
-	 ip=$$(cat ${SENTRYDIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${SENTRYDIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${SENTRYDIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${SENTRYDIR}/node$$index/.ssd/config/node.conf);\
 	 port=26656;\
 	 echo "$$nodeid@$$ip:$$port" >> ${GENDIR}/persistent_peers.conf;\
 	 done
 	@for index in $(VALS_INDEX); do \
-	 replconfkey persistent_peers $(VALDIR)/node$$index/.hsd/config/config.toml ${GENDIR}/persistent_peers.conf ; done
+	 replconfkey persistent_peers $(VALDIR)/node$$index/.ssd/config/config.toml ${GENDIR}/persistent_peers.conf ; done
 	@for index in $(SENTRIES_INDEX); do \
-	 replconfkey persistent_peers $(SENTRYDIR)/node$$index/.hsd/config/config.toml ${GENDIR}/persistent_peers.conf ; done
+	 replconfkey persistent_peers $(SENTRYDIR)/node$$index/.ssd/config/config.toml ${GENDIR}/persistent_peers.conf ; done
 
 private_peer_ids:
 	@for index in $(VALS_INDEX); do \
-	 ip=$$(cat ${VALDIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$index/.ssd/config/node.conf);\
 	 port=26656;\
 	 echo "$$nodeid@$$ip:$$port" >> ${GENDIR}/private_peer_ids.conf;\
 	 done
 	@for index in $(VALS_INDEX); do \
-	 replconfkey private_peer_ids $(VALDIR)/node$$index/.hsd/config/config.toml ${GENDIR}/private_peer_ids.conf ; done
+	 replconfkey private_peer_ids $(VALDIR)/node$$index/.ssd/config/config.toml ${GENDIR}/private_peer_ids.conf ; done
 	@for index in $(SENTRIES_INDEX); do \
-	 replconfkey private_peer_ids $(SENTRYDIR)/node$$index/.hsd/config/config.toml ${GENDIR}/private_peer_ids.conf ; done
+	 replconfkey private_peer_ids $(SENTRYDIR)/node$$index/.ssd/config/config.toml ${GENDIR}/private_peer_ids.conf ; done
 
 clear:
 	@if [ -d ${GENDIR} ]; then rm -rf ${GENDIR}; fi
@@ -135,13 +135,13 @@ regen: clear vals sentries genesis persistent_peers private_peer_ids refine
 
 # restart
 stop:
-	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) pkill -9 hsd ; done
+	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) pkill -9 ssd ; done
 
 clean:
 	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) rm -rf /root/.hs* /root/nohup.out ; done
 
 start:
-	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) nohup hsd start & > /root/nohup.out ; done
+	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) nohup ssd start & > /root/nohup.out ; done
 
 restart: stop start
 # distribute
@@ -149,7 +149,7 @@ dist: dist-val dist-sentry # dist-exe dist-sh
 
 dist-exe:
 	@for index in ${NODES_INDEX}; do scp -i ${PEM_FILE} \
-	 ${BINDIR}/hsd root@$$(row $$index ${NODE_PUB_IP}):/usr/local/bin; done
+	 ${BINDIR}/ssd root@$$(row $$index ${NODE_PUB_IP}):/usr/local/bin; done
 
 dist-sh:
 	@for index in ${NODES_INDEX}; do scp -i ${PEM_FILE} \
@@ -159,7 +159,7 @@ dist-val:
 	@if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
 	@if ! [ -d ${TMPDIR} ]; then mkdir ${TMPDIR}; fi
 	@echo zipping....
-	@for index in $(VALS_INDEX); do cd $(VALDIR)/node$$index; tar cvf ${TMPDIR}/val-$$index.tar.gz .hsd; done
+	@for index in $(VALS_INDEX); do cd $(VALDIR)/node$$index; tar cvf ${TMPDIR}/val-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(VALS_INDEX); do scp -i ${PEM_FILE} -r \
 	 ${TMPDIR}/val-$$index.tar.gz root@$$(row $$(($$index+1)) ${NODE_PUB_IP}):/root ; done
@@ -174,7 +174,7 @@ dist-sentry:
 	@if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
 	@if ! [ -d ${TMPDIR} ]; then mkdir ${TMPDIR}; fi
 	@echo zipping....
-	@for index in $(SENTRIES_INDEX); do cd $(SENTRYDIR)/node$$index; tar cvf ${TMPDIR}/senty-$$index.tar.gz .hsd; done
+	@for index in $(SENTRIES_INDEX); do cd $(SENTRYDIR)/node$$index; tar cvf ${TMPDIR}/senty-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(SENTRIES_INDEX); do scp -i ${PEM_FILE} -r \
 	 ${TMPDIR}/senty-$$index.tar.gz root@$$(row $$(($$index+5)) ${NODE_PUB_IP}):/root ; done
@@ -187,7 +187,7 @@ dist-sentry:
 
 # check servers
 confirm:
-	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) ps -ef | grep hsd ; done
+	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) ps -ef | grep ssd ; done
 
 check:
 	@read -p "Enter Server Index To Check: " index; \

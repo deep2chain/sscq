@@ -62,7 +62,7 @@ func GetCmdQueryValidatorCommission(queryRoute string, cdc *codec.Codec) *cobra.
 		Short: "Query distribution validator commission",
 		Long: strings.TrimSpace(`Query validator commission rewards from delegators to that validator:
 
-$ hscli query distr commission sscqvaloper1gjtlth85y2ucym7rncrz5y6jcxp77vazs5mttf
+$ sscli query distr commission sscqvaloper1gjtlth85y2ucym7rncrz5y6jcxp77vazs5mttf
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -92,7 +92,7 @@ func GetCmdQueryValidatorSlashes(queryRoute string, cdc *codec.Codec) *cobra.Com
 		Short: "Query distribution validator slashes",
 		Long: strings.TrimSpace(`Query all slashes of a validator for a given block range:
 
-$ hscli query distr slashes sscqvaloper1gjtlth85y2ucym7rncrz5y6jcxp77vazs5mttf 0 100
+$ sscli query distr slashes sscqvaloper1gjtlth85y2ucym7rncrz5y6jcxp77vazs5mttf 0 100
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -138,8 +138,8 @@ func GetCmdQueryDelegatorRewards(queryRoute string, cdc *codec.Codec) *cobra.Com
 		Short: "Query all distribution delegator rewards or rewards from a particular validator",
 		Long: strings.TrimSpace(`Query all rewards earned by a delegator, optionally restrict to rewards from a single validator:
 
-$ hscli query distr rewards sscq1gjtlth85y2ucym7rncrz5y6jcxp77vaz6drjuz
-$ hscli query distr rewards sscq1gjtlth85y2ucym7rncrz5y6jcxp77vaz6drjuz sscqvaloper1gjtlth85y2ucym7rncrz5y6jcxp77vazs5mttf
+$ sscli query distr rewards sscq1gjtlth85y2ucym7rncrz5y6jcxp77vaz6drjuz
+$ sscli query distr rewards sscq1gjtlth85y2ucym7rncrz5y6jcxp77vaz6drjuz sscqvaloper1gjtlth85y2ucym7rncrz5y6jcxp77vazs5mttf
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -172,7 +172,7 @@ func GetCmdQueryCommunityPool(queryRoute string, cdc *codec.Codec) *cobra.Comman
 		Short: "Query the amount of coins in the community pool",
 		Long: strings.TrimSpace(`Query all coins in the community pool which is under Governance control.
 
-$ hscli query distr community-pool
+$ sscli query distr community-pool
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)

@@ -141,7 +141,7 @@ reset: cls pre
 # generate
 vals:
 	@if ! [ -d ${VALDIR} ]; then mkdir -p ${VALDIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${VALIDATOR_PRIV_IP} | awk '{print$$1F}') \
 				 -o ${VALDIR} \
 				 --validator-ip-addresses ${VALIDATOR_PRIV_IP} \
@@ -153,7 +153,7 @@ sentries: sentries-priv sentries-pub
 
 sentries-priv:
 	@if ! [ -d ${SENTRY_PRIV_DIR} ]; then mkdir -p ${SENTRY_PRIV_DIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${SENTRY_PUB_IP} | awk '{print$$1F}') \
 				 -o ${SENTRY_PRIV_DIR} \
 				 --validator-ip-addresses ${SENTRY_PRIV_IP} \
@@ -163,7 +163,7 @@ sentries-priv:
 
 sentries-pub:
 	@if ! [ -d ${SENTRY_PUB_DIR} ]; then mkdir -p ${SENTRY_PUB_DIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${SENTRY_PUB_IP} | awk '{print$$1F}') \
 				 -o ${SENTRY_PUB_DIR} \
 				 --validator-ip-addresses ${SENTRY_PUB_IP} \
@@ -172,34 +172,34 @@ sentries-pub:
 				 --password-from-file ${SENTRY_PUB_PASSWORD}
 
 genesis:
-	@rmempty $(VALDIR)/node0/.hsd/config/genesis.json ${GENDIR}/genesis.json
+	@rmempty $(VALDIR)/node0/.ssd/config/genesis.json ${GENDIR}/genesis.json
 	@for index in $(VALS_INDEX); do \
-	 cp -f ${GENDIR}/genesis.json  ${VALDIR}/node$$index/.hsd/config ; done
+	 cp -f ${GENDIR}/genesis.json  ${VALDIR}/node$$index/.ssd/config ; done
 	@for index in $(SENTRIES_PUB_INDEX); do \
-	 cp -f ${GENDIR}/genesis.json ${SENTRY_PUB_DIR}/node$$index/.hsd/config; done
+	 cp -f ${GENDIR}/genesis.json ${SENTRY_PUB_DIR}/node$$index/.ssd/config; done
 	@for index in $(SENTRIES_PRIV_INDEX); do \
-	 cp -f ${GENDIR}/genesis.json ${SENTRY_PRIV_DIR}/node$$index/.hsd/config; done
+	 cp -f ${GENDIR}/genesis.json ${SENTRY_PRIV_DIR}/node$$index/.ssd/config; done
 
 # sentries.pub.ips -> sentries.pub.persistent.peers
 # sentries.pub.ips -> sentries.priv.persistent.peers
 # sentries.pub.ips -> validators.[priv.]persistent.peers
 persistent_peers:
 	@for index in $(SENTRIES_PUB_INDEX); do \
-	 ip=$$(cat ${SENTRY_PUB_DIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${SENTRY_PUB_DIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${SENTRY_PUB_DIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${SENTRY_PUB_DIR}/node$$index/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
 	 echo "$$nodeid@$$ip:$$port" >> ${PERSISTENT_PEERS_CONF_FILE};\
 	 done
 	@for index in $(VALS_INDEX); do \
-	 replconfkey persistent_peers $(VALDIR)/node$$index/.hsd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
+	 replconfkey persistent_peers $(VALDIR)/node$$index/.ssd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
 	@for index in $(SENTRIES_PRIV_INDEX); do \
-	 replconfkey persistent_peers $(SENTRY_PRIV_DIR)/node$$index/.hsd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
+	 replconfkey persistent_peers $(SENTRY_PRIV_DIR)/node$$index/.ssd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
 	@for index in $(SENTRIES_PUB_INDEX); do \
-	 replconfkey persistent_peers $(SENTRY_PUB_DIR)/node$$index/.hsd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
+	 replconfkey persistent_peers $(SENTRY_PUB_DIR)/node$$index/.ssd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
 	@echo removing self-indicating part in config.toml
 	@for index in $(SENTRIES_PUB_INDEX); do \
 	 itself=$$(row $$(($$index+1)) ${PERSISTENT_PEERS_CONF_FILE}); \
-	 replconfval $(SENTRY_PUB_DIR)/node$$index/.hsd/config/config.toml persistent_peers $$itself; \
+	 replconfval $(SENTRY_PUB_DIR)/node$$index/.ssd/config/config.toml persistent_peers $$itself; \
 	 done
 
 # validators.priv.ips -> validators.[priv.]private.peer.ids
@@ -207,44 +207,44 @@ persistent_peers:
 # sentries.priv.ip.index -> sentries.pub.private.peer.ids.index
 private_peer_ids:
 	# @for index in $(VALS_INDEX); do \
-	#  ip=$$(cat ${VALDIR}/node$$index/.hsd/config/ip.conf); \
-	#  nodeid=$$(cat ${VALDIR}/node$$index/.hsd/config/node.conf);\
+	#  ip=$$(cat ${VALDIR}/node$$index/.ssd/config/ip.conf); \
+	#  nodeid=$$(cat ${VALDIR}/node$$index/.ssd/config/node.conf);\
 	#  port=${DEFAULT_PORT};\
 	#  echo "$$nodeid@$$ip:$$port" >> ${PRIVATE_PEER_ID_CONF_FILE};\
 	#  done
 	# @for index in $(VALS_INDEX); do \
 	#  itself=$$(row $$(($$index+1)) ${PRIVATE_PEER_ID_CONF_FILE}); \
-	#  replconfkey private_peer_ids $(VALDIR)/node$$index/.hsd/config/config.toml ${PRIVATE_PEER_ID_CONF_FILE}; \
-	#  replconfval $(VALDIR)/node$$index/.hsd/config/config.toml private_peer_ids $$itself; \
+	#  replconfkey private_peer_ids $(VALDIR)/node$$index/.ssd/config/config.toml ${PRIVATE_PEER_ID_CONF_FILE}; \
+	#  replconfval $(VALDIR)/node$$index/.ssd/config/config.toml private_peer_ids $$itself; \
 	#  done
 	@for index in $(SENTRIES_PRIV_INDEX); do \
 	 valindex=$$(($$index/${DEFAULT_RAITO_SENPRIV_BY_VAL})); \
-	 ip=$$(cat ${VALDIR}/node$$valindex/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$valindex/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$valindex/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$valindex/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
-	 replconfkey private_peer_ids $(SENTRY_PRIV_DIR)/node$$index/.hsd/config/config.toml "$$nodeid@$$ip:$$port"; \
+	 replconfkey private_peer_ids $(SENTRY_PRIV_DIR)/node$$index/.ssd/config/config.toml "$$nodeid@$$ip:$$port"; \
 	 done
 	@for index in $(SENTRIES_PUB_INDEX); do \
 	 valindex=$$(($$index/${DEFAULT_RAITO_SENPUB_BY_SENPRIV})); \
-	 ip=$$(cat ${VALDIR}/node$$valindex/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$valindex/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$valindex/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$valindex/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
-	 replconfkey private_peer_ids $(SENTRY_PUB_DIR)/node$$index/.hsd/config/config.toml "$$nodeid@$$ip:$$port"; \
+	 replconfkey private_peer_ids $(SENTRY_PUB_DIR)/node$$index/.ssd/config/config.toml "$$nodeid@$$ip:$$port"; \
 	 done
 
 pex:
 	@for index in $(VALS_INDEX); do \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml pex true false; \
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml pex true false; \
 	 done
 
 # need testing
 laddr:
 	@for index in $(VALS_INDEX); do \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done	
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done	
 	@for index in $(SENTRIES_PRIV_INDEX); do \
-	 replconfval $(SENTRY_PRIV_DIR)/node$$index/.hsd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
+	 replconfval $(SENTRY_PRIV_DIR)/node$$index/.ssd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
 	@for index in $(SENTRIES_PUB_INDEX); do \
-	 replconfval $(SENTRY_PUB_DIR)/node$$index/.hsd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
+	 replconfval $(SENTRY_PUB_DIR)/node$$index/.ssd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
 
 clear:
 	@if [ -d ${GENDIR} ]; then rm -rf ${GENDIR}; fi
@@ -274,8 +274,8 @@ start-setconfig:
 	@for index in ${NODES_INDEX}; do pem=$$(row $$(($$index+${FIRST_ROW_INDEX})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 									 ipaddr=$$(row $$index ${NODE_PUB_IP} 1);\
 									 cd ${PEMDIR};\
-									 ssh -i $$pem root@$$ipaddr hscli config chain-id ${CHAINID}; \
-									 ssh -i $$pem root@$$ipaddr hscli config trust-node true; done
+									 ssh -i $$pem root@$$ipaddr sscli config chain-id ${CHAINID}; \
+									 ssh -i $$pem root@$$ipaddr sscli config trust-node true; done
 
 stop-daemon:
 	@for index in ${NODES_INDEX}; do pem=$$(row $$(($$index+${FIRST_ROW_INDEX})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
@@ -312,13 +312,13 @@ start-rest:
 # 	@for index in ${NODES_INDEX}; do pem=$$(row $$(($$index+${FIRST_ROW_INDEX})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 # 									 ipaddr=$$(row $$index ${NODE_PUB_IP} 1);\
 # 									 cd ${PEMDIR}; \
-# 									 ssh -i $$pem root@$$ipaddr nohup hsd start & >> /root/.hsd/app.log ; done
+# 									 ssh -i $$pem root@$$ipaddr nohup ssd start & >> /root/.ssd/app.log ; done
 
 # start-rest-old:
 # 	@for index in ${SENTRIES_PUB_INDEX}; do pem=$$(row $$(($$index+${FIRST_ROW_INDEX}+${VALIDATOR_COUNT}+${SENTRY_PRIV_COUNT})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 # 									     	ipaddr=$$(row $$(($$index+1+${VALIDATOR_COUNT}+${SENTRY_PRIV_COUNT})) ${NODE_PUB_IP});\
 # 									     	cd ${PEMDIR};\
-# 									 		ssh -i $$pem root@$$ipaddr nohup hscli rest-server --chain-id=mainchain --trust-node=false --laddr=tcp://0.0.0.0:1317 --node tcp://0.0.0.0:26657 --ssl-certfile=mycert.pem --ssl-keyfile=mykey.key & > /root/nohup2.out ; done
+# 									 		ssh -i $$pem root@$$ipaddr nohup sscli rest-server --chain-id=mainchain --trust-node=false --laddr=tcp://0.0.0.0:1317 --node tcp://0.0.0.0:26657 --ssl-certfile=mycert.pem --ssl-keyfile=mykey.key & > /root/nohup2.out ; done
 
 
 restart: stop start
@@ -330,23 +330,23 @@ dist-makefile:
 									 cd ${PEMDIR};\
 									 scp -i $$pem ${CONFIGDIR}/Makefile root@$$ipaddr:/root; done
 
-# dist-hscli:
+# dist-sscli:
 # 	@for index in ${SENTRIES_PUB_INDEX}; do pem=$$(row $$(($$index+${FIRST_ROW_INDEX}+${VALIDATOR_COUNT}+${SENTRY_PRIV_COUNT})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 # 									     	ipaddr=$$(row $$(($$index+1+${VALIDATOR_COUNT}+${SENTRY_PRIV_COUNT})) ${NODE_PUB_IP});\
 # 									     	cd ${PEMDIR};\
-# 									        scp -i $$pem ${BINDIR}/hscli root@$$ipaddr:/usr/local/bin; done
+# 									        scp -i $$pem ${BINDIR}/sscli root@$$ipaddr:/usr/local/bin; done
 
-dist-hscli:
+dist-sscli:
 	@for index in ${NODES_INDEX}; do pem=$$(row $$(($$index+${FIRST_ROW_INDEX})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 									 ipaddr=$$(row $$index ${NODE_PUB_IP} 1);\
 									 cd ${PEMDIR};\
-									 scp -i $$pem ${BINDIR}/hscli root@$$ipaddr:/usr/local/bin;done
+									 scp -i $$pem ${BINDIR}/sscli root@$$ipaddr:/usr/local/bin;done
 
-dist-hsd:
+dist-ssd:
 	@for index in ${NODES_INDEX}; do pem=$$(row $$(($$index+${FIRST_ROW_INDEX})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 									 ipaddr=$$(row $$index ${NODE_PUB_IP} 1);\
 									 cd ${PEMDIR};\
-									 scp -i $$pem ${BINDIR}/hsd root@$$ipaddr:/usr/local/bin; done
+									 scp -i $$pem ${BINDIR}/ssd root@$$ipaddr:/usr/local/bin; done
 
 rmtmp:
 	@if [ -d ${TMPDIR} ]; then rm -rf ${TMPDIR}; fi
@@ -354,7 +354,7 @@ rmtmp:
 
 dist-val: rmtmp
 	@echo zipping....
-	@for index in $(VALS_INDEX); do cd $(VALDIR)/node$$index; tar cf ${TMPDIR}/val-$$index.tar.gz .hsd; done
+	@for index in $(VALS_INDEX); do cd $(VALDIR)/node$$index; tar cf ${TMPDIR}/val-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(VALS_INDEX); do pem=$$(row $$(($$index+${FIRST_ROW_INDEX})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 									ipaddr=$$(row $$index ${NODE_PUB_IP} 1);\
@@ -375,7 +375,7 @@ dist-sentry: dist-sentry-priv dist-sentry-pub
 
 dist-sentry-priv: rmtmp
 	@echo zipping....
-	@for index in $(SENTRIES_PRIV_INDEX); do cd $(SENTRY_PRIV_DIR)/node$$index; tar cf ${TMPDIR}/senty-priv-$$index.tar.gz .hsd; done
+	@for index in $(SENTRIES_PRIV_INDEX); do cd $(SENTRY_PRIV_DIR)/node$$index; tar cf ${TMPDIR}/senty-priv-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(SENTRIES_PRIV_INDEX); do pem=$$(row $$(($$index+${FIRST_ROW_INDEX}+${VALIDATOR_COUNT})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 											 ipaddr=$$(row $$(($$index+1+${VALIDATOR_COUNT})) ${NODE_PUB_IP});\
@@ -394,7 +394,7 @@ dist-sentry-priv: rmtmp
 
 dist-sentry-pub: rmtmp
 	@echo zipping....
-	@for index in $(SENTRIES_PUB_INDEX); do cd $(SENTRY_PUB_DIR)/node$$index; tar cf ${TMPDIR}/senty-pub-$$index.tar.gz .hsd; done
+	@for index in $(SENTRIES_PUB_INDEX); do cd $(SENTRY_PUB_DIR)/node$$index; tar cf ${TMPDIR}/senty-pub-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(SENTRIES_PUB_INDEX); do pem=$$(row $$(($$index+${FIRST_ROW_INDEX}+${VALIDATOR_COUNT}+${SENTRY_PRIV_COUNT})) ${SERVER_INFO}|column ${PEM_COL_INDEX});\
 											ipaddr=$$(row $$(($$index+1+${VALIDATOR_COUNT}+${SENTRY_PRIV_COUNT})) ${NODE_PUB_IP});\
@@ -427,30 +427,30 @@ ssh:
 
 # client test
 refresh:
-	@rm -rf ~/.hsd
-	@mkdir ~/.hsd
-	@cp -f ${GENDIR}/genesis.json ~/.hsd/config
-	@hscli config chain-id ${CHAINID}
+	@rm -rf ~/.ssd
+	@mkdir ~/.ssd
+	@cp -f ${GENDIR}/genesis.json ~/.ssd/config
+	@sscli config chain-id ${CHAINID}
 
 validate-passwd:
-	@for index in ${VALS_INDEX}; do homedir=${VALDIR}/node$$index/.hscli; \
+	@for index in ${VALS_INDEX}; do homedir=${VALDIR}/node$$index/.sscli; \
 									cd $$homedir; \
 									echo $$homedir; \
-									bechkey=$$(hscli accounts list --home $$homedir); \
+									bechkey=$$(sscli accounts list --home $$homedir); \
 									pass=$$(row $$(($$index+1)) ${VALIDATOR_PASSWORD}| tr -d '\r');\
 									echo $$bechkey	$$pass;\
 									hsutil unlock $$bechkey --passphrase $$pass; done
-	@for index in ${SENTRIES_PRIV_INDEX}; do homedir=${SENTRY_PRIV_DIR}/node$$index/.hscli; \
+	@for index in ${SENTRIES_PRIV_INDEX}; do homedir=${SENTRY_PRIV_DIR}/node$$index/.sscli; \
 											 cd $$homedir; \
 											 echo $$homedir; \
-											 bechkey=$$(hscli accounts list --home $$homedir); \
+											 bechkey=$$(sscli accounts list --home $$homedir); \
 											 pass=$$(row $$(($$index+1)) ${SENTRY_PRIV_PASSWORD}| tr -d '\r');\
 											 echo $$bechkey	$$pass;\
 											 hsutil unlock $$bechkey --passphrase $$pass ; done
-	@for index in ${SENTRIES_PUB_INDEX}; do homedir=${SENTRY_PUB_DIR}/node$$index/.hscli; \
+	@for index in ${SENTRIES_PUB_INDEX}; do homedir=${SENTRY_PUB_DIR}/node$$index/.sscli; \
 											cd $$homedir; \
 											echo $$homedir; \
-											bechkey=$$(hscli accounts list --home $$homedir); \
+											bechkey=$$(sscli accounts list --home $$homedir); \
 											pass=$$(row $$(($$index+1)) ${SENTRY_PUB_PASSWORD}| tr -d '\r');\
 											echo $$bechkey	$$pass;\
 											hsutil unlock $$bechkey --passphrase $$pass ; done
@@ -482,10 +482,10 @@ job:
 									 tmpdir=${CONFIGDIR}/tmpzone/node$$index;\
 									 mkdir -p $$tmpdir;\
 									 cd ${PEMDIR};\
-									 scp -i $$pem root@$$ipaddr:/root/.hsd/config/config.toml $$tmpdir/config.toml;\
-									 ssh -i $$pem root@$$ipaddr rm -f /root/.hsd/config/config.toml;\
+									 scp -i $$pem root@$$ipaddr:/root/.ssd/config/config.toml $$tmpdir/config.toml;\
+									 ssh -i $$pem root@$$ipaddr rm -f /root/.ssd/config/config.toml;\
 									 replconfval $$tmpdir/config.toml laddr "tcp://0.0.0.0:26657" "tcp://127.0.0.1:26657";\
-									 scp -i $$pem $$tmpdir/config.toml root@$$ipaddr:/root/.hsd/config;\
+									 scp -i $$pem $$tmpdir/config.toml root@$$ipaddr:/root/.ssd/config;\
 									 done
 
 repl: stop job start rmtemp

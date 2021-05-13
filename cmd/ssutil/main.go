@@ -72,7 +72,7 @@ func main() {
 	config.Seal()
 
 	rootCmd := &cobra.Command{
-		Use:   "hsutil",
+		Use:   "ssutil",
 		Short: "sscqservice utilities",
 	}
 
@@ -96,7 +96,7 @@ func TestCmdBech2Hex(cdc *codec.Codec) *cobra.Command {
 		Use:     "bech2hex [bech32addr]",
 		Aliases: []string{"bh"},
 		Short:   "validate/convert bech32 to hex",
-		Long:    "hsutil bech2hex cosmos1nlk39wzz7ymvr8utf3tcrkvaayunylmmyv05re",
+		Long:    "ssutil bech2hex cosmos1nlk39wzz7ymvr8utf3tcrkvaayunylmmyv05re",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 
@@ -121,7 +121,7 @@ func TestCmdHex2Bech(cdc *codec.Codec) *cobra.Command {
 		Use:     "hex2bech [hexaddr]",
 		Aliases: []string{"hb"},
 		Short:   "validate/convert hex address to bech address",
-		Long:    "hsutil hex2bech cosmos1nlk39wzz7ymvr8utf3tcrkvaayunylmmyv05re",
+		Long:    "ssutil hex2bech cosmos1nlk39wzz7ymvr8utf3tcrkvaayunylmmyv05re",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			bz, err := hex.DecodeString(args[0])
@@ -149,7 +149,7 @@ func TestCmdHex2Json(cdc *codec.Codec) *cobra.Command {
 		Use:     "hex2json [rawhex]",
 		Aliases: []string{"hj"},
 		Short:   "decode rawhex to string",
-		Long:    "hsutil hex2json 231..132",
+		Long:    "ssutil hex2json 231..132",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
@@ -170,7 +170,7 @@ func TestCmdJSON2Hex(cdc *codec.Codec) *cobra.Command {
 		Use:     "json2hex [json]",
 		Aliases: []string{"jh"},
 		Short:   "encode string to rawhex",
-		Long:    "hsutil json2hex '{}'",
+		Long:    "ssutil json2hex '{}'",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
@@ -187,7 +187,7 @@ func TestCmdKeyRecover(cdc *codec.Codec) *cobra.Command {
 		Use:     "recover",
 		Aliases: []string{"rc"},
 		Short:   "return the system issuer address",
-		Long:    "hsutil recover",
+		Long:    "ssutil recover",
 		Args:    cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			buf := client.BufferStdin()

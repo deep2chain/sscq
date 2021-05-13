@@ -27,5 +27,5 @@ WORKDIR /root
 COPY --from=construction /go/src/github.com/deep2chain/sscq/build/* /usr/local/bin/
 
 EXPOSE 1317 26656 26657
-CMD ["hsd"]
-ENTRYPOINT ["hsd"]
+CMD ["ssd"]
+ENTRYPOINT ["ssd"]

@@ -58,14 +58,14 @@ func TestnetFilesCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:   "testnet",
-		Short: "Initialize files for a hsd testnet",
+		Short: "Initialize files for a ssd testnet",
 		Long: `testnet will create "v" number of directories and populate each with
 necessary files (private validator, genesis, config, etc.).
 
 Note, strict routability for addresses is turned off in the config file.
 
 Example:
-	hsd testnet --v 4 --output-dir ./output --starting-ip-address 192.168.10.2
+	ssd testnet --v 4 --output-dir ./output --starting-ip-address 192.168.10.2
 	`,
 		RunE: func(_ *cobra.Command, _ []string) error {
 			config := ctx.Config
@@ -82,10 +82,10 @@ Example:
 	cmd.Flags().String(flagNodeDirPrefix, "node",
 		"Prefix the directory name for each node with (node results in node0, node1, ...)",
 	)
-	cmd.Flags().String(flagNodeDaemonHome, ".hsd",
+	cmd.Flags().String(flagNodeDaemonHome, ".ssd",
 		"Home directory of the node's daemon configuration",
 	)
-	cmd.Flags().String(flagNodeCliHome, ".hscli",
+	cmd.Flags().String(flagNodeCliHome, ".sscli",
 		"Home directory of the node's cli configuration",
 	)
 	cmd.Flags().String(flagStartingIPAddress, "192.168.0.1",
@@ -256,7 +256,7 @@ func initTestnet(config *tmconfig.Config, cdc *codec.Codec) error {
 			return err
 		}
 
-		hsConfigFilePath := filepath.Join(nodeDir, "config/hsd.toml")
+		hsConfigFilePath := filepath.Join(nodeDir, "config/ssd.toml")
 		srvconfig.WriteConfigFile(hsConfigFilePath, hsConfig)
 	}
 

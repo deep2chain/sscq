@@ -37,9 +37,9 @@ import (
 	st "github.com/deep2chain/sscq/x/staking"
 	staking "github.com/deep2chain/sscq/x/staking/client/rest"
 
-	hscliversion "github.com/deep2chain/sscq/server"
+	sscliversion "github.com/deep2chain/sscq/server"
 	distcmd "github.com/deep2chain/sscq/x/distribution"
-	hsdistClient "github.com/deep2chain/sscq/x/distribution/client"
+	ssdistClient "github.com/deep2chain/sscq/x/distribution/client"
 	hsgovClient "github.com/deep2chain/sscq/x/gov/client"
 	hsmintClient "github.com/deep2chain/sscq/x/mint/client/cli"
 	hslashingClient "github.com/deep2chain/sscq/x/slashing/client"
@@ -77,13 +77,13 @@ func main() {
 
 	mc := []sdk.ModuleClients{
 		hsgovClient.NewModuleClient(gv.StoreKey, cdc),
-		hsdistClient.NewModuleClient(distcmd.StoreKey, cdc),
+		ssdistClient.NewModuleClient(distcmd.StoreKey, cdc),
 		hstakingClient.NewModuleClient(st.StoreKey, cdc),
 		hslashingClient.NewModuleClient(sl.StoreKey, cdc),
 	}
 
 	rootCmd := &cobra.Command{
-		Use:   "hscli",
+		Use:   "sscli",
 		Short: "sscqservice Client",
 	}
 
@@ -105,7 +105,7 @@ func main() {
 		client.LineBreak,
 		accounts.Commands(),
 		client.LineBreak,
-		hscliversion.VersionHscliCmd,
+		sscliversion.VersionHscliCmd,
 		bech32.Bech32Commands(),
 	)
 

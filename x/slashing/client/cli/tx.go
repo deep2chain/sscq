@@ -7,7 +7,7 @@ import (
 	sdk "github.com/deep2chain/sscq/types"
 	authtxb "github.com/deep2chain/sscq/x/auth/client/txbuilder"
 	"github.com/deep2chain/sscq/x/slashing"
-	hscorecli "github.com/deep2chain/sscq/x/core/client/cli"
+	sscorecli "github.com/deep2chain/sscq/x/core/client/cli"
 	"github.com/spf13/cobra"
 )
 
@@ -18,7 +18,7 @@ func GetCmdUnjail(cdc *codec.Codec) *cobra.Command {
 		Short: "unjail validator previously jailed for downtime",
 		Long: `unjail a jailed validator:
 
-$ hscli tx slashing unjail [keyaddr]
+$ sscli tx slashing unjail [keyaddr]
 `,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
@@ -30,7 +30,7 @@ $ hscli tx slashing unjail [keyaddr]
 			}
 
 			msg := slashing.NewMsgUnjail(sdk.ValAddress(validatorAddr))
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, validatorAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, validatorAddr)
 		},
 	}
 }

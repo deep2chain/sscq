@@ -108,7 +108,7 @@ def test_normal_tx_send(conftest_args):
 
 
 def test_normal_tx_with_data(conftest_args):
-    # protocol_version = subprocess.getoutput('hscli query  upgrade info  --chain-id=testchain -o json | jq .current_version.UpgradeInfo.Protocol.version')
+    # protocol_version = subprocess.getoutput('sscli query  upgrade info  --chain-id=testchain -o json | jq .current_version.UpgradeInfo.Protocol.version')
 
     gas_wanted = 7500000
     gas_price = 100

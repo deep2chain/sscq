@@ -14,7 +14,7 @@ import (
 	sdk "github.com/deep2chain/sscq/types"
 	authtxb "github.com/deep2chain/sscq/x/auth/client/txbuilder"
 
-	hscorecli "github.com/deep2chain/sscq/x/core/client/cli"
+	sscorecli "github.com/deep2chain/sscq/x/core/client/cli"
 	"github.com/deep2chain/sscq/x/distribution/client/common"
 	"github.com/deep2chain/sscq/x/distribution/types"
 	log "github.com/sirupsen/logrus"
@@ -48,8 +48,8 @@ func GetCmdWithdrawRewards(cdc *codec.Codec) *cobra.Command {
 		Short: "witdraw rewards from a given delegation address, and optionally withdraw validator commission if the delegation address given is a validator operator",
 		Long: strings.TrimSpace(`witdraw rewards from a given delegation address, and optionally withdraw validator commission if the delegation address given is a validator operator:
 
-$ hscli tx distr withdraw-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscqvaloper1keyvaa4u5rcjwq3gncvct4hrmq553fpkfqrcr8
-$ hscli tx distr withdraw-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscqvaloper1keyvaa4u5rcjwq3gncvct4hrmq553fpkfqrcr8 --commission
+$ sscli tx distr withdraw-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscqvaloper1keyvaa4u5rcjwq3gncvct4hrmq553fpkfqrcr8
+$ sscli tx distr withdraw-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscqvaloper1keyvaa4u5rcjwq3gncvct4hrmq553fpkfqrcr8 --commission
 `),
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -72,7 +72,7 @@ $ hscli tx distr withdraw-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v ss
 			}
 			str, err := cliCtx.Codec.MarshalJSON(msgs)
 			log.Infoln(string(str))
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs, delAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs, delAddr)
 		},
 	}
 	cmd.Flags().Bool(flagComission, false, "also withdraw validator's commission")
@@ -86,7 +86,7 @@ func GetCmdWithdrawAllRewards(cdc *codec.Codec, queryRoute string) *cobra.Comman
 		Short: "withdraw all delegations rewards for a delegator",
 		Long: strings.TrimSpace(`Withdraw all rewards for a single delegator:
 
-$ hscli tx distr withdraw-all-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v
+$ sscli tx distr withdraw-all-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -104,7 +104,7 @@ $ hscli tx distr withdraw-all-rewards sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5
 				return err
 			}
 
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs, delAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs, delAddr)
 		},
 	}
 }
@@ -116,7 +116,7 @@ func GetCmdSetWithdrawAddr(cdc *codec.Codec) *cobra.Command {
 		Short: "change the default withdraw address for rewards associated with an address",
 		Long: strings.TrimSpace(`Set the withdraw address for rewards associated with a delegator address:
 
-$ hscli tx set-withdraw-addr sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscq14psya76ttdx5qvqq5zzz2q6v63k2g3h2k599zd
+$ sscli tx set-withdraw-addr sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscq14psya76ttdx5qvqq5zzz2q6v63k2g3h2k599zd
 `),
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -135,7 +135,7 @@ $ hscli tx set-withdraw-addr sscq1keyvaa4u5rcjwq3gncvct4hrmq553fpkremp5v sscq14p
 			}
 
 			msg := types.NewMsgSetWithdrawAddress(delAddr, withdrawAddr)
-			return hscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, delAddr)
+			return sscorecli.CompleteAndBroadcastTxCLI(txBldr, cliCtx, []sdk.Msg{msg}, delAddr)
 		},
 	}
 	return cmd

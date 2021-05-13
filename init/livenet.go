@@ -37,14 +37,14 @@ func LiveNetFilesCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:   "livenet",
-		Short: "Initialize files for a hsd testnet with distributing scripts",
+		Short: "Initialize files for a ssd testnet with distributing scripts",
 		Long: `livenet will create "v" number of directories and populate each with
 necessary files (private validator, genesis, config, etc.).
 
 Note, strict routability for addresses is turned off in the config file.
 
 Example:
-hsd livenet --chain-id testchain --v 4 -o output --validator-ip-addresses ip.list --minimum-gas-prices 100satoshi --issuer-bech-address sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3 --password-from-file password.list
+ssd livenet --chain-id testchain --v 4 -o output --validator-ip-addresses ip.list --minimum-gas-prices 100satoshi --issuer-bech-address sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3 --password-from-file password.list
 	`,
 		RunE: func(_ *cobra.Command, _ []string) error {
 			config := ctx.Config
@@ -61,10 +61,10 @@ hsd livenet --chain-id testchain --v 4 -o output --validator-ip-addresses ip.lis
 	cmd.Flags().String(flagNodeDirPrefix, "node",
 		"Prefix the directory name for each node with (node results in node0, node1, ...)",
 	)
-	cmd.Flags().String(flagNodeDaemonHome, ".hsd",
+	cmd.Flags().String(flagNodeDaemonHome, ".ssd",
 		"Home directory of the node's daemon configuration",
 	)
-	cmd.Flags().String(flagNodeCliHome, ".hscli",
+	cmd.Flags().String(flagNodeCliHome, ".sscli",
 		"Home directory of the node's cli configuration",
 	)
 	cmd.Flags().String(flagStartingIPAddress, "192.168.0.1",
@@ -330,7 +330,7 @@ func initLiveNet(config *tmconfig.Config, cdc *codec.Codec) error {
 			return err
 		}
 
-		hsConfigFilePath := filepath.Join(nodeDir, "config/hsd.toml")
+		hsConfigFilePath := filepath.Join(nodeDir, "config/ssd.toml")
 		srvconfig.WriteConfigFile(hsConfigFilePath, hsConfig)
 	}
 

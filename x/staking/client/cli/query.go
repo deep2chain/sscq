@@ -20,7 +20,7 @@ func GetCmdQueryValidator(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query a validator",
 		Long: strings.TrimSpace(`Query details about an individual validator:
 
-$ hscli query staking validator sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
+$ sscli query staking validator sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -53,7 +53,7 @@ func GetCmdQueryValidators(storeName string, cdc *codec.Codec) *cobra.Command {
 		Args:  cobra.NoArgs,
 		Long: strings.TrimSpace(`Query details about all validators on a network:
 
-$ hscli query staking validators
+$ sscli query staking validators
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -80,7 +80,7 @@ func GetCmdQueryValidatorUnbondingDelegations(storeKey string, cdc *codec.Codec)
 		Short: "Query all unbonding delegatations from a validator",
 		Long: strings.TrimSpace(`Query delegations that are unbonding _from_ a validator:
 
-$ hscli query staking unbonding-delegations-from sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
+$ sscli query staking unbonding-delegations-from sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -116,7 +116,7 @@ func GetCmdQueryValidatorRedelegations(storeKey string, cdc *codec.Codec) *cobra
 		Short: "Query all outgoing redelegatations from a validator",
 		Long: strings.TrimSpace(`Query delegations that are redelegating _from_ a validator:
 
-$ hscli query staking redelegations-from sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
+$ sscli query staking redelegations-from sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -152,7 +152,7 @@ func GetCmdQueryDelegation(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query a delegation based on address and validator address",
 		Long: strings.TrimSpace(`Query delegations for an individual delegator on an individual validator:
 
-$ hscli query staking delegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2 sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
+$ sscli query staking delegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2 sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
 `),
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -195,7 +195,7 @@ func GetCmdQueryDelegations(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query all delegations made by one delegator",
 		Long: strings.TrimSpace(`Query delegations for an individual delegator on all validators:
 
-$ hscli query staking delegations sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2
+$ sscli query staking delegations sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -240,7 +240,7 @@ func GetCmdQueryValidatorDelegations(storeKey string, cdc *codec.Codec) *cobra.C
 		Short: "Query all delegations made to one validator",
 		Long: strings.TrimSpace(`Query delegations on an individual validator:
 
-$ hscli query staking delegations-to sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
+$ sscli query staking delegations-to sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -277,7 +277,7 @@ func GetCmdQueryUnbondingDelegation(storeName string, cdc *codec.Codec) *cobra.C
 		Short: "Query an unbonding-delegation record based on delegator and validator address",
 		Long: strings.TrimSpace(`Query unbonding delegations for an individual delegator on an individual validator:
 
-$ hscli query staking unbonding-delegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2 sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
+$ sscli query staking unbonding-delegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2 sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
 `),
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -312,7 +312,7 @@ func GetCmdQueryUnbondingDelegations(storeName string, cdc *codec.Codec) *cobra.
 		Short: "Query all unbonding-delegations records for one delegator",
 		Long: strings.TrimSpace(`Query unbonding delegations for an individual delegator:
 
-$ hscli query staking unbonding-delegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2
+$ sscli query staking unbonding-delegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2
 `),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -346,7 +346,7 @@ func GetCmdQueryRedelegation(storeName string, cdc *codec.Codec) *cobra.Command 
 		Short: "Query a redelegation record based on delegator and a source and destination validator address",
 		Long: strings.TrimSpace(`Query a redelegation record  for an individual delegator between a source and destination validator:
 
-$ hscli query staking redelegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2 sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
+$ sscli query staking redelegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2 sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
 `),
 		Args: cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -386,7 +386,7 @@ func GetCmdQueryRedelegations(storeName string, cdc *codec.Codec) *cobra.Command
 		Short: "Query all redelegations records for one delegator",
 		Long: strings.TrimSpace(`Query all redelegation records for an individual delegator:
 
-$ hscli query staking redelegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2
+$ sscli query staking redelegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -419,7 +419,7 @@ func GetCmdQueryPool(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query the current staking pool values",
 		Long: strings.TrimSpace(`Query values for amounts stored in the staking pool:
 
-$ hscli query staking pool
+$ sscli query staking pool
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -442,7 +442,7 @@ func GetCmdQueryParams(storeName string, cdc *codec.Codec) *cobra.Command {
 		Short: "Query the current staking parameters information",
 		Long: strings.TrimSpace(`Query values set as staking parameters:
 
-$ hscli query staking params
+$ sscli query staking params
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -466,7 +466,7 @@ func GetCmdQueryDelegationStatus(storeName string, cdc *codec.Codec) *cobra.Comm
 		Short: "Query an unbonding-delegation record based on delegator and validator address",
 		Long: strings.TrimSpace(`Query unbonding delegations for an individual delegator on an individual validator:
 
-$ hscli query staking unbonding-delegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2 sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
+$ sscli query staking unbonding-delegation sscq1u329vz5ysu9dud0q6cuyhy9dmzmvntw00s00e2 sscqvaloper1cr6cur6e4f3amarzzxe3ttwrnldkpy56q0d68w
 `),
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {

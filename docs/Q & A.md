@@ -38,7 +38,7 @@ Delegators are Atom holders who cannot, or do not want to run a validator themse
        A:  1. To create a full node as a sentry node.
            2. To edit $HOME/.gaiad/config/config.toml so that fill "private_peer_ids" with a validator node ID.
               > private_peer_ids = "5a533005d74b40ab954b33029a5682ec8794d014"
-              > hsd tendermint show_node_id
+              > ssd tendermint show_node_id
            3. On the validator node, disallow all incoming connections in the firewall.
           Only allow incoming connection on 46656/tcp from the internal IP of the sentry node.
            4. On the validator node, edit $HOME/.gaiad/config/config.toml.

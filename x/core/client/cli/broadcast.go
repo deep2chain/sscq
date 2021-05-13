@@ -12,13 +12,13 @@ import (
 // GetCmdBroadCast is the CLI command for broadcasting a signed transaction
 /*
 	inspired by
-	hscli tx broadcast signed.json
+	sscli tx broadcast signed.json
 */
 func GetCmdBroadCast(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "broadcast [rawdata]",
 		Short: "broadcast signed transaction",
-		Long:  "hscli tx broadcast 72032..13123",
+		Long:  "sscli tx broadcast 72032..13123",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			// load sign tx from string

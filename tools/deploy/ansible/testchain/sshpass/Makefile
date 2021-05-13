@@ -15,7 +15,7 @@
 # node2 ansible_host=47.11.5.12 ansible_user=root ansible_ssh_private_key_file=/tmp/47.11.5.12.pem
 # node3 ansible_host=47.11.5.13 ansible_user=root ansible_ssh_private_key_file=/tmp/47.11.5.13.pem
 # node4 ansible_host=47.11.5.14 ansible_user=root ansible_ssh_private_key_file=/tmp/47.11.5.14.pem
-# 3. hsd,hscli
+# 3. ssd,sscli
 ### account info
 # issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
 # staker: sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
@@ -88,7 +88,7 @@ pre:
 
 vals: 
 	@if ! [ -d ${VALDIR} ]; then mkdir -p ${VALDIR}; fi
-	@hsd livenet --chain-id ${CHAIN_ID} \
+	@ssd livenet --chain-id ${CHAIN_ID} \
 				 --v $$(wc ${VALIDATOR_IP} | awk '{print$$1F}') \
 				 -o ${VALDIR} \
 				 --validator-ip-addresses ${VALIDATOR_IP} \
@@ -98,25 +98,25 @@ vals:
 
 genesis.json:
 	@if ! [ -d ${GENDIR} ]; then mkdir -p ${GENDIR}; fi
-	@hsd add-guardian-account ${GUARDIAN_ADDRESS} --home $(VALDIR)/node0/.hsd
-	@rmempty $(VALDIR)/node0/.hsd/config/genesis.json ${GENESIS_JSON_FILE}
-	@for index in $(VALS_INDEX); do cp -f ${GENESIS_JSON_FILE} ${VALDIR}/node$$index/.hsd/config ; done
+	@ssd add-guardian-account ${GUARDIAN_ADDRESS} --home $(VALDIR)/node0/.ssd
+	@rmempty $(VALDIR)/node0/.ssd/config/genesis.json ${GENESIS_JSON_FILE}
+	@for index in $(VALS_INDEX); do cp -f ${GENESIS_JSON_FILE} ${VALDIR}/node$$index/.ssd/config ; done
 
 config.toml:
 	@if ! [ -d ${GENDIR} ]; then mkdir -p ${GENDIR}; fi
 	@for index in $(VALS_INDEX); do \
-	 ip=$$(cat ${VALDIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$index/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
 	 echo "$$nodeid@$$ip:$$port" >> ${PERSISTENT_PEERS_CONF_FILE}; done
-	@cp $(VALDIR)/node0/.hsd/config/config.toml ${CONFIG_TOML_FILE}
+	@cp $(VALDIR)/node0/.ssd/config/config.toml ${CONFIG_TOML_FILE}
 	@replconfkey persistent_peers ${CONFIG_TOML_FILE} ${PERSISTENT_PEERS_CONF_FILE}
 	@for index in $(VALS_INDEX); do \
-	 replconfkey persistent_peers $(VALDIR)/node$$index/.hsd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
+	 replconfkey persistent_peers $(VALDIR)/node$$index/.ssd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
 	@for index in $(VALS_INDEX); do \
 	 itself=$$(row $$(($$index+1)) ${PERSISTENT_PEERS_CONF_FILE}); \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml persistent_peers $$itself; \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml persistent_peers $$itself; \
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
 
 refine:
 	@find ${VALDIR} -name "node.conf" |xargs rm -f
@@ -132,15 +132,15 @@ distr.mkfile:
 	@ansible tests -m copy -a "src=$(CONFIGDIR)/Makefile dest=/root force=yes"	
 
 distr.exe:
-	@ansible tests -m copy -a "src=$$(which hsd) dest=/usr/local/bin force=yes mode=755"
-	@ansible tests -m copy -a "src=$$(which hscli) dest=/usr/local/bin force=yes mode=755"
+	@ansible tests -m copy -a "src=$$(which ssd) dest=/usr/local/bin force=yes mode=755"
+	@ansible tests -m copy -a "src=$$(which sscli) dest=/usr/local/bin force=yes mode=755"
 
 distr.config:
 	@for index in $(VALS_INDEX); do \
 	 ipaddr=$$(row $$index ${SERVER_LIST} 1|column ${PUB_COL_INDEX});\
 	 passwd=$$(row $$index ${SERVER_LIST} 1|column ${PEM_COL_INDEX});\
-	 echo "compressing ${VALDIR}/node$$index/.hsd to node$$index.tar.gz";\
-	 cd ${VALDIR}/node$$index; tar cf ${VALDIR}/node$$index.tar.gz .hsd;\
+	 echo "compressing ${VALDIR}/node$$index/.ssd to node$$index.tar.gz";\
+	 cd ${VALDIR}/node$$index; tar cf ${VALDIR}/node$$index.tar.gz .ssd;\
 	 echo "copying node$$index.tar.gz to $$ipaddr";\
 	 sshpass -p $$passwd scp ${VALDIR}/node$$index.tar.gz root@$$ipaddr:/root;\
 	 echo "extracting node$$index.tar.gz on $$ipaddr";\
@@ -160,8 +160,8 @@ stop.rest:
 	@ansible tests -m shell -a "make stop-rest"
 
 start.setconfig:
-	@ansible tests -m shell -a "hscli config chain-id ${CHAIN_ID}"
-	@ansible tests -m shell -a "hscli config trust-node true"
+	@ansible tests -m shell -a "sscli config chain-id ${CHAIN_ID}"
+	@ansible tests -m shell -a "sscli config trust-node true"
 
 start.daemon: 
 	@ansible tests -m shell -a "make start-daemon"
@@ -171,26 +171,26 @@ start.rest:start.setconfig
 
 # check servers
 confirm.validator.address:
-	@ansible test1 -m shell -a "hscli query staking validators|grep 'Operator Address'"|grep 'Operator Address'|column 3
+	@ansible test1 -m shell -a "sscli query staking validators|grep 'Operator Address'"|grep 'Operator Address'|column 3
 
 confirm.height:
 	@ansible tests -m shell -a "curl http://localhost:26657/status|grep latest_block_height"|grep latest_block_height
 
 confirm.delegator.share:
-	@ansible test1 -m shell -a "hscli query staking validators|grep 'Delegator Shares'"
+	@ansible test1 -m shell -a "sscli query staking validators|grep 'Delegator Shares'"
 
 confirm.validating.power:
-	@ansible test1 -m shell -a "hscli query tendermint-validator-set|grep VotingPower"
+	@ansible test1 -m shell -a "sscli query tendermint-validator-set|grep VotingPower"
 
 confirm.validator.commission:
 	@if ! [ -f "$(CONFIGDIR)/validators.list" ]; then make -sC confirm.validator.address > $(CONFIGDIR)/validators.list;fi
 	@for index in $(VALS_INDEX); do \
 	 valaddr=$$(row $$index $(CONFIGDIR)/validators.list 1);\
 	 echo $$valaddr;\
-	 ansible test1 -m shell -a "hscli query distr commission $$valaddr"|grep satoshi; done
+	 ansible test1 -m shell -a "sscli query distr commission $$valaddr"|grep satoshi; done
 
 confirm.community-pool:
-	@ansible test1 -m shell -a "hscli query distr community-pool"
+	@ansible test1 -m shell -a "sscli query distr community-pool"
 
 ssh.vals:
 	@read -p "Enter Server Index To Check: " index; \
@@ -206,11 +206,11 @@ backup:
 	@ansible tests -m shell -a "ls -a .2019";
 
 test.local:
-	@rm -rf ${HOME}/.hsd;mkdir -p ${HOME}/.hsd/config
-	@cp ${VALDIR}/node1/.hsd/config/config.toml ${HOME}/.hsd/config
-	@cp ${VALDIR}/node1/.hsd/config/genesis.json ${HOME}/.hsd/config
-	# @nohup hsd start >> ${HOME}/.hsd/app.log  2>&1  &
-	# @nohup hscli rest-server --chain-id=${CHAIN_ID} --trust-node=true --laddr=tcp://0.0.0.0:1317 >> ${HOME}/.hsd/restServer.log  2>&1  &
+	@rm -rf ${HOME}/.ssd;mkdir -p ${HOME}/.ssd/config
+	@cp ${VALDIR}/node1/.ssd/config/config.toml ${HOME}/.ssd/config
+	@cp ${VALDIR}/node1/.ssd/config/genesis.json ${HOME}/.ssd/config
+	# @nohup ssd start >> ${HOME}/.ssd/app.log  2>&1  &
+	# @nohup sscli rest-server --chain-id=${CHAIN_ID} --trust-node=true --laddr=tcp://0.0.0.0:1317 >> ${HOME}/.ssd/restServer.log  2>&1  &
 
 test.route:
-	@ansible tests -m shell -a "rm /root/.hsd/Makefile"	
+	@ansible tests -m shell -a "rm /root/.ssd/Makefile"	

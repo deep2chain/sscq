@@ -6,7 +6,7 @@ import (
 
 	"github.com/deep2chain/sscq/client"
 	distcli "github.com/deep2chain/sscq/x/distribution/client/cli"
-	hsdistcli "github.com/deep2chain/sscq/x/distribution/client/cli"
+	ssdistcli "github.com/deep2chain/sscq/x/distribution/client/cli"
 )
 
 // ModuleClient exports all client functionality from this module
@@ -46,9 +46,9 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 	}
 
 	distTxCmd.AddCommand(client.PostCommands(
-		hsdistcli.GetCmdWithdrawRewards(mc.cdc),
-		hsdistcli.GetCmdSetWithdrawAddr(mc.cdc),
-		hsdistcli.GetCmdWithdrawAllRewards(mc.cdc, mc.storeKey),
+		ssdistcli.GetCmdWithdrawRewards(mc.cdc),
+		ssdistcli.GetCmdSetWithdrawAddr(mc.cdc),
+		ssdistcli.GetCmdWithdrawAllRewards(mc.cdc, mc.storeKey),
 	)...)
 
 	return distTxCmd

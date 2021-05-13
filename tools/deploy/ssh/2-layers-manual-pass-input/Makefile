@@ -107,7 +107,7 @@ reset: cls pre
 # generate
 vals: 
 	@if ! [ -d ${VALDIR} ]; then mkdir -p ${VALDIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${VALIDATOR_PRIV_IP} | awk '{print$$1F}') \
 				 -o ${VALDIR} \
 				 --validator-ip-addresses ${VALIDATOR_PRIV_IP} \
@@ -118,7 +118,7 @@ sentries: sentries-priv sentries-pub
 
 sentries-priv:
 	@if ! [ -d ${SENTRY_PRIV_DIR} ]; then mkdir -p ${SENTRY_PRIV_DIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${SENTRY_PUB_IP} | awk '{print$$1F}') \
 				 -o ${SENTRY_PRIV_DIR} \
 				 --validator-ip-addresses ${SENTRY_PRIV_IP} \
@@ -127,7 +127,7 @@ sentries-priv:
 
 sentries-pub:
 	@if ! [ -d ${SENTRY_PUB_DIR} ]; then mkdir -p ${SENTRY_PUB_DIR}; fi
-	@hsd livenet --chain-id ${CHAINID} \
+	@ssd livenet --chain-id ${CHAINID} \
 				 --v $$(wc ${SENTRY_PUB_IP} | awk '{print$$1F}') \
 				 -o ${SENTRY_PUB_DIR} \
 				 --validator-ip-addresses ${SENTRY_PUB_IP} \
@@ -135,34 +135,34 @@ sentries-pub:
 				 --issuer-bech-address ${ISSUER_ADDRESS}
 
 genesis:
-	@rmempty $(VALDIR)/node0/.hsd/config/genesis.json ${GENDIR}/genesis.json
+	@rmempty $(VALDIR)/node0/.ssd/config/genesis.json ${GENDIR}/genesis.json
 	@for index in $(VALS_INDEX); do \
-	 cp -f ${GENDIR}/genesis.json  ${VALDIR}/node$$index/.hsd/config ; done
+	 cp -f ${GENDIR}/genesis.json  ${VALDIR}/node$$index/.ssd/config ; done
 	@for index in $(SENTRIES_PUB_INDEX); do \
-	 cp -f ${GENDIR}/genesis.json ${SENTRY_PUB_DIR}/node$$index/.hsd/config; done
+	 cp -f ${GENDIR}/genesis.json ${SENTRY_PUB_DIR}/node$$index/.ssd/config; done
 	@for index in $(SENTRIES_PRIV_INDEX); do \
-	 cp -f ${GENDIR}/genesis.json ${SENTRY_PRIV_DIR}/node$$index/.hsd/config; done
+	 cp -f ${GENDIR}/genesis.json ${SENTRY_PRIV_DIR}/node$$index/.ssd/config; done
 
 # sentries.pub.ips -> sentries.pub.persistent.peers
 # sentries.pub.ips -> sentries.priv.persistent.peers
 # sentries.pub.ips -> validators.[priv.]persistent.peers
 persistent_peers:
 	@for index in $(SENTRIES_PUB_INDEX); do \
-	 ip=$$(cat ${SENTRY_PUB_DIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${SENTRY_PUB_DIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${SENTRY_PUB_DIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${SENTRY_PUB_DIR}/node$$index/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
 	 echo "$$nodeid@$$ip:$$port" >> ${PERSISTENT_PEERS_CONF_FILE};\
 	 done
 	@for index in $(VALS_INDEX); do \
-	 replconfkey persistent_peers $(VALDIR)/node$$index/.hsd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
+	 replconfkey persistent_peers $(VALDIR)/node$$index/.ssd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
 	@for index in $(SENTRIES_PRIV_INDEX); do \
-	 replconfkey persistent_peers $(SENTRY_PRIV_DIR)/node$$index/.hsd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
+	 replconfkey persistent_peers $(SENTRY_PRIV_DIR)/node$$index/.ssd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
 	@for index in $(SENTRIES_PUB_INDEX); do \
-	 replconfkey persistent_peers $(SENTRY_PUB_DIR)/node$$index/.hsd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
+	 replconfkey persistent_peers $(SENTRY_PUB_DIR)/node$$index/.ssd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
 	@echo removing self-indicating part in config.toml
 	@for index in $(SENTRIES_PUB_INDEX); do \
 	 itself=$$(row $$(($$index+1)) ${PERSISTENT_PEERS_CONF_FILE}); \
-	 replconfval $(SENTRY_PUB_DIR)/node$$index/.hsd/config/config.toml persistent_peers $$itself; \
+	 replconfval $(SENTRY_PUB_DIR)/node$$index/.ssd/config/config.toml persistent_peers $$itself; \
 	 done
 
 # validators.priv.ips -> validators.[priv.]private.peer.ids
@@ -170,34 +170,34 @@ persistent_peers:
 # sentries.priv.ip.index -> sentries.pub.private.peer.ids.index
 private_peer_ids:
 	@for index in $(VALS_INDEX); do \
-	 ip=$$(cat ${VALDIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$index/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
 	 echo "$$nodeid@$$ip:$$port" >> ${PRIVATE_PEER_ID_CONF_FILE};\
 	 done
 	@for index in $(VALS_INDEX); do \
 	 itself=$$(row $$(($$index+1)) ${PRIVATE_PEER_ID_CONF_FILE}); \
-	 replconfkey private_peer_ids $(VALDIR)/node$$index/.hsd/config/config.toml ${PRIVATE_PEER_ID_CONF_FILE}; \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml private_peer_ids $$itself; \
+	 replconfkey private_peer_ids $(VALDIR)/node$$index/.ssd/config/config.toml ${PRIVATE_PEER_ID_CONF_FILE}; \
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml private_peer_ids $$itself; \
 	 done
 	@for index in $(SENTRIES_PRIV_INDEX); do \
 	 valindex=$$(($$index/${DEFAULT_RAITO_SENPRIV_BY_VAL})); \
-	 ip=$$(cat ${VALDIR}/node$$valindex/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$valindex/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$valindex/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$valindex/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
-	 replconfkey private_peer_ids $(SENTRY_PRIV_DIR)/node$$index/.hsd/config/config.toml "$$nodeid@$$ip:$$port"; \
+	 replconfkey private_peer_ids $(SENTRY_PRIV_DIR)/node$$index/.ssd/config/config.toml "$$nodeid@$$ip:$$port"; \
 	 done
 	@for index in $(SENTRIES_PUB_INDEX); do \
 	 valindex=$$(($$index/${DEFAULT_RAITO_SENPUB_BY_SENPRIV})); \
-	 ip=$$(cat ${VALDIR}/node$$valindex/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$valindex/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$valindex/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$valindex/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
-	 replconfkey private_peer_ids $(SENTRY_PUB_DIR)/node$$index/.hsd/config/config.toml "$$nodeid@$$ip:$$port"; \
+	 replconfkey private_peer_ids $(SENTRY_PUB_DIR)/node$$index/.ssd/config/config.toml "$$nodeid@$$ip:$$port"; \
 	 done
 
 pex:
 	@for index in $(VALS_INDEX); do \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml pex true false; \
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml pex true false; \
 	 done
 
 clear:
@@ -232,13 +232,13 @@ publish:
 	 concatstr "	" "$$val" "$$senpriv" "$$senpub"; done	 
 # restart
 stop:
-	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) pkill -9 hsd ; done
+	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) pkill -9 ssd ; done
 
 clean:
 	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) rm -rf /root/.hs* /root/nohup.out ; done
 
 start:
-	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) nohup hsd start & > /root/nohup.out ; done
+	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) nohup ssd start & > /root/nohup.out ; done
 
 restart: stop start
 # distribute
@@ -246,7 +246,7 @@ dist: dist-val dist-sentry # dist-exe dist-sh
 
 dist-exe:
 	@for index in ${NODES_INDEX}; do scp -i ${PEM_FILE} \
-	 ${BINDIR}/hsd root@$$(row $$index ${NODE_PUB_IP}):/usr/local/bin; done
+	 ${BINDIR}/ssd root@$$(row $$index ${NODE_PUB_IP}):/usr/local/bin; done
 
 dist-sh:
 	@for index in ${NODES_INDEX}; do scp -i ${PEM_FILE} \
@@ -258,7 +258,7 @@ rmtmp:
 
 dist-val: rmtmp
 	@echo zipping....
-	@for index in $(VALS_INDEX); do cd $(VALDIR)/node$$index; tar cvf ${TMPDIR}/val-$$index.tar.gz .hsd; done
+	@for index in $(VALS_INDEX); do cd $(VALDIR)/node$$index; tar cvf ${TMPDIR}/val-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(VALS_INDEX); do scp -i ${PEM_FILE} -r \
 	 ${TMPDIR}/val-$$index.tar.gz root@$$(row $$(($$index+1)) ${NODE_PUB_IP}):/root ; done
@@ -273,7 +273,7 @@ dist-sentry: dist-sentry-priv dist-sentry-pub
 
 dist-sentry-priv: rmtmp
 	@echo zipping....
-	@for index in $(SENTRIES_PRIV_INDEX); do cd $(SENTRY_PRIV_DIR)/node$$index; tar cvf ${TMPDIR}/senty-priv-$$index.tar.gz .hsd; done
+	@for index in $(SENTRIES_PRIV_INDEX); do cd $(SENTRY_PRIV_DIR)/node$$index; tar cvf ${TMPDIR}/senty-priv-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(SENTRIES_PRIV_INDEX); do scp -i ${PEM_FILE} -r \
 	 ${TMPDIR}/senty-priv-$$index.tar.gz root@$$(row $$(($$index+1+${VALIDATOR_COUNT})) ${NODE_PUB_IP}):/root ; done
@@ -286,7 +286,7 @@ dist-sentry-priv: rmtmp
 
 dist-sentry-pub: rmtmp
 	@echo zipping....
-	@for index in $(SENTRIES_PUB_INDEX); do cd $(SENTRY_PUB_DIR)/node$$index; tar cvf ${TMPDIR}/senty-pub-$$index.tar.gz .hsd; done
+	@for index in $(SENTRIES_PUB_INDEX); do cd $(SENTRY_PUB_DIR)/node$$index; tar cvf ${TMPDIR}/senty-pub-$$index.tar.gz .ssd; done
 	@echo uploading....
 	@for index in $(SENTRIES_PUB_INDEX); do scp -i ${PEM_FILE} -r \
 	 ${TMPDIR}/senty-pub-$$index.tar.gz root@$$(row $$(($$index+1+${VALIDATOR_COUNT}+${SENTRY_PRIV_COUNT})) ${NODE_PUB_IP}):/root ; done
@@ -299,7 +299,7 @@ dist-sentry-pub: rmtmp
 
 # check servers
 confirm:
-	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) ps -ef | grep hsd ; done
+	@for index in ${NODES_INDEX}; do ssh -i ${PEM_FILE} root@$$(row $$index ${NODE_PUB_IP}) ps -ef | grep ssd ; done
 
 ssh:
 	@read -p "Enter Server Index To Check: " index; \

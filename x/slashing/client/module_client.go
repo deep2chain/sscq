@@ -7,7 +7,7 @@ import (
 	"github.com/deep2chain/sscq/client"
 	"github.com/deep2chain/sscq/x/slashing"
 	slashingcli "github.com/deep2chain/sscq/x/slashing/client/cli"
-	hslashingcli "github.com/deep2chain/sscq/x/slashing/client/cli"
+	sslashingcli "github.com/deep2chain/sscq/x/slashing/client/cli"
 )
 
 // ModuleClient exports all client functionality from this module
@@ -47,7 +47,7 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 	}
 
 	slashingTxCmd.AddCommand(client.PostCommands(
-		hslashingcli.GetCmdUnjail(mc.cdc),
+		sslashingcli.GetCmdUnjail(mc.cdc),
 	)...)
 
 	return slashingTxCmd

@@ -20,15 +20,15 @@ import (
 // GetCmdSign is the CLI command for signing unsigned transaction
 /*
 	inspired by
-	hscli tx sign unsigned.json --name junying >> signed.json
-	hscli tx sign --validate-signatures signed.json
-	hscli tx sign --signature-only  test.json --name junying
+	sscli tx sign unsigned.json --name junying >> signed.json
+	sscli tx sign --validate-signatures signed.json
+	sscli tx sign --signature-only  test.json --name junying
 */
 func GetCmdSign(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "sign [unsignedtransaction]",
 		Short: "sign a transaction",
-		Long:  "hscli tx sign 7b0a202...23 --sequence 1 --account-number 0 --offline=true --encode=false",
+		Long:  "sscli tx sign 7b0a202...23 --sequence 1 --account-number 0 --offline=true --encode=false",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)

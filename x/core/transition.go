@@ -5,7 +5,7 @@ import (
 	"math/big"
 	"os"
 
-	ethcore "github.com/ethereum/go-ethereum/core"
+	etscore "github.com/ethereum/go-ethereum/core"
 	evmstate "github.com/deep2chain/sscq/evm/state"
 	"github.com/deep2chain/sscq/evm/vm"
 	log "github.com/sirupsen/logrus"
@@ -32,7 +32,7 @@ func init() {
 
 //
 type StateTransition struct {
-	gpGasWanted *ethcore.GasPool
+	gpGasWanted *etscore.GasPool
 	msg         MsgSend
 	gas         uint64   //unit: gallon
 	gasPrice    *big.Int //unit: satoshi/gallon
@@ -45,7 +45,7 @@ type StateTransition struct {
 
 func NewStateTransition(evm *vm.EVM, msg MsgSend, stateDB *evmstate.CommitStateDB) *StateTransition {
 	return &StateTransition{
-		gpGasWanted: new(ethcore.GasPool).AddGas(msg.GasWanted),
+		gpGasWanted: new(etscore.GasPool).AddGas(msg.GasWanted),
 		evm:         evm,
 		stateDB:     stateDB,
 		msg:         msg,

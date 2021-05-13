@@ -40,7 +40,7 @@ ChainName（链的名称） ： mainchain
     $VALIDATORACCT3  10000000000000stake
     $VALIDATORACCT4  10000000000000stake
     
-    hscli accounts list
+    sscli accounts list
     
 ```
 
@@ -79,8 +79,8 @@ ChainName（链的名称） ： mainchain
     make regen
     chmod 400 ~/config/*.pem
     make dist
-    make dist-hsd
-    make dist-hscli
+    make dist-ssd
+    make dist-sscli
     make start-daemon
     make start-rest
 

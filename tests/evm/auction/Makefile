@@ -55,13 +55,13 @@ execute:
 	 echo $$contract; \
 	 unsigned=$$(hsutils json2hex "$$contract");\
 	 echo $$unsigned;\
-	 signed=$$(hscli tx sign $$unsigned);\
+	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\
-	 hscli tx broadcast $$signed > ${TMP_PATH};\
+	 sscli tx broadcast $$signed > ${TMP_PATH};\
 	 txid=$$(findkey txhash ${TMP_PATH});\
 	 echo $$txid;\
 	 sleep ${BLK_TIME};\
-	 hscli query tx $$txid > ${TMP_PATH};\
+	 sscli query tx $$txid > ${TMP_PATH};\
 	 findkey logs ${TMP_PATH};
 
 # [PREASSUMPTION]
@@ -81,13 +81,13 @@ bid:
 	 echo $$contract; \
 	 unsigned=$$(hsutils json2hex "$$contract");\
 	 echo $$unsigned;\
-	 signed=$$(hscli tx sign $$unsigned);\
+	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\
-	 hscli tx broadcast $$signed > result.json;\
+	 sscli tx broadcast $$signed > result.json;\
 	 txid=$$(findkey txhash result.json);\
 	 echo $$txid;\
 	 sleep ${BLK_TIME};\
-	 hscli query tx $$txid > result.json;\
+	 sscli query tx $$txid > result.json;\
 	 findkey logs result.json;\
 	 replvalue amount $$amount 0 bid.tx y;
 
@@ -97,7 +97,7 @@ bid:
 # test: passed
 # result: 000000000000000000000000eb51f19caa7c653edeca6e78644c0f772f2c131d
 beneficiary:
-	@replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	@replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 38af3eed unsigned.tx y;\
 	 make -sC . execute;
 
@@ -107,7 +107,7 @@ beneficiary:
 # test: passed
 # result: 0000000000000000000000002132306e77dd63d06e648e98abc61cfa8844b951
 highestBidder:
-	@replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	@replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 91f90157 unsigned.tx y;\
 	 make -sC . execute;
 
@@ -116,7 +116,7 @@ highestBidder:
 # test: passed
 # result: 0000000000000000000000000000000000000000000000000000000000989680
 highestBid:
-	@replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	@replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data d57bde79 unsigned.tx y;\
 	 make -sC . execute;
 
@@ -124,7 +124,7 @@ highestBid:
 # Out: []
 # YOU NEED TO CALL THIS TO FINALIZE AUCTION. THEN, THE BENEFICIARY WILL RECEIVE THE HIGHTEST BID.
 auctionEnd:
-	@replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	@replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 2a24f46c unsigned.tx y;\
 	 make -sC . execute;
 
@@ -132,7 +132,7 @@ auctionEnd:
 # Out: [bool]
 # 
 withdraw:
-	@replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	@replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 3ccfd60b unsigned.tx y;\
 	 make -sC . execute;
 
@@ -141,14 +141,14 @@ withdraw:
 # 0x5eebea20
 pending: #param.address
 	@queryaddr=$$(make -sC . param.address);\
-	 replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	 replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 5eebea20$$queryaddr unsigned.tx y;\
 	 make -sC . execute;
 
 # function name: remaining
 # 0x55234ec0
 remaining:
-	@replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	@replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 55234ec0 unsigned.tx y;\
 	 make -sC . execute;
 

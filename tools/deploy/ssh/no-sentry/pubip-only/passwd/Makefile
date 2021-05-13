@@ -1,7 +1,7 @@
 # written by junying, 2019-06-06
 # Description:
 # only validators, no sentry nodes
-# [.hsd] for validators
+# [.ssd] for validators
 # [genesis.json, config.toml] for observers
 # 2 B Accounts + 100,000 S Accounts
 # from usdp
@@ -86,13 +86,13 @@ chk.var: pre mk.acc.file
 	@colex 2 ${SERVER_LIST}
 
 clean: clear
-	#@rm -rf $(HOME)/.hsd
+	#@rm -rf $(HOME)/.ssd
 	@rm -rf ${GENDIR} ${ACCOUNTDIR} ${VALDIR} ${CONFIGTMPDIR}
 
 # create 100,000 accounts
 create.accs:
-	@for index in ${ACCOUNT_INDEX}; do hscli accounts new ${DEFAULT_WALLET_PASSWORD} ; done
-	@hscli accounts list >> ${ACCOUNTS_SMALL_FILE}
+	@for index in ${ACCOUNT_INDEX}; do sscli accounts new ${DEFAULT_WALLET_PASSWORD} ; done
+	@sscli accounts list >> ${ACCOUNTS_SMALL_FILE}
 
 # check & correct chainid in Makefile
 mk.make.file:
@@ -102,7 +102,7 @@ mk.make.file:
 # create genesis accouts file
 mk.acc.file:
 	@if [ -f ${ACCOUNTS_GENESIS_INIT} ]; then rm ${ACCOUNTS_GENESIS_INIT}; fi
-	@hscli accounts list >> ${ACCOUNTS_GENESIS_INIT}
+	@sscli accounts list >> ${ACCOUNTS_GENESIS_INIT}
 ############################################################################################
 ############################################################################################
 # prepare
@@ -115,7 +115,7 @@ pre:
 
 vals: 
 	@if ! [ -d ${VALDIR} ]; then mkdir -p ${VALDIR}; fi
-	@hsd livenet --chain-id ${CHAIN_ID} \
+	@ssd livenet --chain-id ${CHAIN_ID} \
 				 --v $$(wc ${VALIDATOR_IP} | awk '{print$$1F}') \
 				 -o ${VALDIR} \
 				 --validator-ip-addresses ${VALIDATOR_IP} \
@@ -125,24 +125,24 @@ vals:
 
 genesis.json:
 	@if ! [ -d ${GENDIR} ]; then mkdir -p ${GENDIR}; fi
-	@rmempty $(VALDIR)/node0/.hsd/config/genesis.json ${GENESIS_JSON_FILE}
-	@for index in $(VALS_INDEX); do cp -f ${GENESIS_JSON_FILE} ${VALDIR}/node$$index/.hsd/config ; done
+	@rmempty $(VALDIR)/node0/.ssd/config/genesis.json ${GENESIS_JSON_FILE}
+	@for index in $(VALS_INDEX); do cp -f ${GENESIS_JSON_FILE} ${VALDIR}/node$$index/.ssd/config ; done
 
 config.toml:
 	@if ! [ -d ${GENDIR} ]; then mkdir -p ${GENDIR}; fi
 	@for index in $(VALS_INDEX); do \
-	 ip=$$(cat ${VALDIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$index/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
 	 echo "$$nodeid@$$ip:$$port" >> ${PERSISTENT_PEERS_CONF_FILE}; done
-	@cp $(VALDIR)/node0/.hsd/config/config.toml ${CONFIG_TOML_FILE}
+	@cp $(VALDIR)/node0/.ssd/config/config.toml ${CONFIG_TOML_FILE}
 	@replconfkey persistent_peers ${CONFIG_TOML_FILE} ${PERSISTENT_PEERS_CONF_FILE}
 	@for index in $(VALS_INDEX); do \
-	 replconfkey persistent_peers $(VALDIR)/node$$index/.hsd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
+	 replconfkey persistent_peers $(VALDIR)/node$$index/.ssd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
 	@for index in $(VALS_INDEX); do \
 	 itself=$$(row $$(($$index+1)) ${PERSISTENT_PEERS_CONF_FILE}); \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml persistent_peers $$itself; \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml persistent_peers $$itself; \
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
 
 refine:
 	@find ${VALDIR} -name "node.conf" |xargs rm -f
@@ -167,15 +167,15 @@ distr.exe:
 	@for index in $(VALS_INDEX); do \
 	 ipaddr=$$(row $$index ${SERVER_LIST} 1|column ${PUB_COL_INDEX});\
 	 passwd=$$(row $$index ${SERVER_LIST} 1|column ${PEM_COL_INDEX});\
-	 sshpass -p $$passwd scp $$(which hsd) root@$$ipaddr:/usr/local/bin;\
-	 sshpass -p $$passwd scp $$(which hscli) root@$$ipaddr:/usr/local/bin; done
+	 sshpass -p $$passwd scp $$(which ssd) root@$$ipaddr:/usr/local/bin;\
+	 sshpass -p $$passwd scp $$(which sscli) root@$$ipaddr:/usr/local/bin; done
 
 distr.config:
 	@for index in $(VALS_INDEX); do \
 	 ipaddr=$$(row $$index ${SERVER_LIST} 1|column ${PUB_COL_INDEX});\
 	 passwd=$$(row $$index ${SERVER_LIST} 1|column ${PEM_COL_INDEX});\
-	 echo "compressing ${VALDIR}/node$$index/.hsd to node$$index.tar.gz";\
-	 cd ${VALDIR}/node$$index; tar cf ${VALDIR}/node$$index.tar.gz .hsd;\
+	 echo "compressing ${VALDIR}/node$$index/.ssd to node$$index.tar.gz";\
+	 cd ${VALDIR}/node$$index; tar cf ${VALDIR}/node$$index.tar.gz .ssd;\
 	 echo "copying node$$index.tar.gz to $$ipaddr";\
 	 sshpass -p $$passwd scp ${VALDIR}/node$$index.tar.gz root@$$ipaddr:/root;\
 	 echo "extracting node$$index.tar.gz on $$ipaddr";\
@@ -203,8 +203,8 @@ start.setconfig:
 	@for index in $(VALS_INDEX); do \
 	 ipaddr=$$(row $$index ${SERVER_LIST} 1|column ${PUB_COL_INDEX});\
 	 passwd=$$(row $$index ${SERVER_LIST} 1|column ${PEM_COL_INDEX});\
-	 sshpass -p $$passwd ssh root@$$ipaddr hscli config chain-id ${CHAIN_ID}; \
-	 sshpass -p $$passwd ssh root@$$ipaddr hscli config trust-node true; done
+	 sshpass -p $$passwd ssh root@$$ipaddr sscli config chain-id ${CHAIN_ID}; \
+	 sshpass -p $$passwd ssh root@$$ipaddr sscli config trust-node true; done
 
 start.daemon: 
 	@for index in $(VALS_INDEX); do \

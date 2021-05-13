@@ -1,14 +1,14 @@
 version: '3'
 
 services:
-  hsdnode0:
-    container_name: hsdnode0
-    image: "falcon0125/hsdnode"
+  ssdnode0:
+    container_name: ssdnode0
+    image: "falcon0125/ssdnode"
     ports:
       - "26656-26657:26656-26657"
     environment:
       - ID=0
-      - LOG=${LOG:-hsd.log}
+      - LOG=${LOG:-ssd.log}
     volumes:
       - ./build/testnet:/root:Z
       - ./build/bin:/usr/local/bin:Z
@@ -16,14 +16,14 @@ services:
       localnet:
         ipv4_address: 192.168.10.2
 
-  hsdnode1:
-    container_name: hsdnode1
-    image: "falcon0125/hsdnode"
+  ssdnode1:
+    container_name: ssdnode1
+    image: "falcon0125/ssdnode"
     ports:
       - "26659-26660:26656-26657"
     environment:
       - ID=1
-      - LOG=${LOG:-hsd.log}
+      - LOG=${LOG:-ssd.log}
     volumes:
       - ./build/testnet:/root:Z
       - ./build/bin:/usr/local/bin:Z
@@ -31,12 +31,12 @@ services:
       localnet:
         ipv4_address: 192.168.10.3
 
-  hsdnode2:
-    container_name: hsdnode2
-    image: "falcon0125/hsdnode"
+  ssdnode2:
+    container_name: ssdnode2
+    image: "falcon0125/ssdnode"
     environment:
       - ID=2
-      - LOG=${LOG:-hsd.log}
+      - LOG=${LOG:-ssd.log}
     ports:
       - "26661-26662:26656-26657"
     volumes:
@@ -46,12 +46,12 @@ services:
       localnet:
         ipv4_address: 192.168.10.4
 
-  hsdnode3:
-    container_name: hsdnode3
-    image: "falcon0125/hsdnode"
+  ssdnode3:
+    container_name: ssdnode3
+    image: "falcon0125/ssdnode"
     environment:
       - ID=3
-      - LOG=${LOG:-hsd.log}
+      - LOG=${LOG:-ssd.log}
     ports:
       - "26663-26664:26656-26657"
     volumes:
@@ -61,14 +61,14 @@ services:
       localnet:
         ipv4_address: 192.168.10.5
 
-  hsclinode1:
+  ssclinode1:
     stdin_open: true
     tty: true
-    container_name: hsclinode1
-    image: "falcon0125/hsclinode"
+    container_name: ssclinode1
+    image: "falcon0125/ssclinode"
     environment:
       - ID=4
-      - LOG=${LOG:-hscli.log}
+      - LOG=${LOG:-sscli.log}
     ports:
       - "26665-26666:26656-26657"
     volumes:
@@ -78,14 +78,14 @@ services:
       localnet:
         ipv4_address: 192.168.10.6
 
-  hsclinode2:
+  ssclinode2:
     stdin_open: true
     tty: true
-    container_name: hsclinode2
-    image: "falcon0125/hsclinode"
+    container_name: ssclinode2
+    image: "falcon0125/ssclinode"
     environment:
       - ID=5
-      - LOG=${LOG:-hscli.log}
+      - LOG=${LOG:-sscli.log}
     ports:
       - "26667-26668:26656-26657"
     volumes:

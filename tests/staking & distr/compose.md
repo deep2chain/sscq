@@ -7,36 +7,36 @@
 ### hstest
     [alias]
     cp hs* /usr/local/bin
-    alias hscli="hscli --home node4/.hscli"
-    alias hsd="hsd --home node4/.hsd"
+    alias sscli="sscli --home node4/.sscli"
+    alias ssd="ssd --home node4/.ssd"
 
     [config/start]
-    hscli config chain-id testchain
-    hscli config trust-node true
-    hscli config node http://192.168.10.2:26657
-    # nohup hsd start & > /dev/null
+    sscli config chain-id testchain
+    sscli config trust-node true
+    sscli config node http://192.168.10.2:26657
+    # nohup ssd start & > /dev/null
     # clear
 
     [transactions]
-    hscli accounts new 12345678
-    hscli accounts list
-    hscli query account $(hscli accounts list| sed -n '1p')
-    hscli tx send $(hscli accounts list| sed -n '1p') $(hscli accounts list| sed -n '2p') 20000000satoshi --gas-price=100
-    hscli tx send $(hscli accounts list| sed -n '1p') $(hscli accounts list| sed -n '2p') 20000000satoshi --gas-price=100
+    sscli accounts new 12345678
+    sscli accounts list
+    sscli query account $(sscli accounts list| sed -n '1p')
+    sscli tx send $(sscli accounts list| sed -n '1p') $(sscli accounts list| sed -n '2p') 20000000satoshi --gas-price=100
+    sscli tx send $(sscli accounts list| sed -n '1p') $(sscli accounts list| sed -n '2p') 20000000satoshi --gas-price=100
 
     [validators]
     - show yours
-    hsd tendermint show-validator
+    ssd tendermint show-validator
     - check status
-    hscli query staking validators
-    hscli  query staking validator [sscqvaloper]
+    sscli query staking validators
+    sscli  query staking validator [sscqvaloper]
     - confirm running
-    hscli query tendermint-validator-set
-    hscli query tendermint-validator-set | grep [sscqvalcons/sscqvalconspub]
-    hscli query tendermint-validator-set | grep "$(hsd tendermint show-validator)"
+    sscli query tendermint-validator-set
+    sscli query tendermint-validator-set | grep [sscqvalcons/sscqvalconspub]
+    sscli query tendermint-validator-set | grep "$(ssd tendermint show-validator)"
     - start yours(tip: 100,000,000 for voting power 1, 1,000,000,000 for 10, 10,000,000,000 for 100)
-    hscli tx staking create-validator $(hscli accounts list| sed -n '2p') \
-                                       --pubkey=$(hsd tendermint show-validator)\
+    sscli tx staking create-validator $(sscli accounts list| sed -n '2p') \
+                                       --pubkey=$(ssd tendermint show-validator)\
                                        --amount=100000000satoshi \
                                        --moniker=client \
                                        --commission-rate=0.10 \
@@ -44,9 +44,9 @@
                                        --commission-max-change-rate=0.01 \
                                        --min-self-delegation=1 \
                                        --gas-price=100
-    hscli tx staking edit-validator $(hscli accounts list| sed -n '2p') --gas-price=100
+    sscli tx staking edit-validator $(sscli accounts list| sed -n '2p') --gas-price=100
     or
-    hscli tx staking edit-validator $(hscli accounts list| sed -n '2p')\
+    sscli tx staking edit-validator $(sscli accounts list| sed -n '2p')\
                 --moniker=client \
                 --chain-id=testchain \
                 --website="https://sscq.network" \
@@ -55,24 +55,24 @@
                 --gas-price=100 \
                 --commission-rate=0.10
     - unjail
-    hscli tx slashing unjail $(hscli accounts list| sed -n '2p') --gas-price=100
+    sscli tx slashing unjail $(sscli accounts list| sed -n '2p') --gas-price=100
     - log
-    hscli query slashing signing-info [sscqvalconspub]
+    sscli query slashing signing-info [sscqvalconspub]
     - check
 
     [delegators]
-    hscli tx staking delegate $(hscli accounts list| sed -n '2p') \
-                               $(grep -nr validator_address  ~/.hsd/config/genesis.json |sed -n '1p'|awk '{print $3F}' | cut -d'"' -f 2)\
+    sscli tx staking delegate $(sscli accounts list| sed -n '2p') \
+                               $(grep -nr validator_address  ~/.ssd/config/genesis.json |sed -n '1p'|awk '{print $3F}' | cut -d'"' -f 2)\
                                100000000satoshi --gas-adjustment=1.5 --gas-price=100
-    hscli tx staking redelegate $(hscli accounts list| sed -n '2p') \
-                                 $(grep -nr validator_address  ~/.hsd/config/genesis.json |sed -n '2p'|awk '{print $3F}' | cut -d'"' -f 2) \
-                                 $(grep -nr validator_address  ~/.hsd/config/genesis.json |sed -n '3p'|awk '{print $3F}' | cut -d'"' -f 2) \
+    sscli tx staking redelegate $(sscli accounts list| sed -n '2p') \
+                                 $(grep -nr validator_address  ~/.ssd/config/genesis.json |sed -n '2p'|awk '{print $3F}' | cut -d'"' -f 2) \
+                                 $(grep -nr validator_address  ~/.ssd/config/genesis.json |sed -n '3p'|awk '{print $3F}' | cut -d'"' -f 2) \
                                  100000000satoshi --gas-adjustment=1.5 --gas-price=100
-    hscli query distr rewards $(hscli accounts list| sed -n '2p')
-    hscli query account $(hscli accounts list| sed -n '2p')
-    hscli tx staking unbond $(hscli accounts list| sed -n '1p') \
-                             $(grep -nr validator_address  ~/.hsd/config/genesis.json |sed -n '1p'|awk '{print $3F}' | cut -d'"' -f 2) \
+    sscli query distr rewards $(sscli accounts list| sed -n '2p')
+    sscli query account $(sscli accounts list| sed -n '2p')
+    sscli tx staking unbond $(sscli accounts list| sed -n '1p') \
+                             $(grep -nr validator_address  ~/.ssd/config/genesis.json |sed -n '1p'|awk '{print $3F}' | cut -d'"' -f 2) \
                              100000000satoshi \
                              --gas-adjustment 1.5 --gas-price=100
-    hscli tx distr withdraw-rewards $(hscli accounts list| sed -n '1p') \
-                                     $(grep -nr validator_address  ~/.hsd/config/genesis.json |sed -n '1p'|awk '{print $3F}' | cut -d'"' -f 2) \ --gas-adjustment 1.5 --gas-price=100
+    sscli tx distr withdraw-rewards $(sscli accounts list| sed -n '1p') \
+                                     $(grep -nr validator_address  ~/.ssd/config/genesis.json |sed -n '1p'|awk '{print $3F}' | cut -d'"' -f 2) \ --gas-adjustment 1.5 --gas-price=100

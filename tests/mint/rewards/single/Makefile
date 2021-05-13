@@ -1,7 +1,7 @@
 # junying-todo, 2020-01-13
-# hscli config json format based
+# sscli config json format based
 # ex: 
-# $ hscli query distr rewards sscq1gjtlth85y2ucym7rncrz5y6jcxp77vaz6drjuz sscqvaloper1gjtlth85y2ucym7rncrz5y6j
+# $ sscli query distr rewards sscq1gjtlth85y2ucym7rncrz5y6jcxp77vaz6drjuz sscqvaloper1gjtlth85y2ucym7rncrz5y6j
 # [
 #  {
 #    "denom": "satoshi",
@@ -9,39 +9,39 @@
 #  }
 # ]
 acc.rewards:
-	@acc=$(shell hscli accounts list| sed -n '1p');\
-	 reward=$$(hscli query distr rewards $${acc}  | sed -n '4p' | fromstr ': "'|endstr '"');\
+	@acc=$(shell sscli accounts list| sed -n '1p');\
+	 reward=$$(sscli query distr rewards $${acc}  | sed -n '4p' | fromstr ': "'|endstr '"');\
 	 echo $$reward;
 
 second.rewards:
-	@acc=$(shell hscli accounts list| sed -n '2p');\
-	 reward=$$(hscli query distr rewards $${acc}  | sed -n '4p' | fromstr ': "'|endstr '"');\
+	@acc=$(shell sscli accounts list| sed -n '2p');\
+	 reward=$$(sscli query distr rewards $${acc}  | sed -n '4p' | fromstr ': "'|endstr '"');\
 	 echo $$reward;
 
 community.pool:
-	@reward=$$(hscli query distr community-pool  | sed -n '4p' | fromstr ': "'|endstr '"');\
+	@reward=$$(sscli query distr community-pool  | sed -n '4p' | fromstr ': "'|endstr '"');\
 	 echo $$reward;
 
 commision:
-	@validator_address=$$(findstr validator_address ~/.hsd/config/genesis.json  | fromstr ': "'|endstr '"');\
-	 reward=$$(hscli query distr commission $$validator_address  | sed -n '4p' | fromstr ': "'|endstr '"');\
+	@validator_address=$$(findstr validator_address ~/.ssd/config/genesis.json  | fromstr ': "'|endstr '"');\
+	 reward=$$(sscli query distr commission $$validator_address  | sed -n '4p' | fromstr ': "'|endstr '"');\
 	 echo $$reward;
 
 rewards:
 	@read -p "accaddr: " accaddr; \
-	 rewards=$$(hscli query distr rewards $$accaddr  | sed -n '4p' | fromstr ': "'|endstr '"');\
+	 rewards=$$(sscli query distr rewards $$accaddr  | sed -n '4p' | fromstr ': "'|endstr '"');\
 	 echo $$rewards
 
 height:
-	@height=$$(hscli query block | sed -n "16p"| fromstr ': "'|endstr '"');\
+	@height=$$(sscli query block | sed -n "16p"| fromstr ': "'|endstr '"');\
 	 echo $$height
 
 total_txs:
-	@total_txs=$$(hscli query block | sed -n "19p"| fromstr ': "'|endstr '"');\
+	@total_txs=$$(sscli query block | sed -n "19p"| fromstr ': "'|endstr '"');\
 	 echo $$total_txs
 
 num_txs:
-	@num_txs=$$(hscli query block | sed -n "18p"| fromstr ': "'|endstr '"');\
+	@num_txs=$$(sscli query block | sed -n "18p"| fromstr ': "'|endstr '"');\
 	 echo $$num_txs
 
 print.rewards:

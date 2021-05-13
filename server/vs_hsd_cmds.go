@@ -13,14 +13,14 @@ import (
 
 const (
 	flagLong         = "long"
-	clientIdentifier = "hsd"
+	clientIdentifier = "ssd"
 )
 
 var (
 	// VersionCmd prints out the current sdk version
 	VersionHsdCmd = &cobra.Command{
 		Use:   "version",
-		Short: "Print the hsd version",
+		Short: "Print the ssd version",
 		RunE: func(_ *cobra.Command, _ []string) error {
 			return versionHsd()
 		},

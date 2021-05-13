@@ -1,15 +1,15 @@
 ### minimum gas price
-    ~/.hsd/config/hsd.toml
+    ~/.ssd/config/ssd.toml
     params/fee.go - DefaultMinGasPrice
     init/testnet.go - FlagMinGasPrices
 ### persistant peers
-    ~/.hsd/config/config.toml
+    ~/.ssd/config/config.toml
 ### gentxs
-    ~/.hsd/config/genesis.json
+    ~/.ssd/config/genesis.json
 ### chain-id
-    hscli config chain-id testchain
-    hsd testnet --chain-id testchain
-    hsd init [moniker] --chain-id testchain
+    sscli config chain-id testchain
+    ssd testnet --chain-id testchain
+    ssd init [moniker] --chain-id testchain
     init/testnet.go - FlagChainID
 ### trust node
-    hscli config trust-node true
+    sscli config trust-node true

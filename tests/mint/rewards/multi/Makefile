@@ -1,7 +1,7 @@
 # junying-todo, 2020-01-13
-# hscli config text format based
+# sscli config text format based
 # ex: 
-# $ hscli query distr rewards sscq1j9fhvpfrhlmx2m3xn487qpuyhe56x7wfptssqz
+# $ sscli query distr rewards sscq1j9fhvpfrhlmx2m3xn487qpuyhe56x7wfptssqz
 # $ 271771554720.370000000000000000satoshi
 # [metrics]
 # commission rate, community pool rate
@@ -12,8 +12,8 @@
 # 
 # 
 # 
-DELEGATOR_CNTS = $$(findstr delegator_address ~/.hsd/config/genesis.json | linecount)
-VALIDATOR_CNTS = $$(findstr validator_address ~/.hsd/config/genesis.json | linecount)
+DELEGATOR_CNTS = $$(findstr delegator_address ~/.ssd/config/genesis.json | linecount)
+VALIDATOR_CNTS = $$(findstr validator_address ~/.ssd/config/genesis.json | linecount)
 
 clean:
 	@rm -rf sscq*
@@ -21,9 +21,9 @@ clean:
 initialize:
 	@for i in $$(python -c "print ' '.join(str(item) for item in range(${VALIDATOR_CNTS}))"); \
 	 do \
-	 validator=$$(findstr validator_address ~/.hsd/config/genesis.json|row $$(($$i+1))|fromstr ': "'|endstr '"');\
+	 validator=$$(findstr validator_address ~/.ssd/config/genesis.json|row $$(($$i+1))|fromstr ': "'|endstr '"');\
 	 if [ -d "$$validator" ]; then rm -rf $$validator; mkdir $$validator; else mkdir $$validator;fi;\
-	 delegator=$$(findstr delegator_address ~/.hsd/config/genesis.json|row $$(($$i+1))|fromstr ': "'|endstr '"');\
+	 delegator=$$(findstr delegator_address ~/.ssd/config/genesis.json|row $$(($$i+1))|fromstr ': "'|endstr '"');\
 	 echo $$delegator >> $$validator/delegators.list;\
 	 done
 
@@ -34,7 +34,7 @@ print.validator.rewards:
 	 do \
 	 validator=$$(ls|grep sscq|row $$(($$i+1)));\
 	 echo V$$i:$$validator;\
-	 reward=$$(hscli query distr commission $$validator);\
+	 reward=$$(sscli query distr commission $$validator);\
 	 echo VRewards:$$reward;\
 	 done;
 
@@ -50,7 +50,7 @@ print.delegator.rewards:
 	 do \
 	 delegator=$$(cat $$validator/delegators.list |row $$(($$j+1)));\
 	 echo D$$j:$$delegator;\
-	 reward=$$(hscli query distr rewards $$delegator $$validator);\
+	 reward=$$(sscli query distr rewards $$delegator $$validator);\
 	 rewards=$$(echo $$rewards $$reward);\
 	 done;\
 	 echo $$rewards;\
@@ -61,7 +61,7 @@ print.all:
 	 do \
 	 echo ------------------------------------------------------;\
 	 validator=$$(ls|grep sscq|row $$(($$i+1)));\
-	 vreward=$$(hscli query distr commission $$validator|excludestr satoshi|endstr .);\
+	 vreward=$$(sscli query distr commission $$validator|excludestr satoshi|endstr .);\
 	 drewards=$$(echo );\
 	 echo V$$(($$i+1)): $$validator, $$vreward;\
 	 delcnts=$$(linecount $$validator/delegators.list);\
@@ -70,7 +70,7 @@ print.all:
 	 do \
 	 delegator=$$(cat $$validator/delegators.list|row $$(($$j+1)));\
 	 echo D$$(($$j+1)): $$delegator;\
-	 dreward=$$(hscli query distr rewards $$delegator $$validator|excludestr satoshi|endstr .);\
+	 dreward=$$(sscli query distr rewards $$delegator $$validator|excludestr satoshi|endstr .);\
 	 drewards=$$(echo $$drewards $$dreward);\
 	 dsum=$$(python -c "print $$dsum+int($$dreward);");\
 	 done;\
@@ -79,24 +79,24 @@ print.all:
 	 done;
 
 community.pool:
-	@reward=$$(hscli query distr community-pool  | sed -n '4p' | fromstr ': "'|endstr '"');\
+	@reward=$$(sscli query distr community-pool  | sed -n '4p' | fromstr ': "'|endstr '"');\
 	 echo $$reward;
 
 check.rewards:
 	@read -p "accaddr: " accaddr; \
-	 rewards=$$(hscli query distr rewards $$accaddr  | sed -n '4p' | fromstr ': "'|endstr '"');\
+	 rewards=$$(sscli query distr rewards $$accaddr  | sed -n '4p' | fromstr ': "'|endstr '"');\
 	 echo $$rewards
 
 height:
-	@height=$$(hscli query block | sed -n "16p"| fromstr ': "'|endstr '"');\
+	@height=$$(sscli query block | sed -n "16p"| fromstr ': "'|endstr '"');\
 	 echo $$height
 
 total_txs:
-	@total_txs=$$(hscli query block | sed -n "19p"| fromstr ': "'|endstr '"');\
+	@total_txs=$$(sscli query block | sed -n "19p"| fromstr ': "'|endstr '"');\
 	 echo $$total_txs
 
 num_txs:
-	@num_txs=$$(hscli query block | sed -n "18p"| fromstr ': "'|endstr '"');\
+	@num_txs=$$(sscli query block | sed -n "18p"| fromstr ': "'|endstr '"');\
 	 echo $$num_txs
 
 print.rewards:

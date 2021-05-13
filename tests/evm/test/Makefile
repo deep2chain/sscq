@@ -44,19 +44,19 @@ execute:
 	 echo $$contract; \
 	 unsigned=$$(hsutils json2hex "$$contract");\
 	 echo $$unsigned;\
-	 signed=$$(hscli tx sign $$unsigned);\
+	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\
-	 hscli tx broadcast $$signed > ${TMP_PATH};\
+	 sscli tx broadcast $$signed > ${TMP_PATH};\
 	 txid=$$(findkey txhash ${TMP_PATH});\
 	 echo $$txid;\
 	 sleep ${BLK_TIME};\
-	 hscli query tx $$txid > ${TMP_PATH};\
+	 sscli query tx $$txid > ${TMP_PATH};\
 	 findkey logs ${TMP_PATH};
 
 # function name: owner
 # 0x8da5cb5b
 owner:
-	@replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	@replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 8da5cb5b unsigned.tx y;\
 	 make -sC . execute;
 
@@ -69,6 +69,6 @@ owner:
 # it will call constructor with arguments when creating a contract.
 constructor: #param.address
 	@queryaddr=$$(make -sC . param.address);\
-	 replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	 replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data f33b2a1c$$queryaddr unsigned.tx y;\
 	 make -sC . execute;

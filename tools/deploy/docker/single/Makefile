@@ -13,11 +13,11 @@ DOCKER_IMAGE = falcon0125/sscqsingle
 
 build: clean
 ifeq ($(CURRENT_OS),Windows)
-	go build  $(BUILD_FLAGS) -o ../../build/hsd.exe ../../cmd/hsd
-	go build  $(BUILD_FLAGS) -o ../../build/hscli.exe ../../cmd/hscli
+	go build  $(BUILD_FLAGS) -o ../../build/ssd.exe ../../cmd/ssd
+	go build  $(BUILD_FLAGS) -o ../../build/sscli.exe ../../cmd/sscli
 else
-	go build  $(BUILD_FLAGS) -o ../../build/hsd ../../cmd/hsd
-	go build  $(BUILD_FLAGS) -o ../../build/hscli ../../cmd/hscli
+	go build  $(BUILD_FLAGS) -o ../../build/ssd ../../cmd/ssd
+	go build  $(BUILD_FLAGS) -o ../../build/sscli ../../cmd/sscli
 endif
 
 clean:
@@ -29,7 +29,7 @@ docker: build
 	@docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:${COMMIT_HASH}
 
 run:
-	@docker run --rm -it ${DOCKER_IMAGE}:latest hsd start --minimum-gas-prices=0.0001sscq
+	@docker run --rm -it ${DOCKER_IMAGE}:latest ssd start --minimum-gas-prices=0.0001sscq
 
 shell:
 	@docker run --rm -it ${DOCKER_IMAGE}:latest sh

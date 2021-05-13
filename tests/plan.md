@@ -27,7 +27,7 @@
 #### 1. what if priv_validator_key.json is removed in validator nodes? Any bad effects on signing or validating? In security aspect, privs keys should be disconnected to public network.
 #### 2. what if node_key.json is removed in validator nodes?
 #### 3. what if addrbook.json is removed in validator nodes?
-#### 4. what if .hscli is removed in validator nodes?
+#### 4. what if .sscli is removed in validator nodes?
 #### 5. what will happen when validators are upgraded?
 #### 6. 
 

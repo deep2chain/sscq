@@ -43,8 +43,8 @@
 
     # print the version and ApiSecuritylevel
     # make sure the version, git commit hash, ApiSecuritylevel is what you need
-    hsd   version
-    hscli version     
+    ssd   version
+    sscli version     
     
     
 ### Api Security Level
@@ -70,58 +70,58 @@ make install
   
 - print the api-security-level
 ```
-hscli version
+sscli version
 ```
 
 
 ### Config
     # Initialize configuration files and genesis file
-    hsd init [moniker] --chain-id testchain
+    ssd init [moniker] --chain-id testchain
 
     # Copy the `Address` output here and save it for later use
-    hscli accounts new  [password] (password can not null)
+    sscli accounts new  [password] (password can not null)
     or
-    hscli accounts new OFF (input passthrase must at least 8 characters)  
+    sscli accounts new OFF (input passthrase must at least 8 characters)  
 
     # Show all local accounts keyfile
-    hscli accounts list
+    sscli accounts list
 
     # Add both accounts, with coins to the genesis file
-    hsd add-genesis-account [addr] [amount] (amount:xxxstake,xxxsatoshi  , e.g: 10000000000000stake,1000000000000000satoshi)
-    hsd add-guardian-account  [addr] 
-    hsd gentx [genesis-account]
-    hsd collect-gentxs
+    ssd add-genesis-account [addr] [amount] (amount:xxxstake,xxxsatoshi  , e.g: 10000000000000stake,1000000000000000satoshi)
+    ssd add-guardian-account  [addr] 
+    ssd gentx [genesis-account]
+    ssd collect-gentxs
 
     # Configure your CLI to eliminate need for chain-id flag
-    hscli config chain-id testchain
-    hscli config output json
-    hscli config indent true
-    hscli config trust-node true
+    sscli config chain-id testchain
+    sscli config output json
+    sscli config indent true
+    sscli config trust-node true
   
 ### RUN & TEST
 #### Run Daemon
-    hsd start
+    ssd start
 #### Run REST Server
-    hscli rest-server
-    hscli rest-server --chain-id=testchain --trust-node=true
-    hscli rest-server --chain-id=testchain --trust-node=true --laddr=tcp://0.0.0.0:1317
+    sscli rest-server
+    sscli rest-server --chain-id=testchain --trust-node=true
+    sscli rest-server --chain-id=testchain --trust-node=true --laddr=tcp://0.0.0.0:1317
                       
 #### CLI TEST
     [newaccount]
-    hscli accounts new 123... 
-    hscli accounts new OFF       
+    sscli accounts new 123... 
+    sscli accounts new OFF       
     
     [list]
-    hscli accounts list
+    sscli accounts list
     
     [getbalance]
-    hscli query account [addr]
+    sscli query account [addr]
     
     # transaction
-    hscli tx send [fromaddr] [toaddr] [amount]
-    hscli tx create [fromaddr] [toaddr] [amount]
-    hscli tx sign [rawdata]
-    hscli tx broadcast [rawdata]
+    sscli tx send [fromaddr] [toaddr] [amount]
+    sscli tx create [fromaddr] [toaddr] [amount]
+    sscli tx sign [rawdata]
+    sscli tx broadcast [rawdata]
 
 #### REST TEST
     Tip: http, not https

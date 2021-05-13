@@ -24,7 +24,7 @@
 ## 使用发行工具生成核心账户
 
 ### 发行工具列表
-hsd、hscli
+ssd、sscli
 
 ### 初始化
 MyMoniker （网络的绰号）；如 Apple、Banana等
@@ -33,7 +33,7 @@ MyChainName（链的名称） ; 如 mainnet、testnet、testnet1、testnet2
 
   
 ``` 
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
 ```
 
 ### 新生成五个账户  
@@ -45,19 +45,19 @@ MyChainName（链的名称） ; 如 mainnet、testnet、testnet1、testnet2
 
 
 ```
-    HTDF_ISSUE_ACCT=`hscli accounts new  12345678`
-    ACCT1=`hscli accounts new  12345678`
-    ACCT2=`hscli accounts new  12345678`    
-    ACCT3=`hscli accounts new  12345678`
-    ACCT4=`hscli accounts new  12345678`    
+    HTDF_ISSUE_ACCT=`sscli accounts new  12345678`
+    ACCT1=`sscli accounts new  12345678`
+    ACCT2=`sscli accounts new  12345678`    
+    ACCT3=`sscli accounts new  12345678`
+    ACCT4=`sscli accounts new  12345678`    
     
-    hsd add-genesis-account $HTDF_ISSUE_ACCT 1000000000000000satoshi
-    hsd add-genesis-account $ACCT1           10000000000000000stake
-    hsd add-genesis-account $ACCT2           10000000000000000stake
-    hsd add-genesis-account $ACCT3           10000000000000000stake
-    hsd add-genesis-account $ACCT4           10000000000000000stake    
+    ssd add-genesis-account $HTDF_ISSUE_ACCT 1000000000000000satoshi
+    ssd add-genesis-account $ACCT1           10000000000000000stake
+    ssd add-genesis-account $ACCT2           10000000000000000stake
+    ssd add-genesis-account $ACCT3           10000000000000000stake
+    ssd add-genesis-account $ACCT4           10000000000000000stake    
     
-    hscli accounts list
+    sscli accounts list
     
 ```
 
@@ -66,21 +66,21 @@ MyChainName（链的名称） ; 如 mainnet、testnet、testnet1、testnet2
 
 ```
     #哨兵节点1
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     #哨兵节点2
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     #哨兵节点3
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     #哨兵节点4
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     #哨兵节点5
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     #哨兵节点6
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     #哨兵节点7
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     #哨兵节点8
-    hsd init $(MyMoniker) --chain-id $(MyChainName)        
+    ssd init $(MyMoniker) --chain-id $(MyChainName)        
 ```
 
 
@@ -88,23 +88,23 @@ MyChainName（链的名称） ; 如 mainnet、testnet、testnet1、testnet2
 ### 验证节点初始化
 ```
     #验证节点1
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     
     #验证节点2
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     
     #验证节点3
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
     
     #验证节点4
-    hsd init $(MyMoniker) --chain-id $(MyChainName)
+    ssd init $(MyMoniker) --chain-id $(MyChainName)
 ```
  
 ### 拷贝配置文件
 将发行工具生成的创世区块配置文件(genesis.json)和keyfile，拷贝到验证节点
 
-genesis.json 目录在 ~/.hsd/config/
-keyfile 目录在      ~/.hscli/keystores
+genesis.json 目录在 ~/.ssd/config/
+keyfile 目录在      ~/.sscli/keystores
 
 
 ```    
@@ -117,20 +117,20 @@ keyfile 目录在      ~/.hscli/keystores
 ### 生成gentx并签名
 ```    
     #验证节点1    
-    hsd gentx $ACCT1
-    hsd collect-gentxs
+    ssd gentx $ACCT1
+    ssd collect-gentxs
       
     #验证节点2
-    hsd gentx $ACCT2
-    hsd collect-gentxs
+    ssd gentx $ACCT2
+    ssd collect-gentxs
       
     #验证节点3
-    hsd gentx $ACCT3
-    hsd collect-gentxs
+    ssd gentx $ACCT3
+    ssd collect-gentxs
     
     #验证节点4
-    hsd gentx $ACCT4
-    hsd collect-gentxs
+    ssd gentx $ACCT4
+    ssd collect-gentxs
 ```
 
 ### 编辑创世区块配置文件(genesis.json)     
@@ -154,41 +154,41 @@ keyfile 目录在      ~/.hscli/keystores
 
 ```
     #哨兵节点1
-    SentinelNodeID1=`hsd tendermint show-node-id`
+    SentinelNodeID1=`ssd tendermint show-node-id`
     #哨兵节点2
-    SentinelNodeID2=`hsd tendermint show-node-id`
+    SentinelNodeID2=`ssd tendermint show-node-id`
     #哨兵节点3
-    SentinelNodeID3=`hsd tendermint show-node-id`
+    SentinelNodeID3=`ssd tendermint show-node-id`
     #哨兵节点4
-    SentinelNodeID4=`hsd tendermint show-node-id`
+    SentinelNodeID4=`ssd tendermint show-node-id`
     #哨兵节点5
-    SentinelNodeID5=`hsd tendermint show-node-id`
+    SentinelNodeID5=`ssd tendermint show-node-id`
     #哨兵节点6
-    SentinelNodeID6=`hsd tendermint show-node-id`
+    SentinelNodeID6=`ssd tendermint show-node-id`
     #哨兵节点7
-    SentinelNodeID7=`hsd tendermint show-node-id`
+    SentinelNodeID7=`ssd tendermint show-node-id`
     #哨兵节点8
-    SentinelNodeID8=`hsd tendermint show-node-id`
+    SentinelNodeID8=`ssd tendermint show-node-id`
 ```
 
 4个验证节点的NodeID
 
 ```
     #验证节点1
-    ValidatorNodeID1=`hsd tendermint show-node-id`
+    ValidatorNodeID1=`ssd tendermint show-node-id`
     #验证节点2
-    ValidatorNodeID2=`hsd tendermint show-node-id`
+    ValidatorNodeID2=`ssd tendermint show-node-id`
     #验证节点3
-    ValidatorNodeID3=`hsd tendermint show-node-id`
+    ValidatorNodeID3=`ssd tendermint show-node-id`
     #验证节点4
-    ValidatorNodeID4=`hsd tendermint show-node-id`    
+    ValidatorNodeID4=`ssd tendermint show-node-id`    
 ```
 
 
 
 
 ### 4个验证节点，连接其他三个验证节点，以及对应的两个哨兵节点
-4个验证节点  ~/.hsd/config/config.toml  的 private_peer_ids ，填上其他三个验证节点、对应的两个哨兵节点的特征值 "NodeID@IP"（多个特征值用逗号"," 分隔）
+4个验证节点  ~/.ssd/config/config.toml  的 private_peer_ids ，填上其他三个验证节点、对应的两个哨兵节点的特征值 "NodeID@IP"（多个特征值用逗号"," 分隔）
 
 注意节点IP填写的是内网IP
 
@@ -209,7 +209,7 @@ keyfile 目录在      ~/.hscli/keystores
 
 
 ### 验证节点不对外暴露节点信息
-4个验证节点  ~/.hsd/config/config.toml  的 pex 参数，设置为 false（不对外暴露 验证节点的节点信息）
+4个验证节点  ~/.ssd/config/config.toml  的 pex 参数，设置为 false（不对外暴露 验证节点的节点信息）
 
 ```
     #验证节点1
@@ -234,12 +234,12 @@ keyfile 目录在      ~/.hscli/keystores
 
 将验证节点的创世区块配置文件(genesis.json)，拷贝到8个哨兵节点(记得比对两边的 md5sum)
 
-genesis.json 目录在 ~/.hsd/config/
+genesis.json 目录在 ~/.ssd/config/
 
 
 ### 8个哨兵节点，组网配置
 
-8个哨兵节点~/.hsd/config/config.toml
+8个哨兵节点~/.ssd/config/config.toml
 private_peer_ids ，填上对应验证节点的特征值 "NodeID@IP"（多个特征值用逗号"," 分隔）
 persistent_peers ，填写所有哨兵节点的特征值 "NodeID@IP"（多个特征值用逗号"," 分隔）
 
@@ -289,10 +289,10 @@ persistent_peers ，填写所有哨兵节点的特征值 "NodeID@IP"（多个特
 日志文件名及目录，请根据需要调整
 ```
     #启动app进程    
-    nohup hsd start >> $(HOME)/.hsd/app.log  2>&1  &
+    nohup ssd start >> $(HOME)/.ssd/app.log  2>&1  &
     
     #启动restServer
-    nohup hscli rest-server --chain-id=$(MyChainName) --trust-node=true  --laddr=tcp://0.0.0.0:1317  >> $(HOME)/.hsd/restServer.log  2>&1  &
+    nohup sscli rest-server --chain-id=$(MyChainName) --trust-node=true  --laddr=tcp://0.0.0.0:1317  >> $(HOME)/.ssd/restServer.log  2>&1  &
 
 ```
 
@@ -300,7 +300,7 @@ persistent_peers ，填写所有哨兵节点的特征值 "NodeID@IP"（多个特
 由于目前只有哨兵节点，暂时看不到出块的日志
 ```
     #当前节点
-    tail -f $(HOME)/.hsd/app.log        
+    tail -f $(HOME)/.ssd/app.log        
 ```
 
 
@@ -310,17 +310,17 @@ persistent_peers ，填写所有哨兵节点的特征值 "NodeID@IP"（多个特
 日志文件名及目录，请根据需要调整
 ```
     #启动app进程    
-    nohup hsd start >> $(HOME)/.hsd/app.log  2>&1  &
+    nohup ssd start >> $(HOME)/.ssd/app.log  2>&1  &
     
     #启动restServer
-    nohup hscli rest-server --chain-id=$(MyChainName) --trust-node=true  --laddr=tcp://0.0.0.0:1317  >> $(HOME)/.hsd/restServer.log  2>&1  &
+    nohup sscli rest-server --chain-id=$(MyChainName) --trust-node=true  --laddr=tcp://0.0.0.0:1317  >> $(HOME)/.ssd/restServer.log  2>&1  &
     
 ```
 
 观察日志，查看4个验证节点和8个哨兵节点连接是否正常，是否有出块日志
 ```
     #当前节点
-    tail -f $(HOME)/.hsd/app.log    
+    tail -f $(HOME)/.ssd/app.log    
 ```
 
 

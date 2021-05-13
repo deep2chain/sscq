@@ -57,7 +57,7 @@ func main() {
 	config.Seal()
 
 	rootCmd := &cobra.Command{
-		Use:   "hsinfo",
+		Use:   "ssinfo",
 		Short: "sscqservice information",
 	}
 

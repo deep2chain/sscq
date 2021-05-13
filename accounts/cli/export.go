@@ -14,7 +14,7 @@ func GetExportPivKeyCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "export",
 		Short: "Export all private key list",
-		Long:  "export private key from .hscli/keystores",
+		Long:  "export private key from .sscli/keystores",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 

@@ -20,13 +20,13 @@ import (
 // GetCmdSend is the CLI command for sending a Send transaction
 /*
 	inspired by
-	hscli send cosmos1yqgv2rhxcgrf5jqrxlg80at5szzlarlcy254re 5sscqtoken --from junying
+	sscli send cosmos1yqgv2rhxcgrf5jqrxlg80at5szzlarlcy254re 5sscqtoken --from junying
 */
 func GetCmdSend(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "send [fromaddr] [toaddr] [amount]",
 		Short: "create & send transaction",
-		Long: `hscli tx send sscq1qn38r8re3lwlf5t6zgrdycrerd5w0 \
+		Long: `sscli tx send sscq1qn38r8re3lwlf5t6zgrdycrerd5w0 \
 							 sscq1yujjc5yptpphtt665u2u6zp6gl04enlg55fajp \
 							 5satoshi \
 							 --gas=30000 \

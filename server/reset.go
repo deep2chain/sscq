@@ -55,7 +55,7 @@ func ResetCmd(ctx *Context, cdc *codec.Codec, appReset AppReset) *cobra.Command 
 				return errors.Errorf("Error reset state: %v\n", err)
 			}
 
-			fmt.Printf("Reset App state to height %v successfully.Then use the `hsd start` to start node.\n", height)
+			fmt.Printf("Reset App state to height %v successfully.Then use the `ssd start` to start node.\n", height)
 			return nil
 		},
 	}

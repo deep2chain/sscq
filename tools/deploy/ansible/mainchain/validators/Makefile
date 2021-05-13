@@ -1,7 +1,7 @@
 # written by junying, 2019-06-06
 # Description:
 # only validators, no sentry nodes
-# [.hsd] for validators
+# [.ssd] for validators
 # [genesis.json, config.toml] for observers
 # from usdp
 # source: github.com//sscq/tools/deploy/ssh/remote/no-sentry/pubip-only/pem/Makefile
@@ -113,7 +113,7 @@ pre:
 
 vals: 
 	@if ! [ -d ${VALDIR} ]; then mkdir -p ${VALDIR}; fi
-	@hsd realnet --chain-id ${CHAIN_ID} \
+	@ssd realnet --chain-id ${CHAIN_ID} \
 				 --v $$(wc ${VALIDATOR_IP} | awk '{print$$1F}') \
 				 -o ${VALDIR} \
 				 --validator-ip-addresses ${VALIDATOR_IP} \
@@ -124,25 +124,25 @@ vals:
 # update to add-guardian-account version
 genesis.json:
 	@if ! [ -d ${GENDIR} ]; then mkdir -p ${GENDIR}; fi
-	@hsd add-guardian-account ${GUARDIAN_ADDRESS} --home $(VALDIR)/node0/.hsd
-	@rmempty $(VALDIR)/node0/.hsd/config/genesis.json ${GENESIS_JSON_FILE}
-	@for index in $(VALS_INDEX); do cp -f ${GENESIS_JSON_FILE} ${VALDIR}/node$$index/.hsd/config ; done
+	@ssd add-guardian-account ${GUARDIAN_ADDRESS} --home $(VALDIR)/node0/.ssd
+	@rmempty $(VALDIR)/node0/.ssd/config/genesis.json ${GENESIS_JSON_FILE}
+	@for index in $(VALS_INDEX); do cp -f ${GENESIS_JSON_FILE} ${VALDIR}/node$$index/.ssd/config ; done
 
 config.toml:
 	@if ! [ -d ${GENDIR} ]; then mkdir -p ${GENDIR}; fi
 	@for index in $(VALS_INDEX); do \
-	 ip=$$(cat ${VALDIR}/node$$index/.hsd/config/ip.conf); \
-	 nodeid=$$(cat ${VALDIR}/node$$index/.hsd/config/node.conf);\
+	 ip=$$(cat ${VALDIR}/node$$index/.ssd/config/ip.conf); \
+	 nodeid=$$(cat ${VALDIR}/node$$index/.ssd/config/node.conf);\
 	 port=${DEFAULT_PORT};\
 	 echo "$$nodeid@$$ip:$$port" >> ${PERSISTENT_PEERS_CONF_FILE}; done
-	@cp $(VALDIR)/node0/.hsd/config/config.toml ${CONFIG_TOML_FILE}
+	@cp $(VALDIR)/node0/.ssd/config/config.toml ${CONFIG_TOML_FILE}
 	@replconfkey persistent_peers ${CONFIG_TOML_FILE} ${PERSISTENT_PEERS_CONF_FILE}
 	@for index in $(VALS_INDEX); do \
-	 replconfkey persistent_peers $(VALDIR)/node$$index/.hsd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
+	 replconfkey persistent_peers $(VALDIR)/node$$index/.ssd/config/config.toml ${PERSISTENT_PEERS_CONF_FILE} ; done
 	@for index in $(VALS_INDEX); do \
 	 itself=$$(row $$(($$index+1)) ${PERSISTENT_PEERS_CONF_FILE}); \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml persistent_peers $$itself; \
-	 replconfval $(VALDIR)/node$$index/.hsd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml persistent_peers $$itself; \
+	 replconfval $(VALDIR)/node$$index/.ssd/config/config.toml laddr "tcp://0.0.0.0:26657" "tcp://localhost:26657"; done
 
 refine:
 	@find ${VALDIR} -name "node.conf" |xargs rm -f
@@ -159,15 +159,15 @@ distr.mkfile:
 	@ansible servers -m copy -a "src=$(CONFIGDIR)/Makefile dest=/root force=yes"	
 
 distr.exe:
-	@ansible servers -m copy -a "src=$$(which hsd) dest=/usr/local/bin force=yes mode=755"
-	@ansible servers -m copy -a "src=$$(which hscli) dest=/usr/local/bin force=yes mode=755"
+	@ansible servers -m copy -a "src=$$(which ssd) dest=/usr/local/bin force=yes mode=755"
+	@ansible servers -m copy -a "src=$$(which sscli) dest=/usr/local/bin force=yes mode=755"
 
 distr.config:
 	@for index in $(VALS_INDEX); do \
 	 ipaddr=$$(row $$index ${SERVER_LIST} 1|column ${PUB_COL_INDEX});\
 	 passwd=${PEMDIR}/$$(row $$index ${SERVER_LIST} 1|column ${PEM_COL_INDEX});\
-	 echo "compressing ${VALDIR}/node$$index/.hsd to node$$index.tar.gz";\
-	 cd ${VALDIR}/node$$index; tar cf ${VALDIR}/node$$index.tar.gz .hsd;\
+	 echo "compressing ${VALDIR}/node$$index/.ssd to node$$index.tar.gz";\
+	 cd ${VALDIR}/node$$index; tar cf ${VALDIR}/node$$index.tar.gz .ssd;\
 	 echo "copying node$$index.tar.gz to $$ipaddr";\
 	 scp -i $$passwd ${VALDIR}/node$$index.tar.gz root@$$ipaddr:/root;\
 	 echo "extracting node$$index.tar.gz on $$ipaddr";\
@@ -186,8 +186,8 @@ stop.rest:
 	@ansible servers -m shell -a "make stop-rest"
 
 start.setconfig:
-	@ansible servers -m shell -a "hscli config chain-id ${CHAIN_ID}"
-	@ansible servers -m shell -a "hscli config trust-node true"
+	@ansible servers -m shell -a "sscli config chain-id ${CHAIN_ID}"
+	@ansible servers -m shell -a "sscli config trust-node true"
 
 start.daemon: 
 	@ansible servers -m shell -a "make start-daemon"
@@ -203,13 +203,13 @@ confirm.height:
 	@ansible servers -m shell -a "curl http://localhost:26657/status|grep latest_block_height"
 
 confirm.validators.all:
-	@ansible server1 -m shell -a "hscli query staking validators"
+	@ansible server1 -m shell -a "sscli query staking validators"
 
 # confirm.validator.reward:
-# 	@ansible server1 -m shell -a "hscli query distr commission [validator-address]"
+# 	@ansible server1 -m shell -a "sscli query distr commission [validator-address]"
 
 # confirm.delegator.reward:
-# 	@ansible server1 -m shell -a "hscli query distr reward [delegator-address] [validator-address]"
+# 	@ansible server1 -m shell -a "sscli query distr reward [delegator-address] [validator-address]"
 
 ssh.vals:
 	@read -p "Enter Server Index To Check: " index; \
@@ -218,10 +218,10 @@ ssh.vals:
 	 ssh -i $$passwd root@$$ipaddr
 
 test.local:
-	@rm -rf ${HOME}/.hsd;mkdir -p ${HOME}/.hsd/config
-	@cp ${VALDIR}/node1/.hsd/config/config.toml ${HOME}/.hsd/config
-	@cp ${VALDIR}/node1/.hsd/config/genesis.json ${HOME}/.hsd/config
-	@nohup hsd start >> ${HOME}/.hsd/app.log  2>&1  &
-	@nohup hscli rest-server --chain-id=${CHAIN_ID} --trust-node=true --laddr=tcp://0.0.0.0:1317 >> ${HOME}/.hsd/restServer.log  2>&1  &
+	@rm -rf ${HOME}/.ssd;mkdir -p ${HOME}/.ssd/config
+	@cp ${VALDIR}/node1/.ssd/config/config.toml ${HOME}/.ssd/config
+	@cp ${VALDIR}/node1/.ssd/config/genesis.json ${HOME}/.ssd/config
+	@nohup ssd start >> ${HOME}/.ssd/app.log  2>&1  &
+	@nohup sscli rest-server --chain-id=${CHAIN_ID} --trust-node=true --laddr=tcp://0.0.0.0:1317 >> ${HOME}/.ssd/restServer.log  2>&1  &
 
 .PHONY: clean

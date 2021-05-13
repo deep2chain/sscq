@@ -28,7 +28,7 @@ func deleteKeyCommand() *cobra.Command {
 Note that removing offline or ledger keys will remove
 only the public key references stored locally, i.e.
 private keys stored in a ledger device cannot be deleted with
-hscli.
+sscli.
 `,
 		RunE: runDeleteCmd,
 		Args: cobra.ExactArgs(1),

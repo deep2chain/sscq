@@ -12,5 +12,5 @@ export:
 	 do \
 	 address=$$(cat accounts.list|row $$(($$i+1))|column 1);\
 	 balance=$$(cat accounts.list|row $$(($$i+1))|column 2);\
-	 hsd add-genesis-account $$address ${balance}satoshi --home ${HOME}/.hsd;\
+	 ssd add-genesis-account $$address ${balance}satoshi --home ${HOME}/.ssd;\
 	 done;

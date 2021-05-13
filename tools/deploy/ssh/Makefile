@@ -1,23 +1,23 @@
 CHAIN_ID = testchain
 
 check:
-	@ps -ef | grep hsd
-	@ps -ef | grep hscli
+	@ps -ef | grep ssd
+	@ps -ef | grep sscli
 
 clean:
-	@rm -rf /root/.hsd /root/.hsd/app.log
+	@rm -rf /root/.ssd /root/.ssd/app.log
 
 stop-daemon:
-	@pkill hsd
+	@pkill ssd
 
 stop-rest:
-	@pkill hscli
+	@pkill sscli
 
 start-daemon:
-	@nohup hsd start >> ${HOME}/.hsd/app.log  2>&1  &
+	@nohup ssd start >> ${HOME}/.ssd/app.log  2>&1  &
 
 start-rest:
-	@nohup hscli rest-server --chain-id=${CHAIN_ID} --trust-node=true --laddr=tcp://0.0.0.0:1317 >> ${HOME}/.hsd/restServer.log  2>&1  &
+	@nohup sscli rest-server --chain-id=${CHAIN_ID} --trust-node=true --laddr=tcp://0.0.0.0:1317 >> ${HOME}/.ssd/restServer.log  2>&1  &
 
 # too slow
 checksum:
@@ -26,7 +26,7 @@ checksum:
 	 for i in $$(python -c "print ' '.join(str(item) for item in range($$linecnt))"); \
 	 do \
 	 account=$$(cat accounts.list|row $$(($$i+1))|column 1);\
-	 balance=$$(hscli query account $$account|row 4|fromstr "         "|endstr satoshi);\
+	 balance=$$(sscli query account $$account|row 4|fromstr "         "|endstr satoshi);\
 	 echo $$(($$i+1)) $$account $$balance >> accounts_new.list;\
 	 sum=$$(($$sum+$$balance));\
 	 done;

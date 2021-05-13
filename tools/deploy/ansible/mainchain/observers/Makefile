@@ -8,23 +8,23 @@
 # observer3 ansible_host=192.168.5.13 ansible_user=root ansible_ssh_private_key_file=/tmp/192.168.5.13.pem
 # observer4 ansible_host=192.168.5.14 ansible_user=root ansible_ssh_private_key_file=/tmp/192.168.5.14.pem
 #
-# 2. config.toml, genesis.json, hsd, hscli, Makefile
+# 2. config.toml, genesis.json, ssd, sscli, Makefile
 #################################################################
 CONFIG_DIR=/home/ubuntu/config/nosentry/sscq/observation
 
 all: init cp.config start
 
 init:
-	@ansible observers -m shell -a "if ! [ -d ' /root/.hsd/config' ];then mkdir -p /root/.hsd/config; fi"
+	@ansible observers -m shell -a "if ! [ -d ' /root/.ssd/config' ];then mkdir -p /root/.ssd/config; fi"
 
-copy: cp.config cp.hsd cp.hscli cp.Makefile
+copy: cp.config cp.ssd cp.sscli cp.Makefile
 cp.config:
-	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/sscq/observation/config.toml dest=/root/.hsd/config force=yes"
-	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/sscq/observation/genesis.json dest=/root/.hsd/config force=yes"
-cp.hsd:	
-	@ansible observers -m copy -a "src=/home/ubuntu/go/bin/hsd dest=/usr/local/bin force=yes mode=755"
-cp.hscli:	
-	@ansible observers -m copy -a "src=/home/ubuntu/go/bin/hscli dest=/usr/local/bin force=yes mode=755"
+	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/sscq/observation/config.toml dest=/root/.ssd/config force=yes"
+	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/sscq/observation/genesis.json dest=/root/.ssd/config force=yes"
+cp.ssd:	
+	@ansible observers -m copy -a "src=/home/ubuntu/go/bin/ssd dest=/usr/local/bin force=yes mode=755"
+cp.sscli:	
+	@ansible observers -m copy -a "src=/home/ubuntu/go/bin/sscli dest=/usr/local/bin force=yes mode=755"
 cp.Makefile:
 	@ansible observers -m copy -a "src=/home/ubuntu/config/nosentry/sscq/observation/Makefile dest=/root force=yes"	
 

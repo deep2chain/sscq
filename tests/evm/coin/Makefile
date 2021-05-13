@@ -44,20 +44,20 @@ execute:
 	 echo $$contract; \
 	 unsigned=$$(hsutils json2hex "$$contract");\
 	 echo $$unsigned;\
-	 signed=$$(hscli tx sign $$unsigned);\
+	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\
-	 hscli tx broadcast $$signed > ${TMP_PATH};\
+	 sscli tx broadcast $$signed > ${TMP_PATH};\
 	 txid=$$(findkey txhash ${TMP_PATH});\
 	 echo $$txid;\
 	 sleep ${BLK_TIME};\
-	 hscli query tx $$txid > ${TMP_PATH};\
+	 sscli query tx $$txid > ${TMP_PATH};\
 	 findkey logs ${TMP_PATH};
 
 # function name: minter
 # 0x07546172
 # caution: 0 must be included. DO NOT OMITT IT.
 minter:
-	@replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	@replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 07546172 unsigned.tx y;\
 	 make -sC . execute;
 
@@ -66,7 +66,7 @@ minter:
 # 0x27e235e3
 balances: #param.address
 	@queryaddr=$$(make -sC . param.address);\
-	 replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	 replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 27e235e3$$queryaddr unsigned.tx y;\
 	 make -sC . execute;
 
@@ -76,7 +76,7 @@ balances: #param.address
 mint: #param.address param.int
 	@receiver=$$(make -sC . param.address);\
 	 amount=$$(make -sC . param.int);\
-	 replkey From $$(hscli accounts list|row 1) unsigned.tx y;\
+	 replkey From $$(sscli accounts list|row 1) unsigned.tx y;\
 	 replkey Data 40c10f19$$receiver$$amount unsigned.tx y;\
 	 make -sC . execute;
 	 

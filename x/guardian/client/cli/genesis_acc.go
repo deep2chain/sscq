@@ -50,7 +50,7 @@ func AddGuardianAccountCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command
 
 			genFile := config.GenesisFile()
 			if !common.FileExists(genFile) {
-				return fmt.Errorf("%s does not exist, run `hsd init` first", genFile)
+				return fmt.Errorf("%s does not exist, run `ssd init` first", genFile)
 			}
 
 			genDoc, err := i.LoadGenesisDoc(cdc, genFile)

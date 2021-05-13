@@ -13,7 +13,7 @@ import (
 	"github.com/deep2chain/sscq/x/auth"
 	authtxb "github.com/deep2chain/sscq/x/auth/client/txbuilder"
 	sscqservice "github.com/deep2chain/sscq/x/core"
-	hscorecli "github.com/deep2chain/sscq/x/core/client/cli"
+	sscorecli "github.com/deep2chain/sscq/x/core/client/cli"
 )
 
 // SignBody defines the properties of a sign request's body.
@@ -113,7 +113,7 @@ func SignTxRawRequestHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http
 		}
 
 		// sign
-		res, err := hscorecli.SignTransaction(authtxb.NewTxBuilderFromCLI(), cliCtx, stdTx, req.Passphrase, req.Offline)
+		res, err := sscorecli.SignTransaction(authtxb.NewTxBuilderFromCLI(), cliCtx, stdTx, req.Passphrase, req.Offline)
 		if err != nil {
 			return
 		}

@@ -14,7 +14,7 @@ func (p *ProtocolV0) assertRuntimeInvariants(ctx sdk.Context) {
 		if err := ir.Invar(ctx); err != nil {
 			panic(fmt.Errorf("invariant broken: %s\n"+
 				"\tCRITICAL please submit the following transaction:\n"+
-				"\t\t hscli tx crisis invariant-broken %v %v", err, ir.ModuleName, ir.Route))
+				"\t\t sscli tx crisis invariant-broken %v %v", err, ir.ModuleName, ir.Route))
 		}
 	}
 	end := time.Now()

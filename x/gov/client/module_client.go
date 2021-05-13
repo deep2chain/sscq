@@ -7,7 +7,7 @@ import (
 	"github.com/deep2chain/sscq/client"
 	"github.com/deep2chain/sscq/x/gov"
 	govcli "github.com/deep2chain/sscq/x/gov/client/cli"
-	hsgovcli "github.com/deep2chain/sscq/x/gov/client/cli"
+	ssgovcli "github.com/deep2chain/sscq/x/gov/client/cli"
 )
 
 // ModuleClient exports all client functionality from this module
@@ -51,9 +51,9 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 	}
 
 	govTxCmd.AddCommand(client.PostCommands(
-		hsgovcli.GetCmdDeposit(mc.storeKey, mc.cdc),
-		hsgovcli.GetCmdVote(mc.storeKey, mc.cdc),
-		hsgovcli.GetCmdSubmitProposal(mc.cdc),
+		ssgovcli.GetCmdDeposit(mc.storeKey, mc.cdc),
+		ssgovcli.GetCmdVote(mc.storeKey, mc.cdc),
+		ssgovcli.GetCmdSubmitProposal(mc.cdc),
 	)...)
 
 	return govTxCmd

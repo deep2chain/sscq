@@ -22,13 +22,13 @@ execute:
 	 echo $$contract; \
 	 unsigned=$$(hsutils json2hex "$$contract");\
 	 echo $$unsigned;\
-	 signed=$$(hscli tx sign $$unsigned);\
+	 signed=$$(sscli tx sign $$unsigned);\
 	 echo $$signed;\
-	 hscli tx broadcast $$signed > ${TMP_PATH};\
+	 sscli tx broadcast $$signed > ${TMP_PATH};\
 	 txid=$$(findkey txhash ${TMP_PATH});\
 	 echo $$txid;\
 	 sleep ${BLK_TIME};\
-	 hscli query tx $$txid > ${TMP_PATH};\
+	 sscli query tx $$txid > ${TMP_PATH};\
 	 findkey logs ${TMP_PATH};
 
 #############################################################################
@@ -49,7 +49,7 @@ execute:
 # B: 000000000000000000000000eff9f9c54e4ce0d78cfa3af525695fed0e6c38f7(sscq1aluln32wfnsd0r868t6j262la58xcw8h289462)
 # Z: 00000000000000000000000000000000000000000000021e19e0c9bab2400000(10000000000000000000000)
 # approve.data:095ea7b3000000000000000000000000eff9f9c54e4ce0d78cfa3af525695fed0e6c38f700000000000000000000000000000000000000000000021e19e0c9bab2400000
-# allowance: hscli query contract sscq15zuywqfgvw955wg9hvdgkr3hxsdgja5z2tvrmc dd62ed3e00000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe90000000000000000000000002ff97e52f5418eaf5d7d88cb919cc74a735a7128
+# allowance: sscli query contract sscq15zuywqfgvw955wg9hvdgkr3hxsdgja5z2tvrmc dd62ed3e00000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe90000000000000000000000002ff97e52f5418eaf5d7d88cb919cc74a735a7128
 #**********************************************************************************************************************************************************
 # [Airdrop Contract](airdrop:sscq1vcv6jz4nmunv8fndyhznuwuc96kuccsj4cuz34)
 # contract FutureEdgeAirdrop {
@@ -71,7 +71,7 @@ execute:
 # value:     10000000000000000000(0000000000000000000000000000000000000000000000008ac7230489e80000)
 # method.id + tokenaddr + pos.addr(hex(32*3)) + pos.value(hex(32*(3+1+array.len))) + addr.array.len + receiver.addr.1 + receiver.addr.2 + ... + value.array.len + value.1 + value.2 +...
 # 7da5efc8000000000000000000000000f1c106c2361723e17c2d5253e473fbb544a4702e000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000002000000000000000000000000c50b86e748e9c014d4ffce660d734743772d8a3c000000000000000000000000c7347b4d5c2371fe6ba0a54a806631da608e9294000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000001110000000000000000000000000000000000000000000000000000000000000112
-# hscli query contract sscq178qsds3kzu37zlpd2ff7gulmk4z2gupwd8qm3p 70a08231
+# sscli query contract sscq178qsds3kzu37zlpd2ff7gulmk4z2gupwd8qm3p 70a08231
 #*******************************************************************************************************
 
 # function name: drop

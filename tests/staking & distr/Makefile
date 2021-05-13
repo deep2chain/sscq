@@ -7,6 +7,6 @@ run.withdraw:
 	 echo "unsigned############################################################";\
 	 unsigned=$$(hsutils json2hex "$$contract");\
 	 echo "$$unsigned";\
-	 signed=$$(hscli tx sign "$$unsigned");\
+	 signed=$$(sscli tx sign "$$unsigned");\
 	 echo "signed############################################################";\
 	 echo "$$signed";

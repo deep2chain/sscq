@@ -34,12 +34,12 @@ func init() {
 // ex:
 //	BlksPerRound = 100
 //	rewards+commission+community-pool
-//	hscli query distr rewards sscq1zulqmaqlsgrgmagenaqf02p8kfgsuqkdwgwj80
+//	sscli query distr rewards sscq1zulqmaqlsgrgmagenaqf02p8kfgsuqkdwgwj80
 //	121793749706.0satoshi
 //	* 4 = 487174998824
 //	not true becasue proper get more rewards,that's, different rewards on every node.
-//  hscli query distr commission cosmosvaloper1lwjmdnks33xwnmfayc64ycprww49n33mtm92ne
-// 	hscli query distr community-pool
+//  sscli query distr commission cosmosvaloper1lwjmdnks33xwnmfayc64ycprww49n33mtm92ne
+// 	sscli query distr community-pool
 const (
 	// Block Reward of First Round
 	InitialReward = 25 * 100000000 //25sscq = 2500000000satoshi

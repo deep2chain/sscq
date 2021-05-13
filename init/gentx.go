@@ -30,8 +30,8 @@ import (
 	"github.com/deep2chain/sscq/app/v0"
 	"github.com/deep2chain/sscq/server"
 	"github.com/deep2chain/sscq/client/keys"
-	hscorecli "github.com/deep2chain/sscq/x/core/client/cli"
-	hstakingcli "github.com/deep2chain/sscq/x/staking/client/cli"
+	sscorecli "github.com/deep2chain/sscq/x/core/client/cli"
+	sstakingcli "github.com/deep2chain/sscq/x/staking/client/cli"
 	"github.com/deep2chain/sscq/accounts/keystore"
 )
 
@@ -44,13 +44,13 @@ var (
 	defaultMinSelfDelegation       = "1"
 )
 
-// GenTxCmd builds the hsd gentx command.
+// GenTxCmd builds the ssd gentx command.
 // nolint: errcheck
 func GenTxCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "gentx [validatorAddr]",
 		Short: "Generate a genesis tx carrying a self delegation",
-		Long: fmt.Sprintf(`This command is an alias of the 'hsd tx create-validator' command'.
+		Long: fmt.Sprintf(`This command is an alias of the 'ssd tx create-validator' command'.
 
 It creates a genesis piece carrying a self delegation with the
 following delegation and commission default parameters:
@@ -118,10 +118,10 @@ following delegation and commission default parameters:
 				return err
 			}
 
-			// Run hsd tx create-validator
+			// Run ssd tx create-validator
 			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			txBldr, msg, err := hstakingcli.BuildCreateValidatorMsg(cliCtx, txBldr, validatorAddr)
+			txBldr, msg, err := sstakingcli.BuildCreateValidatorMsg(cliCtx, txBldr, validatorAddr)
 			if err != nil {
 				return err
 			}
@@ -129,7 +129,7 @@ following delegation and commission default parameters:
 			// write the unsigned transaction to the buffer
 			w := bytes.NewBuffer([]byte{})
 			cliCtx = cliCtx.WithOutput(w)
-			if err = hscorecli.PrintUnsignedStdTx(txBldr, cliCtx, []sdk.Msg{msg}, false); err != nil {
+			if err = sscorecli.PrintUnsignedStdTx(txBldr, cliCtx, []sdk.Msg{msg}, false); err != nil {
 				return err
 			}
 
