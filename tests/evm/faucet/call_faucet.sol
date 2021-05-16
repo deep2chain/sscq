@@ -9,7 +9,7 @@ import "./sscq_faucet.sol";
 
 contract CallFaucet {
 
-    HtdfFaucet public faucet;
+    SscqFaucet public faucet;
     uint256 public stackDepth = 0;
     address public addr;
     address public owner;
@@ -17,13 +17,13 @@ contract CallFaucet {
     function CallFaucet() public payable {
         // hard coding the faucet contract address
         addr = address(0x18EDA861679664967c067bA3068414339E5B49e9);
-        faucet = HtdfFaucet(addr);
+        faucet = SscqFaucet(addr);
         owner = msg.sender;
     }
 
-    function  getOneHtdf() public {
+    function  getOneSscq() public {
         stackDepth = 0;
-        faucet.getOneHtdf(); // it's ok
+        faucet.getOneSscq(); // it's ok
     }
 
     // fallback function

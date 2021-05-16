@@ -4,13 +4,13 @@ import time
 
 import pytest
 from pprint import pprint
-from sscqsdk import HtdfRPC, HtdfTxBuilder, sscq_to_satoshi, Address, HtdfPrivateKey
+from sscqsdk import SscqRPC, SscqTxBuilder, sscq_to_satoshi, Address, SscqPrivateKey
 
 
 @pytest.fixture(scope="module", autouse=True)
 def check_balance(conftest_args):
     print("====> check_balance <=======")
-    sscqrpc = HtdfRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
+    sscqrpc = SscqRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
     from_addr = Address(conftest_args['ADDRESS'])
     acc = sscqrpc.get_account_info(address=from_addr.address)
     assert acc.balance_satoshi > sscq_to_satoshi(100000)
@@ -35,18 +35,18 @@ def test_normal_tx_send(conftest_args):
     data = ''
     memo = 'test_normal_transaction'
 
-    sscqrpc = HtdfRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
+    sscqrpc = SscqRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
 
     from_addr = Address(conftest_args['ADDRESS'])
 
-    new_to_addr = HtdfPrivateKey('').address
-    private_key = HtdfPrivateKey(conftest_args['PRIVATE_KEY'])
+    new_to_addr = SscqPrivateKey('').address
+    private_key = SscqPrivateKey(conftest_args['PRIVATE_KEY'])
     from_acc = sscqrpc.get_account_info(address=from_addr.address)
 
     assert from_acc is not None
     assert from_acc.balance_satoshi > gas_price * gas_wanted + tx_amount
 
-    signed_tx = HtdfTxBuilder(
+    signed_tx = SscqTxBuilder(
         from_address=from_addr,
         to_address=new_to_addr,
         amount_satoshi=tx_amount,
@@ -116,22 +116,22 @@ def test_normal_tx_with_data(conftest_args):
     data = 'ff' * 1000
     memo = 'test_normal_transaction_with_data'
 
-    sscqrpc = HtdfRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
+    sscqrpc = SscqRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
 
     upgrade_info = sscqrpc.get_upgrade_info()
     protocol_version = int(upgrade_info['current_version']['UpgradeInfo']['Protocol']['version'])
 
     from_addr = Address(conftest_args['ADDRESS'])
 
-    new_to_addr = HtdfPrivateKey('').address
+    new_to_addr = SscqPrivateKey('').address
     # to_addr = Address('sscq1jrh6kxrcr0fd8gfgdwna8yyr9tkt99ggmz9ja2')
-    private_key = HtdfPrivateKey(conftest_args['PRIVATE_KEY'])
+    private_key = SscqPrivateKey(conftest_args['PRIVATE_KEY'])
     from_acc = sscqrpc.get_account_info(address=from_addr.address)
 
     assert from_acc is not None
     assert from_acc.balance_satoshi > gas_price * gas_wanted + tx_amount
 
-    signed_tx = HtdfTxBuilder(
+    signed_tx = SscqTxBuilder(
         from_address=from_addr,
         to_address=new_to_addr,
         amount_satoshi=tx_amount,
@@ -249,22 +249,22 @@ def test_txsize_excess_100000bytes(conftest_args):
 
     memo = 'test_normal_transaction_with_data_excess_100000bytes'
 
-    sscqrpc = HtdfRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
+    sscqrpc = SscqRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
 
     upgrade_info = sscqrpc.get_upgrade_info()
     protocol_version = int(upgrade_info['current_version']['UpgradeInfo']['Protocol']['version'])
 
     from_addr = Address(conftest_args['ADDRESS'])
 
-    new_to_addr = HtdfPrivateKey('').address
+    new_to_addr = SscqPrivateKey('').address
     # to_addr = Address('sscq1jrh6kxrcr0fd8gfgdwna8yyr9tkt99ggmz9ja2')
-    private_key = HtdfPrivateKey(conftest_args['PRIVATE_KEY'])
+    private_key = SscqPrivateKey(conftest_args['PRIVATE_KEY'])
     from_acc = sscqrpc.get_account_info(address=from_addr.address)
 
     assert from_acc is not None
     assert from_acc.balance_satoshi > gas_price * gas_wanted + tx_amount
 
-    signed_tx = HtdfTxBuilder(
+    signed_tx = SscqTxBuilder(
         from_address=from_addr,
         to_address=new_to_addr,
         amount_satoshi=tx_amount,
@@ -310,20 +310,20 @@ def test_normal_tx_gas_wanted_adjust(conftest_args):
     data = ''
     memo = 'test_normal_transaction_gas_wanted'
 
-    sscqrpc = HtdfRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
+    sscqrpc = SscqRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
     upgrade_info = sscqrpc.get_upgrade_info()
     protocol_version = int(upgrade_info['current_version']['UpgradeInfo']['Protocol']['version'])
 
     from_addr = Address(conftest_args['ADDRESS'])
 
-    new_to_addr = HtdfPrivateKey('').address
-    private_key = HtdfPrivateKey(conftest_args['PRIVATE_KEY'])
+    new_to_addr = SscqPrivateKey('').address
+    private_key = SscqPrivateKey(conftest_args['PRIVATE_KEY'])
     from_acc = sscqrpc.get_account_info(address=from_addr.address)
 
     assert from_acc is not None
     assert from_acc.balance_satoshi > gas_price * gas_wanted + tx_amount
 
-    signed_tx = HtdfTxBuilder(
+    signed_tx = SscqTxBuilder(
         from_address=from_addr,
         to_address=new_to_addr,
         amount_satoshi=tx_amount,
@@ -436,20 +436,20 @@ def test_normal_tx_gas_wanted_excess_7500000(conftest_args):
     data = ''
     memo = 'test_normal_transaction_gas_wanted_excess_7500000'
 
-    sscqrpc = HtdfRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
+    sscqrpc = SscqRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
     upgrade_info = sscqrpc.get_upgrade_info()
     protocol_version = int(upgrade_info['current_version']['UpgradeInfo']['Protocol']['version'])
 
     from_addr = Address(conftest_args['ADDRESS'])
 
-    new_to_addr = HtdfPrivateKey('').address
-    private_key = HtdfPrivateKey(conftest_args['PRIVATE_KEY'])
+    new_to_addr = SscqPrivateKey('').address
+    private_key = SscqPrivateKey(conftest_args['PRIVATE_KEY'])
     from_acc = sscqrpc.get_account_info(address=from_addr.address)
 
     assert from_acc is not None
     assert from_acc.balance_satoshi > gas_price * gas_wanted + tx_amount
 
-    signed_tx = HtdfTxBuilder(
+    signed_tx = SscqTxBuilder(
         from_address=from_addr,
         to_address=new_to_addr,
         amount_satoshi=tx_amount,
@@ -530,22 +530,22 @@ def test_balance_less_than_fee_tx(conftest_args):
     data = ''
     memo = 'test_balance_less_than_fee_tx'
 
-    sscqrpc = HtdfRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
+    sscqrpc = SscqRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
 
     upgrade_info = sscqrpc.get_upgrade_info()
     protocol_version = int(upgrade_info['current_version']['UpgradeInfo']['Protocol']['version'])
 
     from_addr = Address(conftest_args['ADDRESS'])
 
-    new_to_privkey = HtdfPrivateKey('')
+    new_to_privkey = SscqPrivateKey('')
     new_to_addr = new_to_privkey.address
-    private_key = HtdfPrivateKey(conftest_args['PRIVATE_KEY'])
+    private_key = SscqPrivateKey(conftest_args['PRIVATE_KEY'])
     from_acc = sscqrpc.get_account_info(address=from_addr.address)
 
     assert from_acc is not None
     assert from_acc.balance_satoshi > gas_price * gas_wanted + tx_amount
 
-    signed_tx = HtdfTxBuilder(
+    signed_tx = SscqTxBuilder(
         from_address=from_addr,
         to_address=new_to_addr,
         amount_satoshi=tx_amount,
@@ -569,7 +569,7 @@ def test_balance_less_than_fee_tx(conftest_args):
     assert to_acc is not None
     assert to_acc.balance_satoshi == tx_amount
 
-    signed_tx_back = HtdfTxBuilder(
+    signed_tx_back = SscqTxBuilder(
         from_address=new_to_addr,
         to_address=from_addr,
         amount_satoshi=tx_amount,
@@ -635,12 +635,12 @@ def test_5000_normal_send_txs(conftest_args):
     data = ''
     memo = 'test_2000_normal_send_txs'
 
-    sscqrpc = HtdfRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
+    sscqrpc = SscqRPC(chaid_id=conftest_args['CHAINID'], rpc_host=conftest_args['RPC_HOST'], rpc_port=conftest_args['RPC_PORT'])
 
     from_addr = Address(conftest_args['ADDRESS'])
 
-    new_to_addr = HtdfPrivateKey('').address
-    private_key = HtdfPrivateKey(conftest_args['PRIVATE_KEY'])
+    new_to_addr = SscqPrivateKey('').address
+    private_key = SscqPrivateKey(conftest_args['PRIVATE_KEY'])
     from_acc = sscqrpc.get_account_info(address=from_addr.address)
 
     assert from_acc is not None
@@ -649,7 +649,7 @@ def test_5000_normal_send_txs(conftest_args):
     signed_tx_list = []
 
     for n in range(txs_count):
-        signed_tx = HtdfTxBuilder(
+        signed_tx = SscqTxBuilder(
             from_address=from_addr,
             to_address=new_to_addr,
             amount_satoshi=tx_amount,

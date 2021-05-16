@@ -13,17 +13,17 @@ pragma solidity ^0.4.20;
 
 
 
-contract HtdfFaucet {
+contract SscqFaucet {
     
     uint256 public onceAmount;
     address public owner ;
     
-    event SendHtdf(address indexed toAddress, uint256 indexed amount);
+    event SendSscq(address indexed toAddress, uint256 indexed amount);
     event Deposit(address indexed fromAddress, uint256 indexed amount);
     event SetOnceAmount(address indexed fromAddress, uint256 indexed amount);
     mapping (address => uint256) sendRecords;
     
-    function HtdfFaucet() public payable{
+    function SscqFaucet() public payable{
         onceAmount = 100000000;
         owner = msg.sender;
     }
@@ -38,7 +38,7 @@ contract HtdfFaucet {
         SetOnceAmount(msg.sender, amount);
     }
     
-    function getOneHtdf() public {
+    function getOneSscq() public {
         require( sendRecords[msg.sender] == 0 || 
             (sendRecords[msg.sender] > 0 &&  now - sendRecords[msg.sender] > 1 minutes ));
             
@@ -47,7 +47,7 @@ contract HtdfFaucet {
         // NOTE: THIS IS UNSAFE
         msg.sender.call.value( onceAmount )("");
         sendRecords[msg.sender] = now; // NOTE: probobaly be re-entrancy attacked
-        SendHtdf(msg.sender, onceAmount);
+        SendSscq(msg.sender, onceAmount);
     }
     
     function deposit() public payable {

@@ -40,7 +40,7 @@ func ValidateGenesisCmd(ctx *server.Context, cdc *codec.Codec) *cobra.Command {
 				return fmt.Errorf("Error unmarshaling genesis doc %s: %s", genesis, err.Error())
 			}
 
-			if err = v0.HtdfValidateGenesisState(genstate); err != nil {
+			if err = v0.SscqValidateGenesisState(genstate); err != nil {
 				return fmt.Errorf("Error validating genesis file %s: %s", genesis, err.Error())
 			}
 

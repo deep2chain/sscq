@@ -20,10 +20,12 @@ const (
 	GuardianStore        = "guardian"
 	UpgradeStore         = "upgrade"
 	Storage              = "storage"
+	FaucetStore          = "faucet"
 	Code                 = "code"
 
 	// all route for query and handler
 	BankRoute     = "bank"
+	FaucetRoute   = FaucetStore
 	AccountRoute  = AccountStore
 	CoreRoute     = CoreStore
 	StakeRoute    = StakeStore

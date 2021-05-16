@@ -45,7 +45,7 @@ func runHackCmd(cmd *cobra.Command, args []string) error {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	app := NewHtdfApp(logger, db, bam.SetPruning(store.PruneNothing))
+	app := NewSscqApp(logger, db, bam.SetPruning(store.PruneNothing))
 
 	// print some info
 	id := app.LastCommitID()
@@ -111,20 +111,20 @@ func hexToBytes(h string) []byte {
 // so we can access internal fields!
 
 const (
-	appName = "HtdfApp"
+	appName = "SscqApp"
 )
 
 // Extended ABCI application
-type HtdfApp struct {
+type SscqApp struct {
 	*bam.BaseApp
 }
 
-func NewHtdfApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam.BaseApp)) *HtdfApp {
+func NewSscqApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam.BaseApp)) *SscqApp {
 	cdc := bam.MakeLatestCodec()
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc), baseAppOptions...)
 
 	// create your application object
-	var app = &HtdfApp{
+	var app = &SscqApp{
 		BaseApp: bApp,
 	}
 	protocolKeeper := sdk.NewProtocolKeeper(protocol.KeyMain)
@@ -146,11 +146,11 @@ func NewHtdfApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam.BaseAp
 }
 
 // export the state of sscq for a genesis file
-func (app *HtdfApp) ExportAppStateAndValidators(forZeroHeight bool) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+func (app *SscqApp) ExportAppStateAndValidators(forZeroHeight bool) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{})
 	return app.Engine.GetCurrentProtocol().ExportAppStateAndValidators(ctx, forZeroHeight,nil)
 }
 
-func (app *HtdfApp) LoadHeight(height int64) error {
+func (app *SscqApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height, protocol.KeyMain, false)
 }

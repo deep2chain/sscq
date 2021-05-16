@@ -14,6 +14,7 @@ import (
 	sscqservice "github.com/deep2chain/sscq/x/core"
 	"github.com/deep2chain/sscq/x/crisis"
 	distr "github.com/deep2chain/sscq/x/distribution"
+	"github.com/deep2chain/sscq/x/faucet"
 	"github.com/deep2chain/sscq/x/gov"
 	"github.com/deep2chain/sscq/x/guardian"
 	"github.com/deep2chain/sscq/x/mint"
@@ -30,7 +31,7 @@ import (
 
 const (
 	//
-	RouterKey = "sscqservice"
+	RouterKey   = "sscqservice"
 	TxSizeLimit = 1200000 // tx size is limited to 1200000(bytes)
 )
 
@@ -151,6 +152,7 @@ func MakeLatestCodec() *codec.Codec {
 	sdk.RegisterCodec(cdc)
 	codec.RegisterCrypto(cdc)
 	crisis.RegisterCodec(cdc)
+	faucet.RegisterCodec(cdc)
 	return cdc
 }
 
@@ -312,6 +314,7 @@ func (p *ProtocolV0) configRouters() {
 
 	p.router.
 		AddRoute(RouterKey, sscqservice.NewHandler(p.accountMapper, p.feeCollectionKeeper, protocol.KeyStorage, protocol.KeyCode)).
+		AddRoute(protocol.FaucetRoute, faucet.NewHandler(p.bankKeeper)).
 		// AddRoute(protocol.BankRoute, bank.NewHandler(p.bankKeeper)).
 		AddRoute(protocol.StakeRoute, stake.NewHandler(p.StakeKeeper)).
 		AddRoute(protocol.SlashingRoute, slashing.NewHandler(p.slashingKeeper)).
@@ -429,7 +432,7 @@ func (p *ProtocolV0) initFromGenesisState(ctx sdk.Context, DeliverTx sdk.Deliver
 	upgrade.InitGenesis(ctx, p.upgradeKeeper, genesisState.UpgradeData)
 
 	// validate genesis state
-	if err := HtdfValidateGenesisState(genesisState); err != nil {
+	if err := SscqValidateGenesisState(genesisState); err != nil {
 		panic(err) // TODO find a way to do this w/o panics
 	}
 

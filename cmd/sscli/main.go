@@ -22,6 +22,7 @@ import (
 	sdk "github.com/deep2chain/sscq/types"
 	authcmd "github.com/deep2chain/sscq/x/auth/client/cli"
 	sscqservicecmd "github.com/deep2chain/sscq/x/core/client/cli"
+	faucetcmd "github.com/deep2chain/sscq/x/faucet/client/cli"
 
 	accounts "github.com/deep2chain/sscq/accounts/cli"
 	accrest "github.com/deep2chain/sscq/accounts/rest"
@@ -183,6 +184,7 @@ func txCmd(cdc *amino.Codec, mc []sdk.ModuleClients) *cobra.Command {
 			sscqservicecmd.GetCmdCreate(cdc),
 			sscqservicecmd.GetCmdSend(cdc),
 			sscqservicecmd.GetCmdSign(cdc),
+			faucetcmd.GetCmdAdd(cdc),
 		)
 	}
 

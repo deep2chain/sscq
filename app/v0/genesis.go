@@ -134,7 +134,7 @@ func (ga *GenesisAccount) ToAccount() (acc *auth.BaseAccount) {
 
 // Create the core parameters for genesis initialization for sscq
 // note that the pubkey input is this machines pubkey
-func HtdfAppGenState(cdc *codec.Codec, genDoc tmtypes.GenesisDoc, appGenTxs []json.RawMessage) (
+func SscqAppGenState(cdc *codec.Codec, genDoc tmtypes.GenesisDoc, appGenTxs []json.RawMessage) (
 	genesisState GenesisState, err error) {
 	if err = cdc.UnmarshalJSON(genDoc.AppState, &genesisState); err != nil {
 		return genesisState, err
@@ -177,11 +177,11 @@ func HtdfAppGenState(cdc *codec.Codec, genDoc tmtypes.GenesisDoc, appGenTxs []js
 	return genesisState, nil
 }
 
-// HtdfValidateGenesisState ensures that the genesis state obeys the expected invariants
+// SscqValidateGenesisState ensures that the genesis state obeys the expected invariants
 // TODO: No validators are both bonded and jailed (#2088)
 // TODO: Error if there is a duplicate validator (#1708)
 // TODO: Ensure all state machine parameters are in genesis (#1704)
-func HtdfValidateGenesisState(genesisState GenesisState) (err error) {
+func SscqValidateGenesisState(genesisState GenesisState) (err error) {
 	err = validateGenesisStateAccounts(genesisState.Accounts)
 	if err != nil {
 		return
@@ -207,11 +207,11 @@ func validateGenesisStateAccounts(accs []GenesisAccount) (err error) {
 	return
 }
 
-// HtdfAppGenState but with JSON
-func HtdfAppGenStateJSON(cdc *codec.Codec, genDoc tmtypes.GenesisDoc, appGenTxs []json.RawMessage) (
+// SscqAppGenState but with JSON
+func SscqAppGenStateJSON(cdc *codec.Codec, genDoc tmtypes.GenesisDoc, appGenTxs []json.RawMessage) (
 	appState json.RawMessage, err error) {
 	// create the final app state
-	genesisState, err := HtdfAppGenState(cdc, genDoc, appGenTxs)
+	genesisState, err := SscqAppGenState(cdc, genDoc, appGenTxs)
 	if err != nil {
 		return nil, err
 	}
