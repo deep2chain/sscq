@@ -2,7 +2,7 @@
 
 # contract tx hash: DA270B22321FDD4C286B0C62E59AD8B889D5B1CE5E549368DEB3571EB7D20B98
 # contract addr: sscq15zuywqfgvw955wg9hvdgkr3hxsdgja5z2tvrmc
-# issuer:		 sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+# issuer:		 sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d
 # query data:	 0x07546172
 # log:			 "log": "{\"code\":0,\"message\":\"ok\",\"contract_address\":\"\",\"evm_output\":\"000000000000000000000000bf7c3270279e15d623304f2665076a53ba062b06\"}"
 # result:		 ssutils hex2json bf7c3270279e15d623304f2665076a53ba062b06
@@ -93,7 +93,7 @@ transfer: #param.address param.int
 #############################################################################
 # [HRC20 Contract](het:sscq15zuywqfgvw955wg9hvdgkr3hxsdgja5z2tvrmc)
 # approve A(airdrop.msg.sender) approved B(airdrop.contract.addr) to spend Z
-# A: 00000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe9(sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3)
+# A: 00000000000000000000000085ced8ddf399d75c9e381e01f3bddcefb9132fe9(sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d)
 # B: 000000000000000000000000eff9f9c54e4ce0d78cfa3af525695fed0e6c38f7(sscq1aluln32wfnsd0r868t6j262la58xcw8h289462)
 # Z: 00000000000000000000000000000000000000000000021e19e0c9bab2400000(10000000000000000000000)
 # approve.data:095ea7b3000000000000000000000000eff9f9c54e4ce0d78cfa3af525695fed0e6c38f700000000000000000000000000000000000000000000021e19e0c9bab2400000
@@ -109,7 +109,7 @@ transfer: #param.address param.int
 #     }
 # }
 # contract.addr: sscq1aluln32wfnsd0r868t6j262la58xcw8h289462(000000000000000000000000eff9f9c54e4ce0d78cfa3af525695fed0e6c38f7)
-# msg.sender:sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+# msg.sender:sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d
 # tokenaddr: sscq15zuywqfgvw955wg9hvdgkr3hxsdgja5z2tvrmc(000000000000000000000000a0b8470128638b4a3905bb1a8b0e37341a897682)
 # receivers: sscq1dqrh6tf6js9flf3clmzq4jt3rg7nz02ka6f305(00000000000000000000000068077d2d3a940a9fa638fec40ac9711a3d313d56)
 #			 sscq1jcz5glz5zn4z9j903qmwkyydtvpx58n6vynk25(0000000000000000000000009605447c5414ea22c8af8836eb108d5b026a1e7a)

@@ -10,7 +10,7 @@
             {
             "type": "sscq/MsgSetUndelegateStatus",
             "value": {
-                "delegator_address": "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3",
+                "delegator_address": "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d",
                 "validator_address": "sscqvaloper1nqa6y9aa57vw5uv86kv26y5efhutfp2s94xfph",
                 "Status": true
             }

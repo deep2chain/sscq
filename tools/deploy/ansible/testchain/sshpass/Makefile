@@ -31,7 +31,7 @@ FIRST_ROW_INDEX = 2
 ## chain
 CHAIN_ID = testchain
 MINIMUM_GAS_PRICES = 100satoshi
-GUARDIAN_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+GUARDIAN_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d
 ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
 DEFAULT_PORT = 26656
 ## setup

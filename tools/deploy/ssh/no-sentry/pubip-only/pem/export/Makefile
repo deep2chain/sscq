@@ -21,7 +21,7 @@
 # sentry-public		Singapore-HET-Look.pem	xxx.xxx.xxx.xxx		xxx.xxx.xxx.xxx		$$$2!2E33b7B
 
 ### hint
-# issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+# issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d
 # staker: sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
 
 # index
@@ -36,7 +36,7 @@ FIRST_ROW_INDEX = 2
 CHAIN_ID = mainchain
 MINIMUM_GAS_PRICES = 100satoshi
 GUARDIAN_ADDRESS = sscq172n2nj7z0purlg8dnc6pkd6xgmljr3c7wt94c5
-ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d
 ISSUER_AMOUNT = $$(python -c "print 1000000*10**8")
 # STAKER_ADDRESS = sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
 DEFAULT_PORT = 26656
@@ -72,7 +72,7 @@ create.accounts.list:
 
 # junying-todo, 2020-02-13
 # caution: tab insert doesn't work well. it needs manual works on some condition
-# sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3	100000000000000
+# sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d	100000000000000
 add.issuer:
 	@echo ${ISSUER_ADDRESS}	${ISSUER_AMOUNT}>> ${CONFIGDIR}/accounts.list
 

@@ -17,7 +17,7 @@
 # node4 ansible_host=47.11.5.14 ansible_user=root ansible_ssh_private_key_file=/tmp/47.11.5.14.pem
 # 3. ssd,sscli
 ### account info
-# issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+# issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d
 # staker: sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
 
 # index
@@ -31,8 +31,8 @@ FIRST_ROW_INDEX = 2
 ## chain
 CHAIN_ID = testchain
 MINIMUM_GAS_PRICES = 100satoshi
-GUARDIAN_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
-ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+GUARDIAN_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d
+ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d
 DEFAULT_PORT = 26656
 ## setup
 CONFIGDIR = $(HOME)/config/nosentry/sscq/public

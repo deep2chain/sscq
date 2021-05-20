@@ -29,7 +29,7 @@ func TestBech32Address(t *testing.T) {
 	assert.Equal(t, bech32Contract == binContractAddr.String(), true)
 	fmt.Printf("binContractAddr=%x|binAddress.String=%s\n", binContractAddr, binContractAddr.String())
 
-	bech32Minter := "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3"
+	bech32Minter := "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d"
 	accaddrTmp, err := sdk.AccAddressFromHex("85ced8ddf399d75c9e381e01f3bddcefb9132fe9")
 	assert.Equal(t, err, nil)
 	assert.Equal(t, bech32Minter == accaddrTmp.String(), true)

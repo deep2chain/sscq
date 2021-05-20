@@ -21,7 +21,7 @@
 # sentry-public		Singapore-HTDF-Look.pem	xxx.xxx.xxx.xxx		xxx.xxx.xxx.xxx		$$$2!2E33b7B
 
 ### hint
-# issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3
+# issuer: sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d
 # staker: sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8
 
 # index
@@ -37,7 +37,7 @@ REFINED_PASS_COL_INDEX = 3
 # blockchain configuration
 CHAINID = testchain#mainchain
 MINIMUM_GAS_PRICES = 100satoshi
-ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3#sscq1h6dmymwjgqc5xxxvvsf3rwl54plr2pe3kjyw8n
+ISSUER_ADDRESS = sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d#sscq1h6dmymwjgqc5xxxvvsf3rwl54plr2pe3kjyw8n
 # STAKER_ADDRESS = sscq1t2sdt07ztzf77pj7uheep582l9pn8cn4lapag8#sscq18a6g5u5msn04l87kdk06cn97qjumgemu2phxwd
 DEFAULT_VAL_COUNT = 4#7
 DEFAULT_SENTRY_PUB_COUNT = ${DEFAULT_VAL_COUNT}

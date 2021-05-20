@@ -67,7 +67,7 @@ sscli query gov votes 1
 
 [submit]
 sscli tx gov submit-proposal [flags]
-sscli tx gov submit-proposal sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3 --gas-price=100  --switch-height=4100 --description="third proposal"  --title="test2" --type="software_upgrade" --deposit="1000000000satoshi" --version="1"
+sscli tx gov submit-proposal sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d --gas-price=100  --switch-height=4100 --description="third proposal"  --title="test2" --type="software_upgrade" --deposit="1000000000satoshi" --version="1"
 
 [vote]
 sscli tx gov vote [voter-addr] [proposal-id] [option] [flags]

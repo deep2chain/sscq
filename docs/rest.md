@@ -380,7 +380,7 @@ curl -X GET "http://localhost:1317/block_detail/315817" -H "accept: application/
   "block": {
     "txs": [
       {
-        "From": "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlfj5dej3",
+        "From": "sscq1sh8d3h0nn8t4e83crcql80wua7u3xtlft9sr5d",
         "To": "",
         "Amount": [
           {
